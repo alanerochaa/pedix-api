@@ -25,24 +25,28 @@ A **Pedix API** segue os princípios da **Clean Architecture** e do **Domain-Dri
 
 ```mermaid
 flowchart TD
+    %% Camada de apresentação
     subgraph API_Camada_de_Apresentacao
-        A[Controllers<br/>@RestController]
+        A[Controllers - RestController]
     end
 
+    %% Camada de regras de negócio
     subgraph Application_Regras_de_Negocio
-        B[Services<br/>@Service]
-        G[DTOs & Validations]
+        B[Services - Service]
+        G[DTOs e Validations]
     end
 
+    %% Camada de domínio
     subgraph Domain_Modelo_de_Dominio
-        C[Entidades (JPA)<br/>ItemCardapio, Pedido, PedidoItem]
-        H[Enums<br/>StatusPedido, CategoriaItem]
+        C[Entidades JPA: ItemCardapio, Pedido, PedidoItem]
+        H[Enums: StatusPedido, CategoriaItem]
     end
 
+    %% Camada de infraestrutura e integrações
     subgraph Infrastructure_Persistencia_e_Integracoes
-        D[Repositories<br/>Spring Data JPA]
+        D[Repositories - Spring Data JPA]
         E[(Banco de Dados Oracle)]
-        F[API C# (Comandas e Clientes)]
+        F[API C# - Comandas e Clientes]
     end
 
     %% Fluxos de dependência
@@ -53,15 +57,21 @@ flowchart TD
     C --> H
     B --> G
     B --> F
+    
 ```
 
-## 🏗️ Camadas e Responsabilidades
-Camada	Localização no Projeto	Responsabilidade
-Apresentação (Controller)	com.pedix.api.controller	Define os endpoints REST da API (ex: /api/item-cardapio, /api/pedido).
-Aplicação (Service)	com.pedix.api.service	Implementa as regras de negócio, orquestra entidades e repositórios.
-Domínio (Entities / Enums)	com.pedix.api.domain	Contém as entidades JPA e enums que modelam o negócio (ItemCardapio, Pedido, PedidoItem).
-Infraestrutura (Repository / Oracle)	com.pedix.api.repository	Implementa a persistência com Spring Data JPA, conectando ao banco Oracle.
-Integrações Externas (C#)	REST API em .NET	Comunicação futura com microserviço de atendimento (Comandas, Clientes).
+🏗️ Camadas e Responsabilidades
+
+A arquitetura da Pedix API segue o padrão de camadas bem definidas, promovendo baixo acoplamento e alta coesão entre os componentes da aplicação.
+
+| Camada                                   | Pacote                     | Responsabilidade                                                                                                                                                                    |
+| ---------------------------------------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Apresentação (Controller)**            | `com.pedix.api.controller` | Define os **endpoints REST** da API — exemplos: `/api/item-cardapio`, `/api/pedido`. É responsável por receber as requisições HTTP e delegar o processamento às classes de serviço. |
+| **Aplicação (Service)**                  | `com.pedix.api.service`    | Implementa as **regras de negócio**, orquestra entidades e repositórios, e aplica validações funcionais antes de persistir ou retornar dados.                                       |
+| **Domínio (Entities / Enums)**           | `com.pedix.api.domain`     | Contém as **entidades JPA** e **enums** que representam o modelo de negócio, como `ItemCardapio`, `Pedido`, `PedidoItem`, `StatusPedido` e `CategoriaItem`.                         |
+| **Infraestrutura (Repository / Oracle)** | `com.pedix.api.repository` | Gerencia a **persistência dos dados** com **Spring Data JPA**, realizando a comunicação com o **banco Oracle** configurado na aplicação.                                            |
+| **Integrações Externas (C#)**            | `REST API em .NET`         | Comunicação planejada com o **microserviço de atendimento** desenvolvido em C#, responsável por comandas, mesas e clientes.                                                         |
+
 
 ## ⚙️ Tecnologias Utilizadas
 
