@@ -19,6 +19,50 @@ O objetivo é proporcionar uma **gestão digital eficiente de comandas**, atende
 | Documentação e README             | Alane       | 06/10/2025 | Concluído  |
 
 
+## 🧩 Visão Geral e Arquitetura
+
+A **Pedix API** segue os princípios da **Clean Architecture** e do **Domain-Driven Design (DDD)**, garantindo baixo acoplamento e alta coesão entre as camadas da aplicação.
+
+```mermaid
+flowchart TD
+    subgraph API_Camada_de_Apresentacao
+        A[Controllers<br/>@RestController]
+    end
+
+    subgraph Application_Regras_de_Negocio
+        B[Services<br/>@Service]
+        G[DTOs & Validations]
+    end
+
+    subgraph Domain_Modelo_de_Dominio
+        C[Entidades (JPA)<br/>ItemCardapio, Pedido, PedidoItem]
+        H[Enums<br/>StatusPedido, CategoriaItem]
+    end
+
+    subgraph Infrastructure_Persistencia_e_Integracoes
+        D[Repositories<br/>Spring Data JPA]
+        E[(Banco de Dados Oracle)]
+        F[API C# (Comandas e Clientes)]
+    end
+
+    %% Fluxos de dependência
+    A --> B
+    B --> C
+    B --> D
+    D --> E
+    C --> H
+    B --> G
+    B --> F
+```
+
+## 🏗️ Camadas e Responsabilidades
+Camada	Localização no Projeto	Responsabilidade
+Apresentação (Controller)	com.pedix.api.controller	Define os endpoints REST da API (ex: /api/item-cardapio, /api/pedido).
+Aplicação (Service)	com.pedix.api.service	Implementa as regras de negócio, orquestra entidades e repositórios.
+Domínio (Entities / Enums)	com.pedix.api.domain	Contém as entidades JPA e enums que modelam o negócio (ItemCardapio, Pedido, PedidoItem).
+Infraestrutura (Repository / Oracle)	com.pedix.api.repository	Implementa a persistência com Spring Data JPA, conectando ao banco Oracle.
+Integrações Externas (C#)	REST API em .NET	Comunicação futura com microserviço de atendimento (Comandas, Clientes).
+
 ## ⚙️ Tecnologias Utilizadas
 
 | Categoria       | Tecnologia           | Uso Principal                                                 |
