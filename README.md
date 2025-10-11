@@ -837,14 +837,6 @@ Mostra as classes principais da aplicação Java, seus atributos e relacionament
 ![Diagrama de Classes Pedix](docs/diagramas/diagrama-classes-pedix.png)
 
 
-
-## 🧪 Testes no Postman
-
-A coleção completa de testes da API está disponível para importação no **Postman**.  
-O arquivo inclui todos os endpoints (`GET`, `POST`, `PUT`, `DELETE`) com exemplos de requisição e resposta, além de cenários de erro e exceções tratadas globalmente (`404`, `400`).
-
-📄 **[Coleção Postman (JSON)](docs/testes/pedix_api_postman.json)**
-
 ---
 
 ## 🧪 Testes no Postman
@@ -852,17 +844,8 @@ O arquivo inclui todos os endpoints (`GET`, `POST`, `PUT`, `DELETE`) com exemplo
 A coleção completa de testes da API está disponível para importação no **Postman**.  
 O arquivo inclui todos os endpoints (`GET`, `POST`, `PUT`, `DELETE`) com exemplos de requisição e resposta, além de cenários de erro e exceções tratadas globalmente (`404`, `400`).
 
-📄 **[Baixar coleção Postman (JSON)](docs/testes/pedix_api_postman.json)**
+📄 **[Acessar coleção Postman (JSON)](docs/testes/pedix_api_postman.json)**  
 
----
-
-## 🧪 Testes no Postman
-
-A coleção completa de testes da API está disponível para importação no **Postman**.  
-O arquivo inclui todos os endpoints (`GET`, `POST`, `PUT`, `DELETE`) com exemplos de requisição e resposta, além de cenários de erro e exceções tratadas globalmente (`404`, `400`).
-
-📄 **[Abrir coleção Postman (JSON)](docs/testes/pedix_api_postman.json)**  
-💾 *Para baixar, clique com o botão direito → “Salvar link como...”*
 
 ---
 
