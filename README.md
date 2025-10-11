@@ -6,6 +6,11 @@ A aplicação permite criar, consultar, atualizar e deletar pedidos e itens do c
 
 O objetivo é proporcionar uma **gestão digital eficiente de comandas**, atendendo às solicitações do cliente de forma rápida, segura e confiável.
 
+## 📱 Interface do Aplicativo Pedix
+
+A tela abaixo representa a interface inicial do aplicativo mobile do **Pedix**, onde o cliente acessa sua comanda digital, insere o nome e inicia a experiência interativa com o sistema.
+
+![Tela inicial do app Pedix](docs/imagens/tela-inicial-app.png)
 
 
 ## 📅 Cronograma de Desenvolvimento

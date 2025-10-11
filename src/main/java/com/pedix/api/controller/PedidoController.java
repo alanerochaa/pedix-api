@@ -6,8 +6,6 @@ import com.pedix.api.dto.PedidoDTO;
 import com.pedix.api.dto.PedidoResponseDTO;
 import com.pedix.api.service.PedidoService;
 import io.swagger.v3.oas.annotations.*;
-import io.swagger.v3.oas.annotations.media.*;
-import io.swagger.v3.oas.annotations.responses.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
