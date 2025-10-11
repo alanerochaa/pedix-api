@@ -125,22 +125,26 @@ A aplicação **Pedix API** permite gerenciar **pedidos** e **itens do cardápio
 
 ###  🚀  Endpoints da API Pedix
 
-## 📦 Item do Cardápio
-| Método   | Endpoint                                                        | Descrição                          |
-| -------- | --------------------------------------------------------------- | ---------------------------------- |
-| `GET`    | [`/api/item-cardapio`](http://localhost:8080/api/item-cardapio) | Lista todos os itens disponíveis   |
-| `POST`   | `/api/item-cardapio`                                            | Cria um novo item do cardápio      |
-| `PUT`    | `/api/item-cardapio/{id}`                                       | Atualiza um item existente pelo ID |
-| `DELETE` | `/api/item-cardapio/{id}`                                       | Deleta um item pelo ID             |
+## 📦 Cardápio
+| Método   | Endpoint                             | Descrição                                                    | Exemplo de uso                                                                                                     |
+| :------- | :----------------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
+| `GET`    | `/api/item-cardapio`                 | Lista todos os itens disponíveis no cardápio.                | [http://localhost:8080/api/item-cardapio](http://localhost:8080/api/item-cardapio)                                 |
+| `GET`    | `/api/item-cardapio?categoria=PRATO` | Filtra itens por categoria (`PRATO`, `BEBIDA`, `SOBREMESA`). | [http://localhost:8080/api/item-cardapio?categoria=PRATO](http://localhost:8080/api/item-cardapio?categoria=PRATO) |
+| `GET`    | `/api/item-cardapio/{id}`            | Busca um item específico pelo ID.                            | [http://localhost:8080/api/item-cardapio/1](http://localhost:8080/api/item-cardapio/1)                             |
+| `POST`   | `/api/item-cardapio`                 | Cria um novo item do cardápio.                               | —                                                                                                                  |
+| `PUT`    | `/api/item-cardapio/{id}`            | Atualiza os dados de um item existente.                      | —                                                                                                                  |
+| `DELETE` | `/api/item-cardapio/{id}`            | Exclui um item do cardápio.                                  | —                                                                                                                  |
 
 
 ## 🛒 Pedido
 
-| Método | Endpoint                                                                        | Descrição                             |
-| ------ | ------------------------------------------------------------------------------- | ------------------------------------- |
-| `GET`  | [`/api/pedido/comanda/{comandaId}`](http://localhost:8080/api/pedido/comanda/1) | Lista todos os pedidos de uma comanda |
-| `POST` | `/api/pedido`                                                                   | Cria um novo pedido                   |
-| `PUT`  | `/api/pedido/{id}/status?status=PRONTO`                                         | Atualiza o status de um pedido        |
+| Método | Endpoint                                | Descrição                                        | Exemplo de uso                                                                                 |
+| :----- | :-------------------------------------- | :----------------------------------------------- | :--------------------------------------------------------------------------------------------- |
+| `GET`  | `/api/pedido/{id}`                      | Busca um pedido específico pelo ID.              | [http://localhost:8080/api/pedido/1](http://localhost:8080/api/pedido/1)                       |
+| `GET`  | `/api/pedido/comanda/{comandaId}`       | Lista todos os pedidos vinculados a uma comanda. | [http://localhost:8080/api/pedido/comanda/1001](http://localhost:8080/api/pedido/comanda/1001) |
+| `POST` | `/api/pedido/comanda/{comandaId}`       | Cria um novo pedido vinculado a uma comanda.     | —                                                                                              |
+| `PUT`  | `/api/pedido/{id}/status?status=PRONTO` | Atualiza o status de um pedido existente.        | —                                                                                              |
+
 
 
 ## 💻 Exemplos de Request/Response para testar
@@ -148,78 +152,91 @@ A aplicação **Pedix API** permite gerenciar **pedidos** e **itens do cardápio
 ### 🍽️ Endpoints de Item do Cardápio
 
 📝 GET /api/item-cardapio - Lista todos os itens disponíveis.
-🔗 URL de teste: http://localhost:8080/api/item-cardapio
+🔗 URL de teste: GET http://localhost:8080/api/item-cardapio
+
 
 ✅ Resposta esperada:
 ```
 [
   {
     "id": 1,
-    "comandaId": 1001,
-    "item": {
-      "id": 1,
-      "nome": "Pizza Calabresa",
-      "descricao": "Deliciosa pizza com calabresa",
-      "preco": 35.00,
-      "categoria": "PRATO",
-      "disponivel": true,
-      "imagemUrl": null
-    },
-    "quantidade": 1,
-    "status": "EM_PREPARO",
-    "observacao": "Sem queijo ralado",
-    "dataHora": "2025-10-05T21:00:00"
+    "nome": "Pizza Calabresa",
+    "descricao": "Deliciosa pizza com calabresa",
+    "categoria": "PRATO",
+    "preco": 35,
+    "disponivel": true
   },
   {
     "id": 2,
-    "comandaId": 1002,
-    "item": {
-      "id": 2,
-      "nome": "Refrigerante",
-      "descricao": "Coca Cola 350ml",
-      "preco": 8.50,
-      "categoria": "BEBIDA",
-      "disponivel": true,
-      "imagemUrl": null
-    },
-    "quantidade": 2,
-    "status": "PRONTO",
-    "observacao": "Um com gelo, outro sem",
-    "dataHora": "2025-10-05T20:30:00"
+    "nome": "Refrigerante",
+    "descricao": "Coca Cola 350ml",
+    "categoria": "BEBIDA",
+    "preco": 8.5,
+    "disponivel": true
   },
   {
     "id": 3,
-    "comandaId": 1003,
-    "item": {
-      "id": 3,
-      "nome": "Sorvete Chocolate",
-      "descricao": "Sobremesa gelada",
-      "preco": 12.00,
-      "categoria": "SOBREMESA",
-      "disponivel": true,
-      "imagemUrl": null
-    },
-    "quantidade": 1,
-    "status": "ENTREGUE",
-    "observacao": "Entrega prioridade",
-    "dataHora": "2025-10-05T19:00:00"
+    "nome": "Sorvete Chocolate",
+    "descricao": "Sobremesa gelada",
+    "categoria": "SOBREMESA",
+    "preco": 12,
+    "disponivel": true
   },
   {
     "id": 4,
-    "comandaId": 1004,
-    "item": {
-      "id": 1,
-      "nome": "Pizza Calabresa",
-      "descricao": "Deliciosa pizza com calabresa",
-      "preco": 35.00,
-      "categoria": "PRATO",
-      "disponivel": true,
-      "imagemUrl": null
-    },
-    "quantidade": 1,
-    "status": "CANCELADO",
-    "observacao": "Cliente desistiu do pedido",
-    "dataHora": "2025-10-05T20:50:00"
+    "nome": "Pizza Mussarela",
+    "descricao": "Pizza de mussarela com borda recheada",
+    "categoria": "PRATO",
+    "preco": 38,
+    "disponivel": true
+  },
+  {
+    "id": 5,
+    "nome": "Pizza Frango",
+    "descricao": "Pizza de frango com catupiry",
+    "categoria": "PRATO",
+    "preco": 40,
+    "disponivel": true
+  },
+  {
+    "id": 6,
+    "nome": "Suco Laranja",
+    "descricao": "Suco natural 300ml",
+    "categoria": "BEBIDA",
+    "preco": 7.5,
+    "disponivel": true
+  },
+  {
+    "id": 7,
+    "nome": "Salada Caesar",
+    "descricao": "Salada com alface, frango e molho caesar",
+    "categoria": "PRATO",
+    "preco": 25,
+    "disponivel": true
+  },
+  {
+    "id": 8,
+    "nome": "Brownie",
+    "descricao": "Brownie de chocolate com nozes",
+    "categoria": "SOBREMESA",
+    "preco": 10,
+    "disponivel": true
+  },
+  {
+    "id": 9,
+    "nome": "Água Mineral",
+    "descricao": "Água sem gás 500ml",
+    "categoria": "BEBIDA",
+    "preco": 5,
+    "disponivel": true
+  },
+  {
+    "id": 10,
+    "nome": "Pizza Portuguesa",
+    "descricao": "Pizza com presunto, ovos e azeitonas",
+    "categoria": "PRATO",
+    "preco": 42,
+    "disponivel": true
   }
 ]
 ```
@@ -232,21 +249,32 @@ A aplicação **Pedix API** permite gerenciar **pedidos** e **itens do cardápio
 ```
 
 {
-"nome": "Hambúrguer",
-"descricao": "Hambúrguer com queijo e bacon",
-"preco": 25.50,
-"categoria": "PRATO",
-"disponivel": true,
-"imagemUrl": null
+  "nome": "Hambúrguer Artesanal",
+  "descricao": "Hambúrguer com queijo e bacon artesanal",
+  "preco": 28.90,
+  "categoria": "PRATO",
+  "disponivel": true,
+  "imagemUrl": null
 }
+
 ```
 
 ✅ Resposta esperada:
 
 ```
 {
-  "mensagem": "🍔 Item do cardápio criado com sucesso!"
+  "mensagem": "🍔 Item do cardápio criado com sucesso!",
+  "item": {
+    "id": 11,
+    "nome": "Hambúrguer Artesanal",
+    "descricao": "Hambúrguer com queijo e bacon artesanal",
+    "preco": 28.90,
+    "categoria": "PRATO",
+    "disponivel": true,
+    "imagemUrl": null
+  }
 }
+
 
 ```
 
@@ -259,20 +287,31 @@ A aplicação **Pedix API** permite gerenciar **pedidos** e **itens do cardápio
 ```
 {
   "nome": "Pizza Calabresa Grande",
-  "descricao": "Pizza com calabresa e extra queijo",
+  "descricao": "Pizza com calabresa e queijo extra",
   "preco": 40.00,
   "categoria": "PRATO",
   "disponivel": true,
   "imagemUrl": null
 }
 
+
 ```
 ✅ Resposta esperada:
 
 ```
 {
-  "mensagem": "✅ Item do cardápio atualizado com sucesso!"
+  "mensagem": "✅ Item do cardápio atualizado com sucesso!",
+  "item": {
+    "id": 1,
+    "nome": "Pizza Calabresa Grande",
+    "descricao": "Pizza com calabresa e queijo extra",
+    "preco": 40.00,
+    "categoria": "PRATO",
+    "disponivel": true,
+    "imagemUrl": null
+  }
 }
+
 
 
 ```
@@ -295,59 +334,56 @@ A aplicação **Pedix API** permite gerenciar **pedidos** e **itens do cardápio
 
 🔗 URL de teste: http://localhost:8080/api/pedido/comanda/1001
 
+
 ✅ Resposta esperada:
 
 ```
-
 [
-{
-"id": 1,
-"comandaId": 1001,
-"item": {
-"id": 1,
-"nome": "Pizza Calabresa",
-"descricao": "Deliciosa pizza com calabresa",
-"preco": 35.00,
-"categoria": "PRATO",
-"disponivel": true,
-"imagemUrl": null
-},
-"quantidade": 1,
-"status": "EM_PREPARO",
-"observacao": "Sem queijo ralado",
-"dataHora": "2025-10-05T21:00:00"
-},
-{
-"id": 2,
-"comandaId": 1001,
-"item": {
-"id": 2,
-"nome": "Refrigerante",
-"descricao": "Coca Cola 350ml",
-"preco": 8.50,
-"categoria": "BEBIDA",
-"disponivel": true,
-"imagemUrl": null
-},
-"quantidade": 2,
-"status": "EM_PREPARO",
-"observacao": "Um com gelo, outro sem",
-"dataHora": "2025-10-05T21:05:00"
-}
+  {
+    "id": 1,
+    "comandaId": 1001,
+    "status": "EM_PREPARO",
+    "observacao": "Sem queijo ralado",
+    "total": 35,
+    "dataHora": "2025-10-11T01:02:26.678078",
+    "itens": [
+      {
+        "id": 1,
+        "itemCardapio": {
+          "id": 1,
+          "nome": "Pizza Calabresa",
+          "descricao": "Deliciosa pizza com calabresa",
+          "categoria": "PRATO",
+          "preco": 35,
+          "disponivel": true
+        },
+        "quantidade": 1,
+        "precoUnitario": 35,
+        "subtotal": 35
+      }
+    ]
+  }
 ]
 ```
 
 ➕ POST /api/pedido — Cria um novo pedido
 
-🔗 URL de teste: http://localhost:8080/api/pedido
+🔗 URL de teste: http://localhost:8080/api/pedido/comanda/1002
 
 📤 Exemplo de Requisição:
 ```
 {
-  "comandaId": 1005,
-  "itemId": 2,
-  "quantidade": 1,
-  "observacao": "Com gelo e limão"
+  "itens": [
+    {
+      "itemCardapioId": 2,
+      "quantidade": 2
+    },
+    {
+      "itemCardapioId": 3,
+      "quantidade": 1
+    }
+  ],
+  "observacao": "Um refrigerante com gelo"
 }
 
 ```
@@ -356,8 +392,28 @@ A aplicação **Pedix API** permite gerenciar **pedidos** e **itens do cardápio
 ```
 {
   "mensagem": "🧾 Pedido criado com sucesso!",
+  "pedido": {
+    "id": 5,
+    "idComanda": 1002,
+    "status": "EM_PREPARO",
+    "total": 29.00,
+    "observacao": "Um refrigerante com gelo",
+    "itens": [
+      {
+        "itemCardapioId": 2,
+        "quantidade": 2,
+        "precoUnitario": 8.50,
+        "subtotal": 17.00
+      },
+      {
+        "itemCardapioId": 3,
+        "quantidade": 1,
+        "precoUnitario": 12.00,
+        "subtotal": 12.00
+      }
+    ]
+  }
 }
-
 ```
 
 🔄 PUT /api/pedido/{id}/status?status=PRONTO — Atualiza o status de um pedido (ex: id = 1)
@@ -368,19 +424,27 @@ A aplicação **Pedix API** permite gerenciar **pedidos** e **itens do cardápio
 
 ```
 {
-"mensagem": "✅ Status do pedido atualizado com sucesso!"
+  "mensagem": "✅ Status do pedido atualizado com sucesso!",
+  "pedido": {
+    "id": 1,
+    "idComanda": 1001,
+    "status": "PRONTO",
+    "total": 35.00,
+    "dataHora": "2025-10-05T21:00:00"
+  }
 }
+
 ```
 
 
-💡 Status possíveis:
+💡 Status possíveis de Pedido
 
-| Código          | Descrição                                 |
-| --------------- |-------------------------------------------|
-| 🕐 `EM_PREPARO` | Pedido em preparo na cozinha              |
-| ✅ `PRONTO`      | Pedido finalizado e pronto                |
-| 🚚 `ENTREGUE`   | Pedido entregue ao cliente                |
-| ❌ `CANCELADO`   | Pedido cancelado pelo cliente  |
+| Código             | Descrição                     |
+| :----------------- | :---------------------------- |
+| 🧑‍🍳 `EM_PREPARO` | Pedido em preparo na cozinha  |
+| ✅ `PRONTO`         | Pedido finalizado e pronto    |
+| 🚚 `ENTREGUE`      | Pedido entregue ao cliente    |
+| ❌ `CANCELADO`      | Pedido cancelado pelo cliente |
 
 
 
@@ -394,21 +458,44 @@ Todos os DTOs utilizam **anotações de validação** do Jakarta Bean Validation
 ---
 
 
-🗃️ Script SQL (Oracle)
+## 🗃️ Script SQL (Oracle)
+Criação de Tabelas, Sequences, Triggers e Dados Iniciais — Sistema Pedix
 
-Criação de Tabelas e Dados Iniciais
+### 🧹 Reset do Banco (Seguro)
+```
+BEGIN
+FOR t IN (SELECT table_name FROM user_tables) LOOP
+EXECUTE IMMEDIATE 'DROP TABLE "' || t.table_name || '" CASCADE CONSTRAINTS';
+END LOOP;
+END;
+/
+```
 
+## 🔢 Sequences
 
--- 🔹 Este script cria as tabelas principais da aplicação Pedix:
--- ITEM_CARDAPIO → Representa os itens disponíveis no cardápio.
--- PEDIDO        → Representa os pedidos realizados pelos clientes.
--- PEDIDO_ITEM   → Relaciona os pedidos com os itens do cardápio (N:N).
+```
+BEGIN
+EXECUTE IMMEDIATE 'DROP SEQUENCE item_cardapio_seq';
+EXCEPTION WHEN OTHERS THEN NULL;
+END;
+/
 
+BEGIN
+EXECUTE IMMEDIATE 'DROP SEQUENCE pedido_seq';
+EXCEPTION WHEN OTHERS THEN NULL;
+END;
+/
 
+BEGIN
+EXECUTE IMMEDIATE 'DROP SEQUENCE pedido_item_seq';
+EXCEPTION WHEN OTHERS THEN NULL;
+END;
+/
 
--- 1️⃣ Tabela ITEM_CARDAPIO
--- Cada registro representa um prato, bebida ou sobremesa do cardápio.
--- Possui informações de nome, preço, categoria e disponibilidade.
+CREATE SEQUENCE item_cardapio_seq START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE pedido_seq START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE pedido_item_seq START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
+```
 
 ```
 CREATE TABLE item_cardapio (
@@ -422,37 +509,87 @@ imagem_url VARCHAR2(500)
 );
 ```
 
-2️⃣ Tabela PEDIDO
--- Armazena os pedidos realizados por uma comanda.
--- Cada pedido pode conter vários itens, e seu total é calculado pela soma dos subtotais em PEDIDO_ITEM.
+
+## 🧩 Criação das Tabelas
+
+### 1️⃣ Tabela ITEM_CARDAPIO
+
+Representa os itens disponíveis no cardápio (pratos, bebidas e sobremesas).
+
+```
+CREATE TABLE item_cardapio (
+id              NUMBER PRIMARY KEY,
+nome            VARCHAR2(255) NOT NULL,
+descricao       VARCHAR2(500),
+preco           NUMBER(10,2) NOT NULL,
+categoria       VARCHAR2(50),
+disponivel      NUMBER(1) DEFAULT 1,
+imagem_url      VARCHAR2(500)
+);
+```
+
+### 2️⃣ Tabela PEDIDO
+
+Armazena os pedidos vinculados a uma comanda.
+
 ```
 CREATE TABLE pedido (
-id NUMBER GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
-id_comanda NUMBER NOT NULL,
-status VARCHAR2(50) DEFAULT 'EM_PREPARO',
-observacao VARCHAR2(500),
-data_hora TIMESTAMP DEFAULT SYSTIMESTAMP,
-total NUMBER(12,2) DEFAULT 0
+id              NUMBER PRIMARY KEY,
+id_comanda      NUMBER NOT NULL,
+status          VARCHAR2(50) DEFAULT 'EM_PREPARO',
+observacao      VARCHAR2(500),
+data_hora       TIMESTAMP DEFAULT SYSTIMESTAMP,
+total           NUMBER(12,2) DEFAULT 0
 );
 ```
 
-3️⃣ Tabela PEDIDO_ITEM
--- Tabela de relacionamento N:N entre PEDIDO e ITEM_CARDAPIO.
--- Cada registro indica um item dentro de um pedido, com quantidade e preço no momento da venda.
+### 3️⃣ Tabela PEDIDO_ITEM
+
+Relação N:N entre pedidos e itens do cardápio.
 ```
 CREATE TABLE pedido_item (
-id NUMBER GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
-pedido_id NUMBER NOT NULL,
-item_cardapio_id NUMBER NOT NULL,
-quantidade NUMBER(5) NOT NULL,
-preco_unitario NUMBER(10,2) NOT NULL,
-subtotal NUMBER(12,2) NOT NULL,
-CONSTRAINT fk_pedido FOREIGN KEY (pedido_id) REFERENCES pedido(id) ON DELETE CASCADE,
-CONSTRAINT fk_item FOREIGN KEY (item_cardapio_id) REFERENCES item_cardapio(id)
+  id                NUMBER PRIMARY KEY,
+  pedido_id         NUMBER NOT NULL,
+  item_cardapio_id  NUMBER NOT NULL,
+  quantidade        NUMBER(5) NOT NULL,
+  preco_unitario    NUMBER(10,2) NOT NULL,
+  subtotal          NUMBER(12,2) NOT NULL,
+  CONSTRAINT fk_pedido FOREIGN KEY (pedido_id) REFERENCES pedido(id) ON DELETE CASCADE,
+  CONSTRAINT fk_item FOREIGN KEY (item_cardapio_id) REFERENCES item_cardapio(id)
 );
 ```
-🍕 Inserts iniciais - ITEM_CARDAPIO
 
+## ⚙️ Triggers (Auto Incremento via Sequence)
+```
+CREATE OR REPLACE TRIGGER trg_item_cardapio_id
+BEFORE INSERT ON item_cardapio
+FOR EACH ROW
+WHEN (NEW.id IS NULL)
+BEGIN
+SELECT item_cardapio_seq.NEXTVAL INTO :NEW.id FROM dual;
+END;
+/
+
+----------------------------------------------------------
+CREATE OR REPLACE TRIGGER trg_pedido_id
+BEFORE INSERT ON pedido
+FOR EACH ROW
+WHEN (NEW.id IS NULL)
+BEGIN
+  SELECT pedido_seq.NEXTVAL INTO :NEW.id FROM dual;
+END;
+/
+------------------------------------------------------------
+CREATE OR REPLACE TRIGGER trg_pedido_item_id
+BEFORE INSERT ON pedido_item
+FOR EACH ROW
+WHEN (NEW.id IS NULL)
+BEGIN
+  SELECT pedido_item_seq.NEXTVAL INTO :NEW.id FROM dual;
+END;
+/
+```
+## 🍕 Inserts Iniciais — ITEM_CARDAPIO
 ```
 INSERT INTO item_cardapio (nome, descricao, preco, categoria, disponivel, imagem_url)
 VALUES ('Pizza Calabresa', 'Deliciosa pizza com calabresa', 35.00, 'PRATO', 1, NULL);
@@ -462,41 +599,82 @@ VALUES ('Refrigerante', 'Coca Cola 350ml', 8.50, 'BEBIDA', 1, NULL);
 
 INSERT INTO item_cardapio (nome, descricao, preco, categoria, disponivel, imagem_url)
 VALUES ('Sorvete Chocolate', 'Sobremesa gelada', 12.00, 'SOBREMESA', 1, NULL);
+
+INSERT INTO item_cardapio (nome, descricao, preco, categoria, disponivel, imagem_url)
+VALUES ('Pizza Mussarela', 'Pizza de mussarela com borda recheada', 38.00, 'PRATO', 1, NULL);
+
+INSERT INTO item_cardapio (nome, descricao, preco, categoria, disponivel, imagem_url)
+VALUES ('Pizza Frango', 'Pizza de frango com catupiry', 40.00, 'PRATO', 1, NULL);
+
+INSERT INTO item_cardapio (nome, descricao, preco, categoria, disponivel, imagem_url)
+VALUES ('Suco Laranja', 'Suco natural 300ml', 7.50, 'BEBIDA', 1, NULL);
+
+INSERT INTO item_cardapio (nome, descricao, preco, categoria, disponivel, imagem_url)
+VALUES ('Salada Caesar', 'Salada com alface, frango e molho caesar', 25.00, 'PRATO', 1, NULL);
+
+INSERT INTO item_cardapio (nome, descricao, preco, categoria, disponivel, imagem_url)
+VALUES ('Brownie', 'Brownie de chocolate com nozes', 10.00, 'SOBREMESA', 1, NULL);
+
+INSERT INTO item_cardapio (nome, descricao, preco, categoria, disponivel, imagem_url)
+VALUES ('Água Mineral', 'Água sem gás 500ml', 5.00, 'BEBIDA', 1, NULL);
+
+INSERT INTO item_cardapio (nome, descricao, preco, categoria, disponivel, imagem_url)
+VALUES ('Pizza Portuguesa', 'Pizza com presunto, ovos e azeitonas', 42.00, 'PRATO', 1, NULL);
 ```
--- ====================================================
--- 🧾 Inserts iniciais - PEDIDO e PEDIDO_ITEM
--- ====================================================
--- Estes exemplos simulam pedidos com diferentes status:
--- EM_PREPARO, PRONTO, ENTREGUE e CANCELADO.
+
+## 🧾 Inserts Iniciais — PEDIDO e PEDIDO_ITEM
+
+### 🕐 Pedido 1 — EM_PREPARO
+
 ```
--- 🕐 Pedido 1: EM_PREPARO
 INSERT INTO pedido (id_comanda, status, observacao, total)
 VALUES (1001, 'EM_PREPARO', 'Sem queijo ralado', 35.00);
 
 INSERT INTO pedido_item (pedido_id, item_cardapio_id, quantidade, preco_unitario, subtotal)
 VALUES (1, 1, 1, 35.00, 35.00);
 ```
--- ✅ Pedido 2: PRONTO
+
+### ✅ Pedido 2 — PRONTO
+```
 INSERT INTO pedido (id_comanda, status, observacao, total)
 VALUES (1002, 'PRONTO', 'Um com gelo, outro sem', 17.00);
-```
+
 INSERT INTO pedido_item (pedido_id, item_cardapio_id, quantidade, preco_unitario, subtotal)
 VALUES (2, 2, 2, 8.50, 17.00);
+
 ```
--- 🚚 Pedido 3: ENTREGUE
+
+### 🚚 Pedido 3 — EM_PREPARO
+
+```
 INSERT INTO pedido (id_comanda, status, observacao, total)
-VALUES (1003, 'ENTREGUE', 'Entrega prioridade', 12.00);
-```
+VALUES (1003, 'EM_PREPARO', 'Sem cebola', 45.00);
+
 INSERT INTO pedido_item (pedido_id, item_cardapio_id, quantidade, preco_unitario, subtotal)
-VALUES (3, 3, 1, 12.00, 12.00);
+VALUES (3, 5, 1, 40.00, 40.00);
+
 ```
--- ❌ Pedido 4: CANCELADO
+
+### ❌ Pedido 4 — CANCELADO
 ```
 INSERT INTO pedido (id_comanda, status, observacao, total)
 VALUES (1004, 'CANCELADO', 'Cliente desistiu do pedido', 0.00);
 ```
 
+### 💾 Commit Final
 ```
+COMMIT;
+```
+
+## 📋 Resumo Estrutural
+| Tabela          | Descrição                                        | Chave Primária | Relações                                                               |
+| :-------------- | :----------------------------------------------- | :------------- | :--------------------------------------------------------------------- |
+| `ITEM_CARDAPIO` | Itens do cardápio (pratos, bebidas, sobremesas). | `id`           | —                                                                      |
+| `PEDIDO`        | Pedido de uma comanda, com data e total.         | `id`           | 1:N → `PEDIDO_ITEM`                                                    |
+| `PEDIDO_ITEM`   | Itens que pertencem a um pedido específico.      | `id`           | FK `pedido_id` → `PEDIDO` <br> FK `item_cardapio_id` → `ITEM_CARDAPIO` |
+
+
+
 
 ## 🚀 Como Rodar a Aplicação
 
@@ -509,9 +687,8 @@ cd pedix-api
 2. Configurar variáveis de ambiente (opcional):
 ```
    DB_URL=jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL
-   DB_USER=RM561052
-   DB_PASSWORD= Disponível documentação.
-   API_KEY= Disponível documentação.
+   DB_USER=RMXXXXXX
+   DB_PASSWORD=XXXXXX
 ```
 
 3. Build e execução com Maven:
@@ -526,15 +703,144 @@ http://localhost:8080/swagger-ui.html
 ```
 
 
-📊 Diagramas
+## 📊 Diagramas
 
-Diagrama de Entidade e Relacionamento (DER) → Relacionamento entre Pedido e ItemCardapio
-![img_1.png](img_1.png)
+### Diagrama Entidade-Relacionamento (DER)
+O diagrama abaixo representa o modelo conceitual completo da aplicação Pedix, integrando todos os módulos do sistema e refletindo a estrutura compartilhada do banco de dados Oracle.
 
-Diagrama de Classes → Classes Pedido, ItemCardapio, DTOs e enumerações
-![img.png](img.png)
+```
+          ┌────────────────────────────┐
+          │        Banco Oracle        │
+          │  (Modelo de Dados Único)   │
+          └────────────┬───────────────┘
+                       │
+     ┌─────────────────┴───────────────────┐
+     │                                     │
+┌───────────────┐                 ┌─────────────────┐
+│  API Principal│                 │  API Pedix Java │
+│   (C#/.NET)   │                 │ (Spring Boot)   │
+│---------------│                 │-----------------│
+│ Cliente       │                 │ ItemCardapio    │
+│ Garçom        │                 │ Pedido          │
+│ Mesa          │                 │ PedidoItem      │
+│ Comanda       │                 │                 │
+└───────────────┘                 └─────────────────┘
+```
 
-(Inclua imagens no diretório docs/ e link no README)
+## ⚙️ Arquitetura Geral
+
+### 🖥️ API Principal (C#/.NET) → Responsável pela gestão operacional do restaurante, incluindo Clientes, Garçons, Mesas e Comandas.
+
+### ☕ API Complementar (Java/Spring Boot) → Responsável pela gestão do Cardápio e dos Pedidos, integrando-se à API principal através do banco Oracle.
+
+## 💡 Observação:
+
+A API Java implementa e manipula as entidades: ITEM_CARDAPIO, PEDIDO e PEDIDO_ITEM.
+
+As demais entidades (CLIENTE, GARCOM, MESA, COMANDA) pertencem à API principal em C#.
+
+## O diagrama abaixo representa o modelo conceitual completo do banco de dados **Oracle** utilizado pela aplicação **Pedix**.  
+## Ele demonstra as entidades, atributos e relacionamentos que sustentam o funcionamento das APIs Java e C#
+
+![DER completo](docs/diagramas/pedix-api.png)
+
+
+### 🧱 Diagrama de Classes (UML)
+Mostra as classes principais da aplicação Java, seus atributos e relacionamentos, além dos *enums* utilizados (`CategoriaItem`, `StatusPedido`).
+
+```mermaid
+    %% ===========================
+    %% PACOTE DOMAIN
+    %% ===========================
+
+    class ItemCardapio {
+        +Long id
+        +String nome
+        +String descricao
+        +BigDecimal preco
+        +CategoriaItem categoria
+        +Boolean disponivel
+        +String imagemUrl
+    }
+
+    class Pedido {
+        +Long id
+        +Long idComanda
+        +StatusPedido status
+        +String observacao
+        +LocalDateTime dataHora
+        +BigDecimal total
+        +List<PedidoItem> itens
+        +calcularTotal()
+        +atualizarStatus(StatusPedido status)
+    }
+
+    class PedidoItem {
+        +Long id
+        +Pedido pedido
+        +ItemCardapio itemCardapio
+        +Integer quantidade
+        +BigDecimal precoUnitario
+        +BigDecimal subtotal
+        +calcularSubtotal()
+    }
+
+    %% ===========================
+    %% PACOTE DTO
+    %% ===========================
+
+    class ItemCardapioDTO {
+        +String nome
+        +String descricao
+        +BigDecimal preco
+        +CategoriaItem categoria
+        +Boolean disponivel
+        +String imagemUrl
+    }
+
+    class PedidoDTO {
+        +List<PedidoItemDTO> itens
+        +String observacao
+    }
+
+    class PedidoResponseDTO {
+        +Long id
+        +Long idComanda
+        +StatusPedido status
+        +BigDecimal total
+        +List<PedidoItemResponseDTO> itens
+    }
+
+    %% ===========================
+    %% ENUMS
+    %% ===========================
+
+    class CategoriaItem {
+        <<enumeration>>
+        PRATO
+        BEBIDA
+        SOBREMESA
+    }
+
+    class StatusPedido {
+        <<enumeration>>
+        EM_PREPARO
+        PRONTO
+        ENTREGUE
+        CANCELADO
+    }
+
+    %% ===========================
+    %% RELACIONAMENTOS
+    %% ===========================
+
+    Pedido "1" --> "N" PedidoItem : contém
+    PedidoItem "N" --> "1" ItemCardapio : refere-se
+    ItemCardapio --> CategoriaItem : usa
+    Pedido --> StatusPedido : usa
+```
+
+
 
 
 📋 Testes da API
@@ -552,4 +858,5 @@ Diagrama de Classes → Classes Pedido, ItemCardapio, DTOs e enumerações
 
 
 - [**Maria Eduarda Araujo rm560944**](https://github.com/DudaAraujo14)  
- 
+- 
+
