@@ -854,21 +854,21 @@ Abaixo estão capturas de tela de todos os testes executados com sucesso:
 
 <div align="center">
 
-| Método | Descrição | Imagem |
-|:-------|:-----------|:-------|
-| 🟢 **GET** | Listar todos os itens do cardápio | ![GET Itens do Cardápio](docs/imagens/colecao-postman/1-GET- item-cardapio.png) |
-| 🟢 **GET** | Buscar item do cardápio por ID | ![GET por ID](docs/imagens/colecao-postman/2-GET- item-cardapio-ID.png) |
-| 🟡 **POST** | Criar novo item no cardápio | ![POST Cardápio](docs/imagens/colecao-postman/3-POST- item- cardápio.png) |
-| 🟠 **PUT** | Atualizar item existente | ![PUT Atualizar Item](docs/imagens/colecao-postman/4-PUT-item-cardápio-ID.png) |
-| 🔴 **DELETE** | Remover item do cardápio | ![DELETE Item](docs/imagens/colecao-postman/5-DELETE-item-Cardápio-ID.png) |
-| 🟢 **GET** | Listar todos os pedidos | ![GET Pedidos](docs/imagens/colecao-postman/6-GET-listar-pedidos.png) |
-| 🟢 **GET** | Buscar pedido por ID | ![GET Pedido ID](docs/imagens/colecao-postman/7-GET-Listar-pedidos-ID.png) |
-| 🟢 **GET** | Listar pedidos pelo número da comanda | ![GET Comanda](docs/imagens/colecao-postman/8-GET-listar-pedido-comandaID.png) |
+| Método | Descrição | Imagem                                                                                |
+|:-------|:-----------|:--------------------------------------------------------------------------------------|
+| 🟢 **GET** | Listar todos os itens do cardápio | ![GET Itens do Cardápio](docs/imagens/colecao-postman/1-GET-item-cardapio.png)        |
+| 🟢 **GET** | Buscar item do cardápio por ID | ![GET por ID](docs/imagens/colecao-postman/2-GET-item-cardapio-ID.png)                |
+| 🟡 **POST** | Criar novo item no cardápio | ![POST Cardápio](docs/imagens/colecao-postman/3-POST-item-cardápio.png)               |
+| 🟠 **PUT** | Atualizar item existente | ![PUT Atualizar Item](docs/imagens/colecao-postman/4-PUT-item-cardápio-ID.png)        |
+| 🔴 **DELETE** | Remover item do cardápio | ![DELETE Item](docs/imagens/colecao-postman/5-DELETE-item-Cardápio-ID.png)            |
+| 🟢 **GET** | Listar todos os pedidos | ![GET Pedidos](docs/imagens/colecao-postman/6-GET-listar-pedidos.png)                 |
+| 🟢 **GET** | Buscar pedido por ID | ![GET Pedido ID](docs/imagens/colecao-postman/7-GET-Listar-pedidos-ID.png)            |
+| 🟢 **GET** | Listar pedidos pelo número da comanda | ![GET Comanda](docs/imagens/colecao-postman/8-GET-listar-pedido-comandaID.png)        |
 | 🟡 **POST** | Criar novo pedido vinculado a comanda | ![POST Pedido](docs/imagens/colecao-postman/9-POST-cria-pedido-vinculado-comanda.png) |
-| 🟠 **PUT** | Atualizar status do pedido | ![PUT Pedido](docs/imagens/colecao-postman/10-PUT-Atualiza-status-pedido.png) |
-| 🔴 **DELETE** | Deletar pedido por ID | ![DELETE Pedido](docs/imagens/colecao-postman/11-DELETE-pedido-ID.png) |
-| ⚠️ **GET** | Teste de erro `EntityNotFoundException (404)` | ![GET 404](docs/imagens/colecao-postman/12-GET-teste-erro-404.png) |
-| ⚠️ **POST** | Teste de erro `IllegalArgumentException (400)` | ![POST 400](docs/imagens/colecao-postman/13-POST-teste-erro-400.png) |
+| 🟠 **PUT** | Atualizar status do pedido | ![PUT Pedido](docs/imagens/colecao-postman/10-PUT-Atualiza-status-pedido.png)         |
+| 🔴 **DELETE** | Deletar pedido por ID | ![DELETE Pedido](docs/imagens/colecao-postman/11-DELETE-pedido-ID.png)                |
+| ⚠️ **GET** | Teste de erro `EntityNotFoundException (404)` | ![GET 404](docs/imagens/colecao-postman/12-GET-teste-erro-404.png)                    |
+| ⚠️ **POST** | Teste de erro `IllegalArgumentException (400)` | ![POST 400](docs/imagens/colecao-postman/13-POST-teste-erro-400.png)                  |
 
 </div>
 
