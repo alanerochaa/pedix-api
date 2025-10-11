@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
         System.out.println("🔥 GlobalExceptionHandler carregado com sucesso!");
     }
 
-    // ⚠️ Recurso não encontrado (ex: Pedido inexistente)
+    //  Recurso não encontrado (ex: Pedido inexistente)
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleEntityNotFound(EntityNotFoundException ex) {
         return buildResponse(
@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
         );
     }
 
-    // 🚫 Argumento inválido (ex: item indisponível, status inválido)
+    // Argumento inválido (ex: item indisponível, status inválido)
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, Object>> handleIllegalArgument(IllegalArgumentException ex) {
         return buildResponse(
@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
         );
     }
 
-    // 🧩 Erros de validação (ex: campos obrigatórios ausentes)
+    // Erros de validação (ex: campos obrigatórios ausentes)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidation(MethodArgumentNotValidException ex) {
         Map<String, String> fieldErrors = new HashMap<>();
@@ -58,7 +58,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(body);
     }
 
-    // 💥 Erro genérico (falha inesperada)
+    // Erro genérico (falha inesperada)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGeneric(Exception ex) {
         return buildResponse(
@@ -68,7 +68,7 @@ public class GlobalExceptionHandler {
         );
     }
 
-    // 🧱 Método auxiliar para construir respostas padronizadas
+    // Metodo auxiliar para construir respostas padronizadas
     private ResponseEntity<Map<String, Object>> buildResponse(HttpStatus status, String titulo, String mensagem) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());

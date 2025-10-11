@@ -253,7 +253,7 @@ A aplicação **Pedix API** permite gerenciar **pedidos** e **itens do cardápio
 🔍 GET /api/pedido/{id} — Buscar pedido por ID
 
 * 🔗 URL de teste: http://localhost:8080/api/pedido/1
-* 
+
 ✅ Resposta esperada:
 ```
 {
@@ -384,8 +384,8 @@ A aplicação **Pedix API** permite gerenciar **pedidos** e **itens do cardápio
 "quantidade": 1,
 "precoUnitario": 35.00,
 "subtotal": 35.00
-}
-]
+    }
+  ]
 },
 {
 "id": 2,
@@ -408,8 +408,8 @@ A aplicação **Pedix API** permite gerenciar **pedidos** e **itens do cardápio
 "quantidade": 2,
 "precoUnitario": 8.50,
 "subtotal": 17.00
-}
-]
+    }
+  ]
 }
 ]
 ```
@@ -675,6 +675,7 @@ BEGIN
 END;
 /
 ```
+
 ## 🍕 Inserts Iniciais — ITEM_CARDAPIO
 ```
 INSERT INTO item_cardapio (nome, descricao, preco, categoria, disponivel, imagem_url)
@@ -825,8 +826,8 @@ A API Java implementa e manipula as entidades: ITEM_CARDAPIO, PEDIDO e PEDIDO_IT
 
 As demais entidades (CLIENTE, GARCOM, MESA, COMANDA) pertencem à API principal em C#.
 
-## O diagrama abaixo representa o modelo conceitual completo do banco de dados **Oracle** utilizado pela aplicação **Pedix**.  
-## Ele demonstra as entidades, atributos e relacionamentos que sustentam o funcionamento das APIs Java e C#
+O diagrama abaixo representa o modelo conceitual completo do banco de dados **Oracle** utilizado pela aplicação **Pedix**.  
+Ele demonstra as entidades, atributos e relacionamentos que sustentam o funcionamento das APIs Java e C#
 
 ![DER completo](docs/diagramas/pedix-api.png)
 
@@ -884,7 +885,7 @@ Abaixo estão capturas de tela de todos os testes executados com sucesso:
 
 O vídeo de apresentação demonstra o funcionamento completo da aplicação Pedix API, incluindo a execução dos endpoints, testes no Postman e integração com o banco de dados Oracle.
 
-📺 **Assista aqui:** [Apresentação Pedix API - CodeGirls](https://www.youtube.com/watch?v=SEU_LINK_AQUI)
+📺 **Assista aqui:** [Apresentação Pedix API - CodeGirls](https://www.youtube.com/watch?v=Kfnr0p-5UDw)
 
 
 --- 
