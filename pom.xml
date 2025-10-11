@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.6</version>
+		<version>3.2.2</version>
 		<relativePath/>
 	</parent>
 
@@ -16,43 +16,35 @@
 	<artifactId>pedix-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>pedix-api</name>
-	<description>API Java com Spring Boot para gerenciamento de cardápio e pedidos do Pedix</description>
+	<description>API Java com Spring Boot e Oracle</description>
 
 	<properties>
-		<java.version>22</java.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<springdoc.version>2.1.0</springdoc.version>
+		<java.version>17</java.version>
+		<springdoc.version>2.6.0</springdoc.version>
 		<lombok.version>1.18.36</lombok.version>
-		<log4j2.version>2.24.3</log4j2.version>
 	</properties>
 
 	<dependencies>
-		<!-- 🌱 Spring Boot Web e JPA -->
+		<!-- Spring Boot Web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
+		<!-- Spring Data JPA -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
-		<!-- 💾 Oracle JDBC (compatível com JDK 22 e Oracle 12c+) -->
+		<!-- Oracle JDBC -->
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
 			<artifactId>ojdbc11</artifactId>
 			<version>23.4.0.24.05</version>
 		</dependency>
 
-		<!-- 📖 Swagger / OpenAPI -->
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>${springdoc.version}</version>
-		</dependency>
-
-		<!-- ✨ Lombok (para reduzir boilerplate) -->
+		<!-- Lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -60,19 +52,21 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- 🧾 Log4j2 -->
+		<!-- Swagger / OpenAPI -->
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>${log4j2.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-slf4j-impl</artifactId>
-			<version>${log4j2.version}</version>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>${springdoc.version}</version>
 		</dependency>
 
-		<!-- 🧰 DevTools (atualização automática em dev) -->
+		<!-- Hibernate Validator -->
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>8.0.1.Final</version>
+		</dependency>
+
+		<!-- DevTools -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -80,7 +74,7 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- ✅ Testes -->
+		<!-- Testes -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -88,23 +82,9 @@
 		</dependency>
 	</dependencies>
 
-	<!-- 🌍 Repositórios para buscar dependências -->
-	<repositories>
-		<repository>
-			<id>maven-central</id>
-			<name>Maven Central</name>
-			<url>https://repo.maven.apache.org/maven2</url>
-		</repository>
-		<repository>
-			<id>oracle</id>
-			<name>Oracle Maven Repository</name>
-			<url>https://maven.oracle.com</url>
-		</repository>
-	</repositories>
-
 	<build>
 		<plugins>
-			<!-- ⚙️ Compilador -->
+			<!-- Compilador -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -123,18 +103,10 @@
 				</configuration>
 			</plugin>
 
-			<!-- 🚀 Spring Boot Plugin -->
+			<!-- Spring Boot Plugin -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>

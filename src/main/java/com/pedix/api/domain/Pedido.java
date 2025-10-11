@@ -1,6 +1,7 @@
 package com.pedix.api.domain;
 
 import com.pedix.api.domain.enums.StatusPedido;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -18,7 +19,6 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Referência à Comanda (vinda da API C#)
     @NotNull
     @Column(name = "id_comanda", nullable = false)
     private Long comandaId;
@@ -37,6 +37,7 @@ public class Pedido {
     private BigDecimal total = BigDecimal.ZERO;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<PedidoItem> itens = new ArrayList<>();
 
     @PrePersist

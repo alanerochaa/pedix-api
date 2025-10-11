@@ -2,7 +2,6 @@ package com.pedix.api.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
-
 import java.util.List;
 
 @Data

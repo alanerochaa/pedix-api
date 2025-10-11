@@ -3,7 +3,6 @@ package com.pedix.api.dto;
 import com.pedix.api.domain.enums.CategoriaItem;
 import jakarta.validation.constraints.*;
 import lombok.Data;
-
 import java.math.BigDecimal;
 
 @Data

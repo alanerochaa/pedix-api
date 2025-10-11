@@ -1,5 +1,6 @@
 package com.pedix.api.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -17,6 +18,7 @@ public class PedidoItem {
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "pedido_id", nullable = false)
+    @JsonBackReference
     private Pedido pedido;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -27,7 +29,6 @@ public class PedidoItem {
     @Column(nullable = false)
     private Integer quantidade;
 
-    // preço copiado do ItemCardapio no momento do pedido
     @NotNull
     @Column(name = "preco_unitario", nullable = false, precision = 10, scale = 2)
     private BigDecimal precoUnitario;
