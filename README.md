@@ -8,9 +8,11 @@ O objetivo é proporcionar uma **gestão digital eficiente de comandas**, atende
 
 ## 📱 Interface do Aplicativo Pedix
 
-A tela abaixo representa a interface inicial do aplicativo mobile do **Pedix**, onde o cliente acessa sua comanda digital, insere o nome e inicia a experiência interativa com o sistema.
-
-![Tela inicial do app Pedix](docs/imagens/tela-inicial-app.png)
+<p align="center">
+  <img src="docs/imagens/tela-inicial-app.png" alt="Tela inicial do app Pedix" width="250">
+  <br>
+  <em>Tela inicial do aplicativo Pedix</em>
+</p>
 
 
 ## 📅 Cronograma de Desenvolvimento
