@@ -2,46 +2,49 @@ package com.pedix.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "pedido_item")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Table(name = "PEDIDO_ITEM")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class PedidoItem {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedido_item_seq_gen")
+    @SequenceGenerator(name = "pedido_item_seq_gen", sequenceName = "PEDIDO_ITEM_SEQ", allocationSize = 1)
     private Long id;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "pedido_id", nullable = false)
-    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PEDIDO_ID", nullable = false)
+    @JsonBackReference // evita loop recursivo com Pedido
     private Pedido pedido;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_cardapio_id", nullable = false)
-    private ItemCardapio item;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ITEM_CARDAPIO_ID", nullable = false)
+    private ItemCardapio itemCardapio;
 
-    @NotNull @Min(1)
-    @Column(nullable = false)
+    @NotNull
+    @Column(name = "QUANTIDADE", nullable = false)
     private Integer quantidade;
 
-    @NotNull
-    @Column(name = "preco_unitario", nullable = false, precision = 10, scale = 2)
+    @Column(name = "PRECO_UNITARIO", precision = 10, scale = 2, nullable = false)
     private BigDecimal precoUnitario;
 
-    @NotNull
-    @Column(nullable = false, precision = 12, scale = 2)
+    @Column(name = "SUBTOTAL", precision = 12, scale = 2, nullable = false)
     private BigDecimal subtotal;
 
-    @PrePersist @PreUpdate
-    public void prePersist() {
-        if (precoUnitario == null && item != null) {
-            precoUnitario = item.getPreco();
+    public void definirPrecoPadrao() {
+        if (itemCardapio != null && itemCardapio.getPreco() != null) {
+            this.precoUnitario = itemCardapio.getPreco();
+            this.subtotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
         }
-        subtotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
     }
 }

@@ -1,10 +1,11 @@
 package com.pedix.api.domain;
 
-import com.pedix.api.domain.enums.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.pedix.api.domain.enums.StatusPedido;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,50 +13,68 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "pedido")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Table(name = "PEDIDO")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Pedido {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedido_seq_gen")
+    @SequenceGenerator(name = "pedido_seq_gen", sequenceName = "PEDIDO_SEQ", allocationSize = 1)
     private Long id;
 
     @NotNull
-    @Column(name = "id_comanda", nullable = false)
+    @Column(name = "ID_COMANDA", nullable = false)
     private Long comandaId;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 50)
+    @Column(name = "STATUS", length = 50, nullable = false)
     private StatusPedido status = StatusPedido.EM_PREPARO;
 
-    @Column(name = "data_hora", nullable = false)
-    private LocalDateTime dataHora;
-
-    @Column(length = 500)
+    @Column(name = "OBSERVACAO", length = 500)
     private String observacao;
 
-    @Column(nullable = false, precision = 12, scale = 2)
+    @Column(name = "TOTAL", precision = 12, scale = 2, nullable = false)
     private BigDecimal total = BigDecimal.ZERO;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<PedidoItem> itens = new ArrayList<>();
+    @CreationTimestamp
+    @Column(name = "DATA_HORA", updatable = false)
+    private LocalDateTime dataHora;
 
-    @PrePersist
-    public void prePersist() {
-        if (dataHora == null) dataHora = LocalDateTime.now();
-        if (status == null) status = StatusPedido.EM_PREPARO;
-        recalcTotal();
-    }
+    /** Relação bidirecional com PedidoItem */
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference // evita loop infinito na serialização JSON
+    private List<PedidoItem> itens = new ArrayList<>();
 
     public void addItem(PedidoItem item) {
         item.setPedido(this);
         itens.add(item);
-        recalcTotal();
+        recalcularTotal();
     }
 
-    public void recalcTotal() {
-        total = itens.stream()
+    public void removeItem(PedidoItem item) {
+        item.setPedido(null);
+        itens.remove(item);
+        recalcularTotal();
+    }
+
+    @PrePersist
+    @PreUpdate
+    private void recalcularTotal() {
+        this.total = itens.stream()
                 .map(PedidoItem::getSubtotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    @Override
+    public String toString() {
+        return "Pedido{id=" + id +
+                ", comandaId=" + comandaId +
+                ", status=" + status +
+                ", total=" + total + "}";
     }
 }

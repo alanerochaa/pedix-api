@@ -9,7 +9,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ItemCardapioRepository extends JpaRepository<ItemCardapio, Long> {
+
     List<ItemCardapio> findByDisponivelTrue();
+
     Page<ItemCardapio> findByDisponivelTrue(Pageable pageable);
+
     List<ItemCardapio> findByCategoriaAndDisponivelTrue(CategoriaItem categoria);
 }

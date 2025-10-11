@@ -16,55 +16,76 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ItemCardapioService {
+
     private final ItemCardapioRepository repository;
 
+    /**
+     * Lista todos os itens disponíveis
+     */
     public List<ItemCardapio> listarDisponiveis() {
         return repository.findByDisponivelTrue();
     }
 
+    /**
+     * Lista itens de forma paginada
+     */
     public Page<ItemCardapio> listarDisponiveis(Pageable pageable) {
         return repository.findByDisponivelTrue(pageable);
     }
 
+    /**
+     * Lista itens por categoria
+     */
     public List<ItemCardapio> listarPorCategoria(CategoriaItem categoria) {
         return repository.findByCategoriaAndDisponivelTrue(categoria);
     }
 
-    @Transactional
-    public ItemCardapio criar(ItemCardapioDTO dto) {
-        ItemCardapio e = ItemCardapio.builder()
-                .nome(dto.getNome())
-                .descricao(dto.getDescricao())
-                .preco(dto.getPreco())
-                .categoria(dto.getCategoria())
-                .disponivel(dto.getDisponivel() == null ? true : dto.getDisponivel())
-                .imagemUrl(dto.getImagemUrl())
-                .build();
-        return repository.save(e);
-    }
-
-    @Transactional
-    public ItemCardapio atualizar(Long id, ItemCardapioDTO dto) {
-        ItemCardapio e = repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Item do cardápio não encontrado: " + id));
-        e.setNome(dto.getNome());
-        e.setDescricao(dto.getDescricao());
-        e.setPreco(dto.getPreco());
-        e.setCategoria(dto.getCategoria());
-        if (dto.getDisponivel() != null) e.setDisponivel(dto.getDisponivel());
-        e.setImagemUrl(dto.getImagemUrl());
-        return repository.save(e);
-    }
-
-    @Transactional
-    public void deletar(Long id) {
-        if (!repository.existsById(id))
-            throw new EntityNotFoundException("Item do cardápio não encontrado: " + id);
-        repository.deleteById(id);
-    }
-
+    /**
+     * Busca item por ID (ou lança exceção)
+     */
     public ItemCardapio buscarPorId(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Item do cardápio não encontrado: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Item não encontrado: " + id));
+    }
+
+    /**
+     * Cria um novo item de cardápio
+     */
+    @Transactional
+    public ItemCardapio criar(ItemCardapioDTO dto) {
+        ItemCardapio item = new ItemCardapio();
+        item.setNome(dto.getNome());
+        item.setDescricao(dto.getDescricao());
+        item.setCategoria(dto.getCategoria());
+        item.setPreco(dto.getPreco());
+        item.setDisponivel(dto.getDisponivel());
+        return repository.save(item);
+    }
+
+    /**
+     * Atualiza um item existente
+     */
+    @Transactional
+    public ItemCardapio atualizar(Long id, ItemCardapioDTO dto) {
+        ItemCardapio item = buscarPorId(id);
+        item.setNome(dto.getNome());
+        item.setDescricao(dto.getDescricao());
+        item.setCategoria(dto.getCategoria());
+        item.setPreco(dto.getPreco());
+        item.setDisponivel(dto.getDisponivel());
+        return repository.save(item);
+    }
+
+    /**
+     * Deleta (ou desativa) um item do cardápio
+     */
+    @Transactional
+    public void deletar(Long id) {
+        ItemCardapio item = buscarPorId(id);
+        // remoção física (delete do banco)
+        repository.delete(item);
+        // ou, se preferir desativar:
+        // item.desativar();
+        // repository.save(item);
     }
 }
