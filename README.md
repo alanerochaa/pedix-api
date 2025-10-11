@@ -836,7 +836,6 @@ Mostra as classes principais da aplicação Java, seus atributos e relacionament
 
 ![Diagrama de Classes Pedix](docs/diagramas/diagrama-classes-pedix.png)
 
-
 ---
 
 ## 🧪 Testes no Postman
@@ -855,35 +854,28 @@ Abaixo estão capturas de tela de todos os testes executados com sucesso:
 
 <div align="center">
 
-| Método        | Descrição | Imagem |
-|:--------------|:-----------|:-------|
-| 🟢 **GET**    | Listar todos os itens do cardápio | ![GET Itens do Cardápio](docs/imagens/colecao-postman/1.%20Get(item%20do%20cardapio).png) |
-| 🟢 **GET**    | Buscar item do cardápio por ID | ![GET por ID](docs/imagens/colecao-postman/2.%20GET%20(item%20do%20cardapior%20por%20ID).png) |
-| 🟡 **POST**   | Criar novo item no cardápio | ![POST Cardápio](docs/imagens/colecao-postman/3.%20POST(Cria%C3%A7%C3%A3o%20novo%20item%20no%20card%C3%A1pio).png) |
-| 🟠 **PUT**    | Atualizar item existente | ![PUT Atualizar Item](docs/imagens/colecao-postman/4.%20PUT%20-%20(Atualizar%20item%20card%C3%A1pio%20com%20ID).png) |
-| 🔴 **DELETE** | Remover item do cardápio | ![DELETE Item](docs/imagens/colecao-postman/5.%20DELETE%20-%20Remover%20Item%20do%20Card%C3%A1pio%20por%20ID).png) |
-| 🟢 **GET**    | Listar todos os pedidos | ![GET Pedidos](docs/imagens/colecao-postman/6.%20GET%20(llistar%20todos%20os%20pedidos).png) |
-| 🟢 **GET**    | Buscar pedido por ID | ![GET Pedido ID](docs/imagens/colecao-postman/7.%20GET(Listar%20pedidos%20pelo%20ID).png) |
-| 🟢 **GET**    | Listar pedidos por número de comanda | ![GET Comanda](docs/imagens/colecao-postman/8.%20GET(listar%20pedido%20pelo%20numero%20da%20comandaID).png) |
-| 🟡 **POST**   | Criar novo pedido vinculado a comanda | ![POST Pedido](docs/imagens/colecao-postman/9.%20POST(cria%20um%20novo%20pedido%20vinculado%20a%20uma%20comanda).png) |
-| 🟠 **PUT**    | Atualizar status do pedido | ![PUT Pedido](docs/imagens/colecao-postman/10.%20PUT%20(Atualiza%20o%20status%20do%20pedido).png) |
-| 🔴 **DELETE** | Deletar pedido por ID | ![DELETE Pedido](docs/imagens/colecao-postman/11.%20DELETE%20(Deleta%20um%20pedido%20por%20ID).png) |
-| ⚠️ **GET**  | Teste de erro `EntityNotFoundException (404)` | ![GET 404](docs/imagens/colecao-postman/12-GET-teste-erro-404.png) |
+| Método | Descrição | Imagem |
+|:-------|:-----------|:-------|
+| 🟢 **GET** | Listar todos os itens do cardápio | ![GET Itens do Cardápio](docs/imagens/colecao-postman/1-GET- item-cardapio.png) |
+| 🟢 **GET** | Buscar item do cardápio por ID | ![GET por ID](docs/imagens/colecao-postman/2-GET- item-cardapio-ID.png) |
+| 🟡 **POST** | Criar novo item no cardápio | ![POST Cardápio](docs/imagens/colecao-postman/3-POST- item- cardápio.png) |
+| 🟠 **PUT** | Atualizar item existente | ![PUT Atualizar Item](docs/imagens/colecao-postman/4-PUT-item-cardápio-ID.png) |
+| 🔴 **DELETE** | Remover item do cardápio | ![DELETE Item](docs/imagens/colecao-postman/5-DELETE-item-Cardápio-ID.png) |
+| 🟢 **GET** | Listar todos os pedidos | ![GET Pedidos](docs/imagens/colecao-postman/6-GET-listar-pedidos.png) |
+| 🟢 **GET** | Buscar pedido por ID | ![GET Pedido ID](docs/imagens/colecao-postman/7-GET-Listar-pedidos-ID.png) |
+| 🟢 **GET** | Listar pedidos pelo número da comanda | ![GET Comanda](docs/imagens/colecao-postman/8-GET-listar-pedido-comandaID.png) |
+| 🟡 **POST** | Criar novo pedido vinculado a comanda | ![POST Pedido](docs/imagens/colecao-postman/9-POST-cria-pedido-vinculado-comanda.png) |
+| 🟠 **PUT** | Atualizar status do pedido | ![PUT Pedido](docs/imagens/colecao-postman/10-PUT-Atualiza-status-pedido.png) |
+| 🔴 **DELETE** | Deletar pedido por ID | ![DELETE Pedido](docs/imagens/colecao-postman/11-DELETE-pedido-ID.png) |
+| ⚠️ **GET** | Teste de erro `EntityNotFoundException (404)` | ![GET 404](docs/imagens/colecao-postman/12-GET-teste-erro-404.png) |
 | ⚠️ **POST** | Teste de erro `IllegalArgumentException (400)` | ![POST 400](docs/imagens/colecao-postman/13-POST-teste-erro-400.png) |
-
 
 </div>
 
----
 
-### 💡 Como importar a coleção no Postman
-
-1. Abra o **Postman**.
-2. Clique em **Import → Upload Files**.
-3. Selecione o arquivo `pedix_api_postman.json`.
-4. Execute os endpoints para validar o funcionamento da API.
 
 ✅ **Todos os endpoints foram testados com sucesso**, com respostas esperadas e tratamento global de exceções ativo.
+
 
 
 ---
