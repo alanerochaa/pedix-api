@@ -21,9 +21,10 @@ O objetivo é proporcionar uma **gestão digital eficiente de comandas**, atende
 |-----------------------------------|-------------|------------|------------|
 | Configuração do Spring Boot       | Alane       | 05/10/2025 | Concluído  |
 | Criação das classes de domínio    | Alane       | 05/10/2025 | Concluído  |
-| Implementação dos endpoints       | Alane       | 06/10/2025 | Concluído  |
-| Testes API (Postman)              | Anna/Maria  | 09/10/2025 | Concluído  |
-| Documentação e README             | Alane       | 06/10/2025 | Concluído  |
+| Implementação dos endpoints       | Alane       | 08/10/2025 | Concluído  |
+| Testes API (Postman)              | Anna/Maria  | 12/10/2025 | Concluído  |
+| Documentação e README             | Alane       | 12/10/2025 | Concluído  |
+
 
 
 ## 🧩 Visão Geral e Arquitetura
@@ -144,13 +145,14 @@ A aplicação **Pedix API** permite gerenciar **pedidos** e **itens do cardápio
 
 
 ## 🛒 Pedido
-
-| Método | Endpoint                                | Descrição                                        | Exemplo de uso                                                                                 |
-| :----- | :-------------------------------------- | :----------------------------------------------- | :--------------------------------------------------------------------------------------------- |
-| `GET`  | `/api/pedido/{id}`                      | Busca um pedido específico pelo ID.              | [http://localhost:8080/api/pedido/1](http://localhost:8080/api/pedido/1)                       |
-| `GET`  | `/api/pedido/comanda/{comandaId}`       | Lista todos os pedidos vinculados a uma comanda. | [http://localhost:8080/api/pedido/comanda/1001](http://localhost:8080/api/pedido/comanda/1001) |
-| `POST` | `/api/pedido/comanda/{comandaId}`       | Cria um novo pedido vinculado a uma comanda.     | —                                                                                              |
-| `PUT`  | `/api/pedido/{id}/status?status=PRONTO` | Atualiza o status de um pedido existente.        | —                                                                                              |
+| Método   | Endpoint                                | Descrição                                        | Exemplo de uso                                                                                 |
+| :------- | :-------------------------------------- | :----------------------------------------------- |:-----------------------------------------------------------------------------------------------|
+| `GET`    | `/api/pedido`                           | Lista **todos os pedidos** cadastrados.          | [http://localhost:8080/api/pedido](http://localhost:8080/api/pedido)                           |
+| `GET`    | `/api/pedido/{id}`                      | Busca um pedido específico pelo ID.              | [http://localhost:8080/api/pedido/1](http://localhost:8080/api/pedido/1)                       |
+| `GET`    | `/api/pedido/comanda/{comandaId}`       | Lista todos os pedidos vinculados a uma comanda. | [http://localhost:8080/api/pedido/comanda/1001](http://localhost:8080/api/pedido/comanda/1001) |
+| `POST`   | `/api/pedido/comanda/{comandaId}`       | Cria um novo pedido vinculado a uma comanda.     | —                                                                                              |
+| `PUT`    | `/api/pedido/{id}/status?status=PRONTO` | Atualiza o status de um pedido existente.        | —                                                                                              |
+| `DELETE` | `/api/pedido/{id}`                      | Remove um pedido existente pelo ID.              | [http://localhost:8080/api/pedido/3](http://localhost:8080/api/pedido/3)                       |
 
 
 
@@ -159,8 +161,8 @@ A aplicação **Pedix API** permite gerenciar **pedidos** e **itens do cardápio
 ### 🍽️ Endpoints de Item do Cardápio
 
 📝 GET /api/item-cardapio - Lista todos os itens disponíveis.
-🔗 URL de teste: GET http://localhost:8080/api/item-cardapio
 
+* 🔗 URL de teste: GET http://localhost:8080/api/item-cardapio
 
 ✅ Resposta esperada:
 ```
@@ -248,12 +250,36 @@ A aplicação **Pedix API** permite gerenciar **pedidos** e **itens do cardápio
 ]
 ```
 
-➕ POST /api/item-cardapio — Cria um novo item do cardápio
-🔗 URL de teste: http://localhost:8080/api/item-cardapio
+🔍 GET /api/pedido/{id} — Buscar pedido por ID
 
-📤 Exemplo de Requisição:
+* 🔗 URL de teste: http://localhost:8080/api/pedido/1
+* 
+✅ Resposta esperada:
+```
+{
+  "id": 1,
+  "comandaId": 1001,
+  "status": "EM_PREPARO",
+  "observacao": "Sem queijo ralado",
+  "total": 35.00,
+  "dataCriacao": "2025-10-11T01:02:26.678078",
+  "itens": [
+    {
+      "itemCardapioId": 1,
+      "nome": "Pizza Calabresa",
+      "quantidade": 1,
+      "precoUnitario": 35.00,
+      "subtotal": 35.00
+    }
+  ]
+}
 
 ```
+
+➕ POST /api/item-cardapio — Cria um novo item do cardápio
+* 🔗 URL de teste: http://localhost:8080/api/item-cardapio
+
+📤 Exemplo de Requisição:
 
 {
   "nome": "Hambúrguer Artesanal",
@@ -263,8 +289,6 @@ A aplicação **Pedix API** permite gerenciar **pedidos** e **itens do cardápio
   "disponivel": true,
   "imagemUrl": null
 }
-
-```
 
 ✅ Resposta esperada:
 
@@ -282,15 +306,14 @@ A aplicação **Pedix API** permite gerenciar **pedidos** e **itens do cardápio
   }
 }
 
-
 ```
 
 ✏️ PUT /api/item-cardapio/{id} — Atualiza um item existente (ex: id = 1)
 
-🔗 URL de teste: http://localhost:8080/api/item-cardapio/1
+* 🔗 URL de teste: http://localhost:8080/api/item-cardapio/1
+
 
 📤 Exemplo de Requisição:
-
 ```
 {
   "nome": "Pizza Calabresa Grande",
@@ -319,13 +342,11 @@ A aplicação **Pedix API** permite gerenciar **pedidos** e **itens do cardápio
   }
 }
 
-
-
 ```
 
 🗑️ DELETE /api/item-cardapio/{id} — Deleta um item do cardápio (ex: id = 2)
 
-🔗 URL de teste: http://localhost:8080/api/item-cardapio/2
+* 🔗 URL de teste: http://localhost:8080/api/item-cardapio/2
 
 ✅ Resposta esperada:
 ```
@@ -337,10 +358,65 @@ A aplicação **Pedix API** permite gerenciar **pedidos** e **itens do cardápio
 
 ### 🧾 Endpoints de Pedido
 
+📦 GET /api/pedido — Lista todos os pedidos cadastrados
+
+* 🔗 URL de teste: http://localhost:8080/api/pedido
+```
+[
+{
+"id": 1,
+"comandaId": 1001,
+"status": "EM_PREPARO",
+"observacao": "Sem queijo ralado",
+"total": 35.00,
+"dataHora": "2025-10-11T01:02:26.678078",
+"itens": [
+{
+"id": 1,
+"itemCardapio": {
+"id": 1,
+"nome": "Pizza Calabresa",
+"descricao": "Deliciosa pizza com calabresa",
+"categoria": "PRATO",
+"preco": 35.00,
+"disponivel": true
+},
+"quantidade": 1,
+"precoUnitario": 35.00,
+"subtotal": 35.00
+}
+]
+},
+{
+"id": 2,
+"comandaId": 1002,
+"status": "PRONTO",
+"observacao": "Um com gelo, outro sem",
+"total": 17.00,
+"dataHora": "2025-10-10T18:45:12.000",
+"itens": [
+{
+"id": 3,
+"itemCardapio": {
+"id": 2,
+"nome": "Refrigerante",
+"descricao": "Coca Cola 350ml",
+"categoria": "BEBIDA",
+"preco": 8.50,
+"disponivel": true
+},
+"quantidade": 2,
+"precoUnitario": 8.50,
+"subtotal": 17.00
+}
+]
+}
+]
+```
+
 📄 GET /api/pedido/comanda/{comandaId} — Lista pedidos de uma comanda (ex: comandaId = 1001)
 
-🔗 URL de teste: http://localhost:8080/api/pedido/comanda/1001
-
+* 🔗 URL de teste: http://localhost:8080/api/pedido/comanda/1001
 
 ✅ Resposta esperada:
 
@@ -373,59 +449,51 @@ A aplicação **Pedix API** permite gerenciar **pedidos** e **itens do cardápio
 ]
 ```
 
-➕ POST /api/pedido — Cria um novo pedido
+➕ POST /api/pedido/comanda/{comandaId} — Cria um novo pedido vinculado a uma comanda
 
-🔗 URL de teste: http://localhost:8080/api/pedido/comanda/1002
-
-📤 Exemplo de Requisição:
+* 🔗 URL de teste: http://localhost:8080/api/pedido/comanda/1002
 ```
 {
-  "itens": [
-    {
-      "itemCardapioId": 2,
-      "quantidade": 2
-    },
-    {
-      "itemCardapioId": 3,
-      "quantidade": 1
-    }
-  ],
-  "observacao": "Um refrigerante com gelo"
+"itens": [
+{ "itemCardapioId": 2, "quantidade": 2 },
+{ "itemCardapioId": 3, "quantidade": 1 }
+],
+"observacao": "Um refrigerante com gelo"
 }
-
 ```
-
 ✅ Resposta esperada:
+
 ```
 {
-  "mensagem": "🧾 Pedido criado com sucesso!",
-  "pedido": {
-    "id": 5,
-    "idComanda": 1002,
-    "status": "EM_PREPARO",
-    "total": 29.00,
-    "observacao": "Um refrigerante com gelo",
-    "itens": [
-      {
-        "itemCardapioId": 2,
-        "quantidade": 2,
-        "precoUnitario": 8.50,
-        "subtotal": 17.00
-      },
-      {
-        "itemCardapioId": 3,
-        "quantidade": 1,
-        "precoUnitario": 12.00,
-        "subtotal": 12.00
-      }
-    ]
-  }
+"mensagem": "🧾 Pedido criado com sucesso!",
+"pedido": {
+"id": 5,
+"comandaId": 1002,
+"status": "EM_PREPARO",
+"observacao": "Um refrigerante com gelo",
+"total": 29.00,
+"itens": [
+{
+"itemCardapioId": 2,
+"quantidade": 2,
+"precoUnitario": 8.50,
+"subtotal": 17.00
+},
+{
+"itemCardapioId": 3,
+"quantidade": 1,
+"precoUnitario": 12.00,
+"subtotal": 12.00
+}
+]
+}
 }
 ```
+
 
 🔄 PUT /api/pedido/{id}/status?status=PRONTO — Atualiza o status de um pedido (ex: id = 1)
 
-🔗 URL de teste: http://localhost:8080/api/pedido/1/status?status=PRONTO
+* 🔗 URL de teste: http://localhost:8080/api/pedido/1/status?status=PRONTO
 
 ✅ Resposta esperada:
 
@@ -443,6 +511,17 @@ A aplicação **Pedix API** permite gerenciar **pedidos** e **itens do cardápio
 
 ```
 
+🗑️ DELETE /api/pedido/{id} — Deletar pedido por ID
+* 🔗 URL de teste: http://localhost:8080/api/pedido/6
+
+📤 Requisição:
+Não é necessário enviar corpo — apenas o ID do pedido na URL.
+
+```
+{
+"mensagem": "🗑️ Pedido removido com sucesso!"
+}
+```
 
 💡 Status possíveis de Pedido
 
@@ -758,20 +837,105 @@ Mostra as classes principais da aplicação Java, seus atributos e relacionament
 ![Diagrama de Classes Pedix](docs/diagramas/diagrama-classes-pedix.png)
 
 
-📋 Testes da API
 
-* Todas as rotas foram testadas no Postman.
+## 🧪 Testes no Postman
+
+A coleção completa de testes da API está disponível para importação no **Postman**.  
+O arquivo inclui todos os endpoints (`GET`, `POST`, `PUT`, `DELETE`) com exemplos de requisição e resposta, além de cenários de erro e exceções tratadas globalmente (`404`, `400`).
+
+📄 **[Coleção Postman (JSON)](docs/testes/pedix_api_postman.json)**
+
+---
+
+## 🧪 Testes no Postman
+
+A coleção completa de testes da API está disponível para importação no **Postman**.  
+O arquivo inclui todos os endpoints (`GET`, `POST`, `PUT`, `DELETE`) com exemplos de requisição e resposta, além de cenários de erro e exceções tratadas globalmente (`404`, `400`).
+
+📄 **[Baixar coleção Postman (JSON)](docs/testes/pedix_api_postman.json)**
+
+---
+
+## 🧪 Testes no Postman
+
+A coleção completa de testes da API está disponível para importação no **Postman**.  
+O arquivo inclui todos os endpoints (`GET`, `POST`, `PUT`, `DELETE`) com exemplos de requisição e resposta, além de cenários de erro e exceções tratadas globalmente (`404`, `400`).
+
+📄 **[Baixar coleção Postman (JSON)](https://github.com/alanerochaa/pedix-api/raw/main/docs/testes/pedix_api_postman.json)**
+
+---
+
+### 📸 Coleção de Testes — Postman
+
+Abaixo estão capturas de tela de todos os testes executados com sucesso:
+
+<div align="center">
+
+| Método        | Descrição | Imagem |
+|:--------------|:-----------|:-------|
+| 🟢 **GET**    | Listar todos os itens do cardápio | ![GET Itens do Cardápio](docs/imagens/colecao-postman/1.%20Get(item%20do%20cardapio).png) |
+| 🟢 **GET**    | Buscar item do cardápio por ID | ![GET por ID](docs/imagens/colecao-postman/2.%20GET%20(item%20do%20cardapior%20por%20ID).png) |
+| 🟡 **POST**   | Criar novo item no cardápio | ![POST Cardápio](docs/imagens/colecao-postman/3.%20POST(Cria%C3%A7%C3%A3o%20novo%20item%20no%20card%C3%A1pio).png) |
+| 🟠 **PUT**    | Atualizar item existente | ![PUT Atualizar Item](docs/imagens/colecao-postman/4.%20PUT%20-%20(Atualizar%20item%20card%C3%A1pio%20com%20ID).png) |
+| 🔴 **DELETE** | Remover item do cardápio | ![DELETE Item](docs/imagens/colecao-postman/5.%20DELETE%20-%20Remover%20Item%20do%20Card%C3%A1pio%20por%20ID).png) |
+| 🟢 **GET**    | Listar todos os pedidos | ![GET Pedidos](docs/imagens/colecao-postman/6.%20GET%20(llistar%20todos%20os%20pedidos).png) |
+| 🟢 **GET**    | Buscar pedido por ID | ![GET Pedido ID](docs/imagens/colecao-postman/7.%20GET(Listar%20pedidos%20pelo%20ID).png) |
+| 🟢 **GET**    | Listar pedidos por número de comanda | ![GET Comanda](docs/imagens/colecao-postman/8.%20GET(listar%20pedido%20pelo%20numero%20da%20comandaID).png) |
+| 🟡 **POST**   | Criar novo pedido vinculado a comanda | ![POST Pedido](docs/imagens/colecao-postman/9.%20POST(cria%20um%20novo%20pedido%20vinculado%20a%20uma%20comanda).png) |
+| 🟠 **PUT**    | Atualizar status do pedido | ![PUT Pedido](docs/imagens/colecao-postman/10.%20PUT%20(Atualiza%20o%20status%20do%20pedido).png) |
+| 🔴 **DELETE** | Deletar pedido por ID | ![DELETE Pedido](docs/imagens/colecao-postman/11.%20DELETE%20(Deleta%20um%20pedido%20por%20ID).png) |
+| ⚠️ **GET**  | Teste de erro `EntityNotFoundException (404)` | ![GET 404](docs/imagens/colecao-postman/12-GET-teste-erro-404.png) |
+| ⚠️ **POST** | Teste de erro `IllegalArgumentException (400)` | ![POST 400](docs/imagens/colecao-postman/13-POST-teste-erro-400.png) |
 
 
-> Desenvolvido com 💜 por **CodeGirls**
+</div>
 
-### 👩‍💻 Integrantes:
-- [**Alane Rocha da Silva rm561052**](https://github.com/alanerochaa)
+---
+
+### 💡 Como importar a coleção no Postman
+
+1. Abra o **Postman**.
+2. Clique em **Import → Upload Files**.
+3. Selecione o arquivo `pedix_api_postman.json`.
+4. Execute os endpoints para validar o funcionamento da API.
+
+✅ **Todos os endpoints foram testados com sucesso**, com respostas esperadas e tratamento global de exceções ativo.
 
 
-- [**Anna Beatriz Bonfim rm559561**](https://github.com/annabonfim)
+---
+
+### 💡 Como importar a coleção no Postman
+
+1. Abra o **Postman**.
+2. Clique em **Import → Upload Files**.
+3. Selecione o arquivo `pedix_api_postman.json`.
+4. Execute os endpoints para validar o funcionamento da API.
+
+✅ **Todos os endpoints foram testados com sucesso**, com respostas esperadas e tratamento global de exceções ativo.
+
+---
+
+## 🎬 Vídeo de Apresentação
+
+O vídeo de apresentação demonstra o funcionamento completo da aplicação Pedix API, incluindo a execução dos endpoints, testes no Postman e integração com o banco de dados Oracle.
+
+📺 **Assista aqui:** [Apresentação Pedix API - CodeGirls](https://www.youtube.com/watch?v=SEU_LINK_AQUI)
 
 
-- [**Maria Eduarda Araujo rm560944**](https://github.com/DudaAraujo14)  
-- 
+--- 
+
+## 👩‍💻 Integrantes e Responsabilidades
+
+| Nome Completo | RM | Função no Projeto | GitHub |
+|----------------|----|------------------|--------|
+| **Alane Rocha da Silva** | RM561052 | Desenvolvimento da API Java (Spring Boot), integração com banco Oracle e documentação | [@alanerochaa](https://github.com/alanerochaa) |
+| **Anna Beatriz Bonfim** | RM559561 | Desenvolvimento do aplicativo mobile (React Native) e integração com IoT | [@annabonfim](https://github.com/annabonfim) |
+| **Maria Eduarda Araujo Penas** | RM560944 | Desenvolvimento da API C# e DevOps  | [@DudaAraujo14](https://github.com/DudaAraujo14) |
+
+
+<p align="center">
+  Desenvolvido com 💜 pela equipe <strong>CodeGirls</strong> — FIAP 2025.
+</p>
+
+
 

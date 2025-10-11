@@ -17,6 +17,9 @@ public class PedidoResponseDTO {
     private Long comandaId;
     private StatusPedido status;
     private LocalDateTime dataCriacao;
+
+    private String observacao;
+
     private BigDecimal total;
     private List<ItemResumo> itens;
 
