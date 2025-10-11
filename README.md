@@ -861,7 +861,8 @@ O arquivo inclui todos os endpoints (`GET`, `POST`, `PUT`, `DELETE`) com exemplo
 A coleção completa de testes da API está disponível para importação no **Postman**.  
 O arquivo inclui todos os endpoints (`GET`, `POST`, `PUT`, `DELETE`) com exemplos de requisição e resposta, além de cenários de erro e exceções tratadas globalmente (`404`, `400`).
 
-📄 **[Baixar coleção Postman (JSON)](https://github.com/alanerochaa/pedix-api/raw/main/docs/testes/pedix_api_postman.json)**
+📄 **[Abrir coleção Postman (JSON)](docs/testes/pedix_api_postman.json)**  
+💾 *Para baixar, clique com o botão direito → “Salvar link como...”*
 
 ---
 
@@ -901,17 +902,6 @@ Abaixo estão capturas de tela de todos os testes executados com sucesso:
 
 ✅ **Todos os endpoints foram testados com sucesso**, com respostas esperadas e tratamento global de exceções ativo.
 
-
----
-
-### 💡 Como importar a coleção no Postman
-
-1. Abra o **Postman**.
-2. Clique em **Import → Upload Files**.
-3. Selecione o arquivo `pedix_api_postman.json`.
-4. Execute os endpoints para validar o funcionamento da API.
-
-✅ **Todos os endpoints foram testados com sucesso**, com respostas esperadas e tratamento global de exceções ativo.
 
 ---
 
