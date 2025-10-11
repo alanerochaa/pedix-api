@@ -749,6 +749,9 @@ As demais entidades (CLIENTE, GARCOM, MESA, COMANDA) pertencem à API principal 
 Mostra as classes principais da aplicação Java, seus atributos e relacionamentos, além dos *enums* utilizados (`CategoriaItem`, `StatusPedido`).
 
 ```mermaid
+classDiagram
+direction LR
+
     %% ===========================
     %% PACOTE DOMAIN
     %% ===========================
@@ -839,6 +842,7 @@ Mostra as classes principais da aplicação Java, seus atributos e relacionament
     ItemCardapio --> CategoriaItem : usa
     Pedido --> StatusPedido : usa
 ```
+
 
 
 
