@@ -834,7 +834,103 @@ direction LR
     }
 
     %% ===========================
-    %% RELACIONAMENTOS
+    %% RELACIONAMENTOSclassDiagram
+    direction TB
+
+    %% ===========================
+    %% ENTIDADES (domain)
+    %% ===========================
+
+    class ItemCardapio {
+        +Long id
+        +String nome
+        +String descricao
+        +BigDecimal preco
+        +CategoriaItem categoria
+        +Boolean disponivel
+        +String imagemUrl
+    }
+
+    class Pedido {
+        +Long id
+        +Long idComanda
+        +StatusPedido status
+        +String observacao
+        +LocalDateTime dataHora
+        +BigDecimal total
+        +List<PedidoItem> itens
+        +calcularTotal()
+        +atualizarStatus(StatusPedido status)
+    }
+
+    class PedidoItem {
+        +Long id
+        +Pedido pedido
+        +ItemCardapio itemCardapio
+        +Integer quantidade
+        +BigDecimal precoUnitario
+        +BigDecimal subtotal
+        +calcularSubtotal()
+    }
+
+    %% ===========================
+    %% DTOS
+    %% ===========================
+
+    class ItemCardapioDTO {
+        +String nome
+        +String descricao
+        +BigDecimal preco
+        +CategoriaItem categoria
+        +Boolean disponivel
+        +String imagemUrl
+    }
+
+    class PedidoDTO {
+        +List<PedidoItemDTO> itens
+        +String observacao
+    }
+
+    class PedidoResponseDTO {
+        +Long id
+        +Long idComanda
+        +StatusPedido status
+        +BigDecimal total
+        +List<PedidoItemResponseDTO> itens
+    }
+
+    %% ===========================
+    %% ENUMS
+    %% ===========================
+
+    class CategoriaItem {
+        <<enumeration>>
+        PRATO
+        BEBIDA
+        SOBREMESA
+    }
+
+    class StatusPedido {
+        <<enumeration>>
+        EM_PREPARO
+        PRONTO
+        ENTREGUE
+        CANCELADO
+    }
+
+    %% ===========================
+    %% RELACIONAMENTOS (baseados no seu esquema)
+    %% ===========================
+
+    ItemCardapioDTO --> ItemCardapio : cria/atualiza
+    ItemCardapio --> CategoriaItem : usa
+
+    PedidoItem --> ItemCardapio : refere-se
+    Pedido --> PedidoItem : contém
+    Pedido --> StatusPedido : possui
+    Pedido --> PedidoResponseDTO : retorna
+    Pedido --> PedidoDTO : recebe dados
+
     %% ===========================
 
     Pedido "1" --> "N" PedidoItem : contém
