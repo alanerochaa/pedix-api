@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HomeController {
 
-    @GetMapping(value = "/", produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping(value = "/home", produces = MediaType.TEXT_HTML_VALUE)
     public String home() {
         return """
                 <!DOCTYPE html>
