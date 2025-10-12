@@ -157,7 +157,26 @@ pedix-api/
 
 
 ## 🛠 Funcionalidades
-A aplicação **Pedix API** permite gerenciar **pedidos** e **itens do cardápio**, oferecendo os principais endpoints para **CRUD** (Create, Read, Update, Delete) e atualização de status de pedidos.
+
+A aplicação **Pedix API** oferece as seguintes funcionalidades principais:
+
+- 🍽️ **Gerenciamento de Itens do Cardápio** — criação, listagem, atualização e exclusão de pratos, bebidas e sobremesas.
+- 🧾 **Gestão de Pedidos** — criação, consulta, atualização e exclusão de pedidos vinculados a comandas.
+- 🔄 **Atualização de Status** — permite alterar o status dos pedidos em tempo real (`EM_PREPARO`, `PRONTO`, `ENTREGUE`, `CANCELADO`).
+- 🧱 **Persistência em Banco Oracle** — todos os dados são armazenados de forma segura e consistente no banco de dados relacional.
+- 📖 **API RESTful Documentada** — acesso via Swagger UI para explorar e testar os endpoints interativamente.
+
+
+## 🌐 URLs principais da API
+
+Antes de testar os endpoints, é possível verificar o status da API e acessar sua documentação interativa:
+
+
+| Finalidade                     | URL                                                                                          | Descrição                                                                                                                                                |
+| ------------------------------ | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **🏠 Endpoint inicial (Home)** | [`http://localhost:8080/home`](http://localhost:8080/home)                                   | Exibe mensagem de status confirmando que a API está rodando.<br>🟢 *Exemplo:* `🚀 API Pedix está rodando! Acesse o Swagger UI para testar os endpoints.` |
+| **📖 Documentação Swagger UI** | [`http://localhost:8080/swagger-ui/index.html`](http://localhost:8080/swagger-ui/index.html) | Interface visual gerada automaticamente pelo SpringDoc OpenAPI, permitindo testar todos os endpoints REST de forma interativa.                           |
+
 
 ###  🚀  Endpoints da API Pedix
 
