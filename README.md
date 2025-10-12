@@ -98,33 +98,61 @@ A arquitetura da Pedix API segue o padrão de camadas bem definidas, promovendo 
 
 ## 📂 Estrutura do Projeto
 ```
-pedix.api/
-├── .idea           → Configurações do ambiente de desenvolvimento (IntelliJ IDEA).
-├── .mvn            → Wrappers do Maven.
-├── pedix-api       → (Pasta gerada/nome do módulo)
-├── src
-│   ├── main
-│   │   ├── java/com/pedix/api
-│   │   │   ├── config      → Configurações gerais da aplicação (segurança, beans).
-│   │   │   ├── controller  → Endpoints REST (API). Lida com requisições HTTP e delega para o Service.
-│   │   │   ├── domain      → Entidades JPA (Modelos de domínio como Pedido, ItemCardapio, etc.).
-│   │   │   ├── dto         → Data Transfer Objects (DTOs), usados com validação funcional.
-│   │   │   ├── repository  → Repositórios JPA (Interfaces) para acesso ao banco de dados.
-│   │   │   ├── service     → Serviços da aplicação (Business Logic) e lógica transacional.
-│   │   │   ├── DatabaseInitializer → Componente para inicialização de dados (se necessário).
-│   │   │   └── PedixApplication    → Classe principal que inicializa o Spring Boot.
-│   │   │
-│   │   └── resources
-│   │       └── application.properties → Configuração do banco de dados, ambiente e Swagger.
-│   │
-│   └── test
-│       └── java/com/pedix/api → Contém os testes unitários e de integração.
+pedix-api/
+├── .idea/                          → Configurações do IntelliJ IDEA
+├── .mvn/                           → Arquivos de suporte do Maven Wrapper
 │
-├── target          → Diretório gerado pelo Maven, contém os artefatos de build.
-├── .gitignore      → Arquivo de ignorar arquivos para o Git.
-├── pom.xml         → Arquivo de configuração do Maven.
-├── README.md       → Informações e instruções iniciais do projeto.
-└── HELP.md         → Arquivo de ajuda (geralmente gerado pelo Spring Initializr).
+├── docs/                           → Documentação do projeto
+│   ├── diagramas/
+│   │   ├── diagrama-classes-pedix.png   → Diagrama de Classes (UML da aplicação Java)
+│   │   └── diagrama-mer-pedix.png       → Modelo Entidade-Relacionamento (MER) do banco Oracle
+│   │
+│   ├── imagens/
+│   │   ├── tela-inicial-app.png         → Tela inicial do aplicativo mobile Pedix
+│   │   └── colecao-postman/             → Evidências visuais dos testes dos endpoints (prints do Postman)*
+│   │       ├── 1-GET-item-cardapio.png
+│   │       ├── 2-GET-item-cardapio-ID.png
+│   │       ├── 3-POST-item-cardapio.png
+│   │       ├── 4-PUT-item-cardapio-ID.png
+│   │       ├── 5-DELETE-item-cardapio-ID.png
+│   │       ├── 6-GET-listar-pedidos.png
+│   │       ├── 7-GET-listar-pedidos-ID.png
+│   │       ├── 8-GET-listar-pedido-comandaID.png
+│   │       ├── 9-POST-cria-pedido-vinculado-comanda.png
+│   │       ├── 10-PUT-atualiza-status-pedido.png
+│   │       ├── 11-DELETE-pedido-ID.png
+│   │       ├── 12-GET-teste-erro-404.png
+│   │       └── 13-POST-teste-erro-400.png
+│   │
+│   └── testes/
+│       └── pedix_api_postman.json       → Coleção exportada do Postman com todos os endpoints testados*
+│
+├── src/
+│   ├── main/
+│   │   ├── java/com/pedix/api/
+│   │   │   ├── controller/              → Camada de controle (endpoints REST)
+│   │   │   ├── domain/                  → Entidades JPA (ItemCardapio, Pedido, PedidoItem)
+│   │   │   ├── dto/                     → DTOs e validações funcionais (Bean Validation)
+│   │   │   ├── exception/               → Tratamento global de exceções (400, 404, etc.)
+│   │   │   ├── repository/              → Repositórios Spring Data JPA
+│   │   │   ├── service/                 → Regras de negócio (Services)
+│   │   │   └── PedixApplication.java    → Classe principal (entry point do Spring Boot)
+│   │   │
+│   │   └── resources/
+│   │       ├── application.properties   → Configurações do banco Oracle e Swagger
+│   │       └── data.sql                 → Script SQL inicial (inserts para testes)
+│   │
+│   └── test/
+│       └── java/com/pedix/api/
+│           └── ApplicationTests.java    → Testes unitários e de integração (JUnit)
+│
+├── target/                              → Diretório gerado pelo Maven após build
+├── pom.xml                              → Configurações e dependências Maven
+├── README.md                            → Documentação principal do projeto
+├── .gitignore                           → Arquivo de exclusão do Git
+└── .gitattributes                       → Definições de atributos de versionamento
+
+
 ```
 
 
@@ -829,7 +857,7 @@ As demais entidades (CLIENTE, GARCOM, MESA, COMANDA) pertencem à API principal 
 O diagrama abaixo representa o modelo conceitual completo do banco de dados **Oracle** utilizado pela aplicação **Pedix**.  
 Ele demonstra as entidades, atributos e relacionamentos que sustentam o funcionamento das APIs Java e C#
 
-![DER completo](docs/diagramas/pedix-api.png)
+![DER completo](docs/diagramas/diagrama-mer-pedix.png)
 
 
 ### 🧱 Diagrama de Classes (UML)
@@ -902,6 +930,3 @@ O vídeo de apresentação demonstra o funcionamento completo da aplicação Ped
 <p align="center">
   Desenvolvido com 💜 pela equipe <strong>CodeGirls</strong> — FIAP 2025.
 </p>
-
-
-
