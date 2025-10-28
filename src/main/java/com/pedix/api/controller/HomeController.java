@@ -13,12 +13,10 @@ public class HomeController {
 
     @GetMapping(value = "/home", produces = MediaType.APPLICATION_JSON_VALUE)
     public EntityModel<MensagemResponse> home() {
-        // Mensagem principal
         MensagemResponse mensagem = new MensagemResponse(
                 "API Pedix está rodando! Acesse o Swagger UI ou as rotas principais."
         );
 
-        // Cria modelo HATEOAS com links
         EntityModel<MensagemResponse> model = EntityModel.of(mensagem,
                 linkTo(methodOn(HomeController.class).home()).withSelfRel(),
                 linkTo(methodOn(PedidoController.class).listarTodos()).withRel("pedidos"),
