@@ -8,6 +8,6 @@ public class PedixApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PedixApplication.class, args);
-		System.out.println("🚀 Pedix API iniciada com sucesso!");
+		System.out.println(" Pedix API iniciada com sucesso!");
 	}
 }

@@ -16,7 +16,7 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     public GlobalExceptionHandler() {
-        System.out.println("🔥 GlobalExceptionHandler carregado com sucesso!");
+        System.out.println(" GlobalExceptionHandler carregado com sucesso!");
     }
 
     @ExceptionHandler(EntityNotFoundException.class)

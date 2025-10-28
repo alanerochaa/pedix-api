@@ -6,6 +6,27 @@ A aplicação permite criar, consultar, atualizar e deletar pedidos e itens do c
 
 O objetivo é proporcionar uma **gestão digital eficiente de comandas**, atendendo às solicitações do cliente de forma rápida, segura e confiável.
 
+## 🚀 Evolução — Sprint 2
+
+Na Sprint 2, a Pedix API foi aprimorada para atingir o Nível 3 de maturidade REST, através da implementação do Spring HATEOAS.
+Agora, cada recurso retorna links autoexplicativos (_links), permitindo descoberta dinâmica de rotas diretamente nas respostas da API.
+
+Principais avanços:
+
+* Implementação do HATEOAS nas entidades ItemCardapio e Pedido;
+
+* Criação do endpoint /home com links navegáveis para os recursos principais;
+
+* Documentação detalhada via Swagger UI;
+
+* Padronização de DTOs e validações com Bean Validation;
+
+* Tratamento global de exceções com respostas amigáveis;
+
+* Código totalmente refatorado para aderência ao REST Nível 3.
+
+> 🧠 Com isso, a API evoluiu de um CRUD REST básico (Nível 2) para uma API navegável e autodescritiva (Nível 3).
+
 ## 📱 Interface do Aplicativo Pedix
 
 <p align="center">
@@ -67,6 +88,23 @@ flowchart TD
     B --> F
     
 ```
+## 🔗 Implementação do HATEOAS
+
+A API utiliza o módulo Spring HATEOAS para adicionar links de navegação aos recursos retornados.
+Cada entidade (ItemCardapio, Pedido) é empacotada em um EntityModel<> contendo links para operações relacionadas.
+
+Exemplo de implementação: 
+
+```
+EntityModel<ItemCardapio> model = EntityModel.of(item,
+    linkTo(methodOn(ItemCardapioController.class).buscarPorId(item.getId())).withSelfRel(),
+    linkTo(methodOn(ItemCardapioController.class).listar(null)).withRel("todos_itens")
+);
+```
+
+* Com isso, o cliente pode navegar entre os recursos sem conhecer previamente as URIs.
+
+
 
 🏗️ Camadas e Responsabilidades
 
@@ -109,12 +147,12 @@ pedix-api/
 │   │
 │   ├── imagens/
 │   │   ├── tela-inicial-app.png         → Tela inicial do aplicativo mobile Pedix
-│   │   └── colecao-postman/             → Evidências visuais dos testes dos endpoints (prints do Postman)*
+│   │   └── colecao-postman/             → Evidências visuais dos testes dos endpoints (prints do Postman)
 │   │       ├── 1-GET-item-cardapio.png
 │   │       ├── 2-GET-item-cardapio-ID.png
-│   │       ├── 3-POST-item-cardapio.png
-│   │       ├── 4-PUT-item-cardapio-ID.png
-│   │       ├── 5-DELETE-item-cardapio-ID.png
+│   │       ├── 3-POST-item-cardápio.png
+│   │       ├── 4-PUT-item-cardápio-ID.png
+│   │       ├── 5-DELETE-item-cardápio-ID.png
 │   │       ├── 6-GET-listar-pedidos.png
 │   │       ├── 7-GET-listar-pedidos-ID.png
 │   │       ├── 8-GET-listar-pedido-comandaID.png
@@ -122,25 +160,51 @@ pedix-api/
 │   │       ├── 10-PUT-atualiza-status-pedido.png
 │   │       ├── 11-DELETE-pedido-ID.png
 │   │       ├── 12-GET-teste-erro-404.png
-│   │       └── 13-POST-teste-erro-400.png
+│   │       ├── 13-POST-teste-erro-400.png
+│   │       └── 14-GET-home-hateoas.png   → (Novo) Retorno HATEOAS do endpoint `/home`
 │   │
 │   └── testes/
-│       └── pedix_api_postman.json       → Coleção exportada do Postman com todos os endpoints testados*
+│       └── pedix_api_postman.json       → Coleção exportada do Postman com todos os endpoints testados
 │
 ├── src/
 │   ├── main/
 │   │   ├── java/com/pedix/api/
 │   │   │   ├── controller/              → Camada de controle (endpoints REST)
-│   │   │   ├── domain/                  → Entidades JPA (ItemCardapio, Pedido, PedidoItem)
-│   │   │   ├── dto/                     → DTOs e validações funcionais (Bean Validation)
+│   │   │   │   ├── HomeController.java         → Novo endpoint `/home` com HATEOAS
+│   │   │   │   ├── ItemCardapioController.java → CRUD dos itens do cardápio com HATEOAS
+│   │   │   │   └── PedidoController.java       → CRUD de pedidos com HATEOAS
+│   │   │   │
+│   │   │   ├── domain/                  → Entidades JPA (modelo de domínio)
+│   │   │   │   ├── enums/               → Enumerações usadas nas entidades
+│   │   │   │   │   ├── CategoriaItem.java
+│   │   │   │   │   └── StatusPedido.java
+│   │   │   │   ├── ItemCardapio.java
+│   │   │   │   ├── Pedido.java
+│   │   │   │   └── PedidoItem.java
+│   │   │   │
+│   │   │   ├── dto/                     → DTOs e objetos de transporte de dados
+│   │   │   │   ├── ItemCardapioDTO.java
+│   │   │   │   ├── MensagemResponse.java       → (Novo) DTO genérico para respostas padronizadas
+│   │   │   │   ├── PedidoDTO.java
+│   │   │   │   ├── PedidoItemDTO.java
+│   │   │   │   └── PedidoResponseDTO.java
+│   │   │   │
 │   │   │   ├── exception/               → Tratamento global de exceções (400, 404, etc.)
-│   │   │   ├── repository/              → Repositórios Spring Data JPA
-│   │   │   ├── service/                 → Regras de negócio (Services)
+│   │   │   │   └── GlobalExceptionHandler.java
+│   │   │   │
+│   │   │   ├── repository/              → Repositórios JPA
+│   │   │   │   ├── ItemCardapioRepository.java
+│   │   │   │   └── PedidoRepository.java
+│   │   │   │
+│   │   │   ├── service/                 → Regras de negócio (camada de serviço)
+│   │   │   │   ├── ItemCardapioService.java
+│   │   │   │   └── PedidoService.java
+│   │   │   │
 │   │   │   └── PedixApplication.java    → Classe principal (entry point do Spring Boot)
 │   │   │
 │   │   └── resources/
 │   │       ├── application.properties   → Configurações do banco Oracle e Swagger
-│   │       └── data.sql                 → Script SQL inicial (inserts para testes)
+│   │       └── data.sql                 → Script SQL inicial com inserts automáticos para testes
 │   │
 │   └── test/
 │       └── java/com/pedix/api/
@@ -148,11 +212,9 @@ pedix-api/
 │
 ├── target/                              → Diretório gerado pelo Maven após build
 ├── pom.xml                              → Configurações e dependências Maven
-├── README.md                            → Documentação principal do projeto
+├── README.md                            → Documentação principal do projeto (Sprint 1 + Sprint 2)
 ├── .gitignore                           → Arquivo de exclusão do Git
 └── .gitattributes                       → Definições de atributos de versionamento
-
-
 ```
 
 
@@ -165,6 +227,7 @@ A aplicação **Pedix API** oferece as seguintes funcionalidades principais:
 - 🔄 **Atualização de Status** — permite alterar o status dos pedidos em tempo real (`EM_PREPARO`, `PRONTO`, `ENTREGUE`, `CANCELADO`).
 - 🧱 **Persistência em Banco Oracle** — todos os dados são armazenados de forma segura e consistente no banco de dados relacional.
 - 📖 **API RESTful Documentada** — acesso via Swagger UI para explorar e testar os endpoints interativamente.
+- 💡 Agora, todas as respostas dos endpoints incluem hipermídia HATEOAS e mensagens padronizadas.
 
 
 ## 🌐 URLs principais da API
@@ -179,6 +242,29 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
 
 
 ###  🚀  Endpoints da API Pedix
+
+## 🧭 Endpoint HATEOAS – /home
+
+📍 URL: http://localhost:8080/home
+
+🔍 Exemplo de Resposta JSON
+
+```
+{
+  "mensagem": "API Pedix está rodando! Acesse o Swagger UI ou as rotas principais.",
+  "_links": {
+    "self": { "href": "http://localhost:8080/home" },
+    "pedidos": { "href": "http://localhost:8080/api/pedido" },
+    "cardapio": {
+      "href": "http://localhost:8080/api/item-cardapio{?categoria}",
+      "templated": true
+    },
+    "swagger-ui": { "href": "/swagger-ui/index.html" }
+  }
+}
+
+```
+> O endpoint /home serve como ponto de entrada da API, retornando mensagem de status e links navegáveis para os principais recursos.
 
 ## 📦 Cardápio
 | Método   | Endpoint                             | Descrição                                                    | Exemplo de uso                                                                                                     |
@@ -220,7 +306,17 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
     "descricao": "Deliciosa pizza com calabresa",
     "categoria": "PRATO",
     "preco": 35,
-    "disponivel": true
+    "disponivel": true,
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://localhost:8080/api/item-cardapio/1"
+      },
+      {
+        "rel": "todos_itens",
+        "href": "http://localhost:8080/api/item-cardapio{?categoria}"
+      }
+    ]
   },
   {
     "id": 2,
@@ -228,7 +324,17 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
     "descricao": "Coca Cola 350ml",
     "categoria": "BEBIDA",
     "preco": 8.5,
-    "disponivel": true
+    "disponivel": true,
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://localhost:8080/api/item-cardapio/2"
+      },
+      {
+        "rel": "todos_itens",
+        "href": "http://localhost:8080/api/item-cardapio{?categoria}"
+      }
+    ]
   },
   {
     "id": 3,
@@ -236,7 +342,17 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
     "descricao": "Sobremesa gelada",
     "categoria": "SOBREMESA",
     "preco": 12,
-    "disponivel": true
+    "disponivel": true,
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://localhost:8080/api/item-cardapio/3"
+      },
+      {
+        "rel": "todos_itens",
+        "href": "http://localhost:8080/api/item-cardapio{?categoria}"
+      }
+    ]
   },
   {
     "id": 4,
@@ -244,7 +360,17 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
     "descricao": "Pizza de mussarela com borda recheada",
     "categoria": "PRATO",
     "preco": 38,
-    "disponivel": true
+    "disponivel": true,
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://localhost:8080/api/item-cardapio/4"
+      },
+      {
+        "rel": "todos_itens",
+        "href": "http://localhost:8080/api/item-cardapio{?categoria}"
+      }
+    ]
   },
   {
     "id": 5,
@@ -252,7 +378,17 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
     "descricao": "Pizza de frango com catupiry",
     "categoria": "PRATO",
     "preco": 40,
-    "disponivel": true
+    "disponivel": true,
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://localhost:8080/api/item-cardapio/5"
+      },
+      {
+        "rel": "todos_itens",
+        "href": "http://localhost:8080/api/item-cardapio{?categoria}"
+      }
+    ]
   },
   {
     "id": 6,
@@ -260,7 +396,17 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
     "descricao": "Suco natural 300ml",
     "categoria": "BEBIDA",
     "preco": 7.5,
-    "disponivel": true
+    "disponivel": true,
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://localhost:8080/api/item-cardapio/6"
+      },
+      {
+        "rel": "todos_itens",
+        "href": "http://localhost:8080/api/item-cardapio{?categoria}"
+      }
+    ]
   },
   {
     "id": 7,
@@ -268,7 +414,17 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
     "descricao": "Salada com alface, frango e molho caesar",
     "categoria": "PRATO",
     "preco": 25,
-    "disponivel": true
+    "disponivel": true,
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://localhost:8080/api/item-cardapio/7"
+      },
+      {
+        "rel": "todos_itens",
+        "href": "http://localhost:8080/api/item-cardapio{?categoria}"
+      }
+    ]
   },
   {
     "id": 8,
@@ -276,7 +432,17 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
     "descricao": "Brownie de chocolate com nozes",
     "categoria": "SOBREMESA",
     "preco": 10,
-    "disponivel": true
+    "disponivel": true,
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://localhost:8080/api/item-cardapio/8"
+      },
+      {
+        "rel": "todos_itens",
+        "href": "http://localhost:8080/api/item-cardapio{?categoria}"
+      }
+    ]
   },
   {
     "id": 9,
@@ -284,7 +450,17 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
     "descricao": "Água sem gás 500ml",
     "categoria": "BEBIDA",
     "preco": 5,
-    "disponivel": true
+    "disponivel": true,
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://localhost:8080/api/item-cardapio/9"
+      },
+      {
+        "rel": "todos_itens",
+        "href": "http://localhost:8080/api/item-cardapio{?categoria}"
+      }
+    ]
   },
   {
     "id": 10,
@@ -292,7 +468,17 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
     "descricao": "Pizza com presunto, ovos e azeitonas",
     "categoria": "PRATO",
     "preco": 42,
-    "disponivel": true
+    "disponivel": true,
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://localhost:8080/api/item-cardapio/10"
+      },
+      {
+        "rel": "todos_itens",
+        "href": "http://localhost:8080/api/item-cardapio{?categoria}"
+      }
+    ]
   }
 ]
 ```
@@ -307,20 +493,27 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
   "id": 1,
   "comandaId": 1001,
   "status": "EM_PREPARO",
+  "dataCriacao": "2025-10-19T10:45:24.94496",
   "observacao": "Sem queijo ralado",
-  "total": 35.00,
-  "dataCriacao": "2025-10-11T01:02:26.678078",
+  "total": 35,
   "itens": [
     {
       "itemCardapioId": 1,
       "nome": "Pizza Calabresa",
       "quantidade": 1,
-      "precoUnitario": 35.00,
-      "subtotal": 35.00
+      "precoUnitario": 35,
+      "subtotal": 35
     }
-  ]
+  ],
+  "_links": {
+    "self": {
+      "href": "http://localhost:8080/api/pedido/1"
+    },
+    "todos_pedidos": {
+      "href": "http://localhost:8080/api/pedido"
+    }
+  }
 }
-
 ```
 
 ➕ POST /api/item-cardapio — Cria um novo item do cardápio
@@ -329,27 +522,30 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
 📤 Exemplo de Requisição:
 
 {
-  "nome": "Hambúrguer Artesanal",
-  "descricao": "Hambúrguer com queijo e bacon artesanal",
-  "preco": 28.90,
-  "categoria": "PRATO",
-  "disponivel": true,
-  "imagemUrl": null
+"nome": "Lasanha Bolonhesa",
+"descricao": "Lasanha tradicional com molho bolonhesa e queijo gratinado",
+"preco": 42.50,
+"categoria": "PRATO",
+"disponivel": true
 }
+
 
 ✅ Resposta esperada:
 
 ```
 {
-  "mensagem": "🍔 Item do cardápio criado com sucesso!",
   "item": {
     "id": 11,
-    "nome": "Hambúrguer Artesanal",
-    "descricao": "Hambúrguer com queijo e bacon artesanal",
-    "preco": 28.90,
+    "nome": "Lasanha Bolonhesa",
+    "descricao": "Lasanha tradicional com molho bolonhesa e queijo gratinado",
     "categoria": "PRATO",
-    "disponivel": true,
-    "imagemUrl": null
+    "preco": 42.5,
+    "disponivel": true
+  },
+  "mensagem": "Item do cardápio criado com sucesso!",
+  "_links": {
+    "todos_itens": "http://localhost:8080/api/item-cardapio",
+    "self": "http://localhost:8080/api/item-cardapio/11"
   }
 }
 
@@ -363,12 +559,11 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
 📤 Exemplo de Requisição:
 ```
 {
-  "nome": "Pizza Calabresa Grande",
-  "descricao": "Pizza com calabresa e queijo extra",
-  "preco": 40.00,
-  "categoria": "PRATO",
-  "disponivel": true,
-  "imagemUrl": null
+"nome": "Lasanha quatro queijos",
+"descricao": "Lasanha tradicional com molho bolonhesa e queijo gratinado",
+"preco": 42.50,
+"categoria": "PRATO",
+"disponivel": true
 }
 
 
@@ -377,18 +572,20 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
 
 ```
 {
-  "mensagem": "✅ Item do cardápio atualizado com sucesso!",
   "item": {
-    "id": 1,
-    "nome": "Pizza Calabresa Grande",
-    "descricao": "Pizza com calabresa e queijo extra",
-    "preco": 40.00,
+    "id": 11,
+    "nome": "Lasanha quatro queijos",
+    "descricao": "Lasanha tradicional com molho bolonhesa e queijo gratinado",
     "categoria": "PRATO",
-    "disponivel": true,
-    "imagemUrl": null
+    "preco": 42.5,
+    "disponivel": true
+  },
+  "mensagem": "Item do cardápio atualizado com sucesso!",
+  "_links": {
+    "todos_itens": "http://localhost:8080/api/item-cardapio",
+    "self": "http://localhost:8080/api/item-cardapio/11"
   }
 }
-
 ```
 
 🗑️ DELETE /api/item-cardapio/{id} — Deleta um item do cardápio (ex: id = 2)
@@ -398,9 +595,10 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
 ✅ Resposta esperada:
 ```
 {
-  "mensagem": "🗑️ Item do cardápio removido com sucesso!"
+  "timestamp": "2025-10-28T15:56:07.4669788",
+  "mensagem": " Item do cardápio removido com sucesso!",
+  "status": 200
 }
-
 ```
 
 ### 🧾 Endpoints de Pedido
@@ -410,54 +608,87 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
 * 🔗 URL de teste: http://localhost:8080/api/pedido
 ```
 [
-{
-"id": 1,
-"comandaId": 1001,
-"status": "EM_PREPARO",
-"observacao": "Sem queijo ralado",
-"total": 35.00,
-"dataHora": "2025-10-11T01:02:26.678078",
-"itens": [
-{
-"id": 1,
-"itemCardapio": {
-"id": 1,
-"nome": "Pizza Calabresa",
-"descricao": "Deliciosa pizza com calabresa",
-"categoria": "PRATO",
-"preco": 35.00,
-"disponivel": true
-},
-"quantidade": 1,
-"precoUnitario": 35.00,
-"subtotal": 35.00
-    }
-  ]
-},
-{
-"id": 2,
-"comandaId": 1002,
-"status": "PRONTO",
-"observacao": "Um com gelo, outro sem",
-"total": 17.00,
-"dataHora": "2025-10-10T18:45:12.000",
-"itens": [
-{
-"id": 3,
-"itemCardapio": {
-"id": 2,
-"nome": "Refrigerante",
-"descricao": "Coca Cola 350ml",
-"categoria": "BEBIDA",
-"preco": 8.50,
-"disponivel": true
-},
-"quantidade": 2,
-"precoUnitario": 8.50,
-"subtotal": 17.00
-    }
-  ]
-}
+  {
+    "id": 1,
+    "comandaId": 1001,
+    "status": "EM_PREPARO",
+    "dataCriacao": "2025-10-19T10:45:24.94496",
+    "observacao": "Sem queijo ralado",
+    "total": 35,
+    "itens": [
+      {
+        "itemCardapioId": 1,
+        "nome": "Pizza Calabresa",
+        "quantidade": 1,
+        "precoUnitario": 35,
+        "subtotal": 35
+      }
+    ],
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://localhost:8080/api/pedido/1"
+      },
+      {
+        "rel": "todos_pedidos",
+        "href": "http://localhost:8080/api/pedido"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "comandaId": 1002,
+    "status": "PRONTO",
+    "dataCriacao": "2025-10-19T10:45:25.015956",
+    "observacao": "Um com gelo, outro sem",
+    "total": 17,
+    "itens": [
+      {
+        "itemCardapioId": 2,
+        "nome": "Refrigerante",
+        "quantidade": 2,
+        "precoUnitario": 8.5,
+        "subtotal": 17
+      }
+    ],
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://localhost:8080/api/pedido/2"
+      },
+      {
+        "rel": "todos_pedidos",
+        "href": "http://localhost:8080/api/pedido"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "comandaId": 1003,
+    "status": "EM_PREPARO",
+    "dataCriacao": "2025-10-19T10:45:25.028863",
+    "observacao": "Sem cebola",
+    "total": 45,
+    "itens": [
+      {
+        "itemCardapioId": 5,
+        "nome": "Pizza Frango",
+        "quantidade": 1,
+        "precoUnitario": 40,
+        "subtotal": 40
+      }
+    ],
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://localhost:8080/api/pedido/3"
+      },
+      {
+        "rel": "todos_pedidos",
+        "href": "http://localhost:8080/api/pedido"
+      }
+    ]
+  }
 ]
 ```
 
@@ -473,20 +704,13 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
     "id": 1,
     "comandaId": 1001,
     "status": "EM_PREPARO",
+    "dataCriacao": "2025-10-19T10:45:24.94496",
     "observacao": "Sem queijo ralado",
     "total": 35,
-    "dataHora": "2025-10-11T01:02:26.678078",
     "itens": [
       {
-        "id": 1,
-        "itemCardapio": {
-          "id": 1,
-          "nome": "Pizza Calabresa",
-          "descricao": "Deliciosa pizza com calabresa",
-          "categoria": "PRATO",
-          "preco": 35,
-          "disponivel": true
-        },
+        "itemCardapioId": 1,
+        "nome": "Pizza Calabresa",
         "quantidade": 1,
         "precoUnitario": 35,
         "subtotal": 35
@@ -505,35 +729,42 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
 { "itemCardapioId": 2, "quantidade": 2 },
 { "itemCardapioId": 3, "quantidade": 1 }
 ],
-"observacao": "Um refrigerante com gelo"
+"observacao": "Um refrigerante sem gelo"
 }
 ```
 ✅ Resposta esperada:
 
 ```
 {
-"mensagem": "🧾 Pedido criado com sucesso!",
-"pedido": {
-"id": 5,
-"comandaId": 1002,
-"status": "EM_PREPARO",
-"observacao": "Um refrigerante com gelo",
-"total": 29.00,
-"itens": [
-{
-"itemCardapioId": 2,
-"quantidade": 2,
-"precoUnitario": 8.50,
-"subtotal": 17.00
-},
-{
-"itemCardapioId": 3,
-"quantidade": 1,
-"precoUnitario": 12.00,
-"subtotal": 12.00
-}
-]
-}
+  "_links": {
+    "todos_pedidos": "http://localhost:8080/api/pedido",
+    "self": "http://localhost:8080/api/pedido/4"
+  },
+  "mensagem": "Pedido criado com sucesso!",
+  "pedido": {
+    "id": 4,
+    "comandaId": 1002,
+    "status": "EM_PREPARO",
+    "dataCriacao": null,
+    "observacao": "Um refrigerante sem gelo",
+    "total": 29,
+    "itens": [
+      {
+        "itemCardapioId": 2,
+        "nome": "Refrigerante",
+        "quantidade": 2,
+        "precoUnitario": 8.5,
+        "subtotal": 17
+      },
+      {
+        "itemCardapioId": 3,
+        "nome": "Sorvete Chocolate",
+        "quantidade": 1,
+        "precoUnitario": 12,
+        "subtotal": 12
+      }
+    ]
+  }
 }
 ```
 
@@ -546,13 +777,27 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
 
 ```
 {
-  "mensagem": "✅ Status do pedido atualizado com sucesso!",
+  "_links": {
+    "todos_pedidos": "http://localhost:8080/api/pedido",
+    "self": "http://localhost:8080/api/pedido/1"
+  },
+  "mensagem": "Status do pedido atualizado com sucesso!",
   "pedido": {
     "id": 1,
-    "idComanda": 1001,
+    "comandaId": 1001,
     "status": "PRONTO",
-    "total": 35.00,
-    "dataHora": "2025-10-05T21:00:00"
+    "dataCriacao": "2025-10-19T10:45:24.94496",
+    "observacao": "Sem queijo ralado",
+    "total": 35,
+    "itens": [
+      {
+        "itemCardapioId": 1,
+        "nome": "Pizza Calabresa",
+        "quantidade": 1,
+        "precoUnitario": 35,
+        "subtotal": 35
+      }
+    ]
   }
 }
 
@@ -566,7 +811,9 @@ Não é necessário enviar corpo — apenas o ID do pedido na URL.
 
 ```
 {
-"mensagem": "🗑️ Pedido removido com sucesso!"
+  "timestamp": "2025-10-28T15:56:07.4669788",
+  "mensagem": " Item do cardápio removido com sucesso!",
+  "status": 200
 }
 ```
 
@@ -589,7 +836,6 @@ Todos os DTOs utilizam **anotações de validação** do Jakarta Bean Validation
 - `@Size` – limites de tamanho de strings
 
 ---
-
 
 ## 🗃️ Script SQL (Oracle)
 Criação de Tabelas, Sequences, Triggers e Dados Iniciais — Sistema Pedix
@@ -833,7 +1079,7 @@ cd pedix-api
 
 4. Acessar a documentação Swagger:
 ```bash
-http://localhost:8080/swagger-ui.html
+http://localhost:8080/swagger-ui/index.html
 ```
 
 
@@ -902,23 +1148,25 @@ Abaixo estão capturas de tela de todos os testes executados com sucesso:
 
 <div align="center">
 
-| Método | Descrição | Imagem                                                                                |
-|:-------|:-----------|:--------------------------------------------------------------------------------------|
-| 🟢 **GET** | Listar todos os itens do cardápio | ![GET Itens do Cardápio](docs/imagens/colecao-postman/1-GET-item-cardapio.png)        |
-| 🟢 **GET** | Buscar item do cardápio por ID | ![GET por ID](docs/imagens/colecao-postman/2-GET-item-cardapio-ID.png)                |
-| 🟡 **POST** | Criar novo item no cardápio | ![POST Cardápio](docs/imagens/colecao-postman/3-POST-item-cardápio.png)               |
-| 🟠 **PUT** | Atualizar item existente | ![PUT Atualizar Item](docs/imagens/colecao-postman/4-PUT-item-cardápio-ID.png)        |
-| 🔴 **DELETE** | Remover item do cardápio | ![DELETE Item](docs/imagens/colecao-postman/5-DELETE-item-Cardápio-ID.png)            |
-| 🟢 **GET** | Listar todos os pedidos | ![GET Pedidos](docs/imagens/colecao-postman/6-GET-listar-pedidos.png)                 |
-| 🟢 **GET** | Buscar pedido por ID | ![GET Pedido ID](docs/imagens/colecao-postman/7-GET-Listar-pedidos-ID.png)            |
-| 🟢 **GET** | Listar pedidos pelo número da comanda | ![GET Comanda](docs/imagens/colecao-postman/8-GET-listar-pedido-comandaID.png)        |
-| 🟡 **POST** | Criar novo pedido vinculado a comanda | ![POST Pedido](docs/imagens/colecao-postman/9-POST-cria-pedido-vinculado-comanda.png) |
-| 🟠 **PUT** | Atualizar status do pedido | ![PUT Pedido](docs/imagens/colecao-postman/10-PUT-Atualiza-status-pedido.png)         |
-| 🔴 **DELETE** | Deletar pedido por ID | ![DELETE Pedido](docs/imagens/colecao-postman/11-DELETE-pedido-ID.png)                |
-| ⚠️ **GET** | Teste de erro `EntityNotFoundException (404)` | ![GET 404](docs/imagens/colecao-postman/12-GET-teste-erro-404.png)                    |
-| ⚠️ **POST** | Teste de erro `IllegalArgumentException (400)` | ![POST 400](docs/imagens/colecao-postman/13-POST-teste-erro-400.png)                  |
+| Método | Descrição | Imagem                                                                                 |
+|:-------|:-----------|:---------------------------------------------------------------------------------------|
+| 🟢 **GET** | **Endpoint inicial — `/home`** | ![GET Home](docs/imagens/colecao-postman/1-GET-home.png)                               |
+| 🟢 **GET** | **Listar todos os itens do cardápio** | ![GET Itens do Cardápio](docs/imagens/colecao-postman/2-GET-item-cardapio.png)         |
+| 🟢 **GET** | **Buscar item do cardápio por ID** | ![GET por ID](docs/imagens/colecao-postman/3-GET-item-cardapio-ID.png)                 |
+| 🟡 **POST** | **Criar novo item no cardápio** | ![POST Cardápio](docs/imagens/colecao-postman/4-POST-item-cardapio.png)                |
+| 🟠 **PUT** | **Atualizar item existente no cardápio** | ![PUT Atualizar Item](docs/imagens/colecao-postman/5-PUT-item-cardapio-ID.png)         |
+| 🔴 **DELETE** | **Remover item do cardápio** | ![DELETE Item](docs/imagens/colecao-postman/6-DELETE-item-cardapio-ID.png)             |
+| 🟢 **GET** | **Listar todos os pedidos** | ![GET Pedidos](docs/imagens/colecao-postman/7-GET-listar-pedidos.png)                  |
+| 🟢 **GET** | **Buscar pedido por ID** | ![GET Pedido ID](docs/imagens/colecao-postman/8-GET-Listar-pedidos-ID.png)             |
+| 🟢 **GET** | **Listar pedidos pelo número da comanda** | ![GET Comanda](docs/imagens/colecao-postman/9-GET-listar-pedido-comandaID.png)         |
+| 🟡 **POST** | **Criar novo pedido vinculado a uma comanda** | ![POST Pedido](docs/imagens/colecao-postman/10-POST-cria-pedido-vinculado-comanda.png) |
+| 🟠 **PUT** | **Atualizar status do pedido** | ![PUT Pedido](docs/imagens/colecao-postman/11-PUT-Atualiza-status-pedido.png)          |
+| 🔴 **DELETE** | **Deletar pedido por ID** | ![DELETE Pedido](docs/imagens/colecao-postman/12-DELETE-pedido-ID.png)                 |
+| ⚠️ **GET** | **Teste de erro `EntityNotFoundException (404)`** | ![GET 404](docs/imagens/colecao-postman/13-GET-teste-erro-404.png)                     |
+| ⚠️ **POST** | **Teste de erro `IllegalArgumentException (400)`** | ![POST 400](docs/imagens/colecao-postman/14-POST-teste-erro-400.png)                   |
 
 </div>
+
 
 
 
@@ -933,6 +1181,7 @@ Abaixo estão capturas de tela de todos os testes executados com sucesso:
 O vídeo de apresentação demonstra o funcionamento completo da aplicação Pedix API, incluindo a execução dos endpoints, testes no Postman e integração com o banco de dados Oracle.
 
 📺 **Assista aqui:** [Apresentação Pedix API - CodeGirls](https://www.youtube.com/watch?v=Kfnr0p-5UDw)
+🧾 O vídeo mostra o Swagger UI, execução dos endpoints no Postman e o retorno HATEOAS do /home.
 
 
 --- 
