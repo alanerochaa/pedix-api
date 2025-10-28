@@ -36,15 +36,17 @@ Principais avanços:
 </p>
 
 
-## 📅 Cronograma de Desenvolvimento
+| Data       | Atividade                                                       | Responsável          | Status          |
+| ---------- | --------------------------------------------------------------- | -------------------- | --------------- |
+| 20/09/2025 | Configuração inicial do projeto (Spring Boot + Oracle)          | **Alane Rocha**      | ✅ Concluído     |
+| 21/09/2025 | Implementação do CRUD de `ItemCardapio`                         | **Alane Rocha**      | ✅ Concluído     |
+| 23/09/2025 | Criação do `PedidoController` e integração com Oracle           | **Alane Rocha**      | ✅ Concluído     |
+| 25/09/2025 | Testes iniciais e documentação Swagger                          | **Alane Rocha**      | ✅ Concluído     |
+| 28/10/2025 | Implementação do HATEOAS e refatoração dos controllers          | **Alane Rocha**      | ✅ Concluído     |
+| 28/10/2025 | Atualização do README, coleção Postman e geração das evidências | **Alane Rocha**      | ✅ Concluído     |
+| 31/10/2025 | Geração dos diagramas e gravação do vídeo de apresentação       | **Alane Rocha**      | ✅ Concluído     |
+| 05/11/2025 | Testes finais e validação completa do sistema                   | **Equipe CodeGirls** | 🔄 Em andamento |
 
-| Atividade                         | Responsável | Prazo      | Status      |
-|-----------------------------------|-------------|------------|------------|
-| Configuração do Spring Boot       | Alane       | 05/10/2025 | Concluído  |
-| Criação das classes de domínio    | Alane       | 05/10/2025 | Concluído  |
-| Implementação dos endpoints       | Alane       | 08/10/2025 | Concluído  |
-| Testes API (Postman)              | Anna/Maria  | 12/10/2025 | Concluído  |
-| Documentação e README             | Alane       | 12/10/2025 | Concluído  |
 
 
 
