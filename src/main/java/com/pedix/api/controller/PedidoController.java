@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/pedido")
 @RequiredArgsConstructor
 @Tag(
-        name = "🧾 Pedido",
+        name = " Pedido",
         description = """
         Controla os **pedidos** vinculados às comandas do restaurante.  
         Permite **criar pedidos**, **listar por comanda**, **listar todos**, **buscar por ID** e **atualizar status**.
@@ -32,8 +32,8 @@ public class PedidoController {
 
     private final PedidoService service;
 
-    // 📦 LISTAR TODOS OS PEDIDOS
-    @Operation(summary = "📦 Listar todos os pedidos")
+    //  LISTAR TODOS OS PEDIDOS
+    @Operation(summary = " Listar todos os pedidos")
     @GetMapping
     public ResponseEntity<List<PedidoResponseDTO>> listarTodos() {
         List<PedidoResponseDTO> resposta = service.listarTodos()
@@ -45,16 +45,14 @@ public class PedidoController {
     }
 
 
-    // 🔍 BUSCAR PEDIDO POR ID
-    @Operation(summary = "🔍 Buscar pedido por ID")
+    @Operation(summary = "Buscar pedido por ID")
     @GetMapping("/{id}")
     public ResponseEntity<PedidoResponseDTO> obter(@PathVariable Long id) {
         Pedido pedido = service.buscarPorId(id);
         return ResponseEntity.ok(service.toResponse(pedido));
     }
 
-    // 📋 LISTAR PEDIDOS POR COMANDA
-    @Operation(summary = "📋 Listar pedidos por comanda")
+    @Operation(summary = "Listar pedidos por comanda")
     @GetMapping("/comanda/{comandaId}")
     public ResponseEntity<List<PedidoResponseDTO>> listarPorComanda(@PathVariable Long comandaId) {
         List<Pedido> pedidos = service.listarPorComanda(comandaId);
@@ -64,8 +62,7 @@ public class PedidoController {
         return ResponseEntity.ok(resposta);
     }
 
-    // ➕ CRIAR NOVO PEDIDO
-    @Operation(summary = "➕ Criar novo pedido vinculado a uma comanda")
+    @Operation(summary = "Criar novo pedido vinculado a uma comanda")
     @PostMapping("/comanda/{comandaId}")
     public ResponseEntity<Map<String, Object>> criar(
             @PathVariable Long comandaId,
@@ -76,14 +73,13 @@ public class PedidoController {
         URI location = uri.path("/api/pedido/{id}").buildAndExpand(resp.getId()).toUri();
 
         Map<String, Object> body = Map.of(
-                "mensagem", "🧾 Pedido criado com sucesso!",
+                "mensagem", "Pedido criado com sucesso!",
                 "pedido", resp
         );
         return ResponseEntity.created(location).body(body);
     }
 
-    // 🔄 ATUALIZAR STATUS DO PEDIDO
-    @Operation(summary = "🔄 Atualizar status do pedido")
+    @Operation(summary = "Atualizar status do pedido")
     @PutMapping("/{id}/status")
     public ResponseEntity<Map<String, Object>> atualizarStatus(
             @PathVariable Long id,
@@ -91,18 +87,17 @@ public class PedidoController {
 
         PedidoResponseDTO atualizado = service.atualizarStatus(id, status);
         Map<String, Object> body = Map.of(
-                "mensagem", "✅ Status do pedido atualizado com sucesso!",
+                "mensagem", "Status do pedido atualizado com sucesso!",
                 "pedido", atualizado
         );
         return ResponseEntity.ok(body);
     }
 
-    // 🗑️ DELETAR PEDIDO POR ID
-    @Operation(summary = "🗑️ Deletar pedido por ID")
+    @Operation(summary = "Deletar pedido por ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, String>> deletar(@PathVariable Long id) {
         service.deletarPedido(id);
-        Map<String, String> resposta = Map.of("mensagem", "🗑️ Pedido removido com sucesso!");
+        Map<String, String> resposta = Map.of("mensagem", "Pedido removido com sucesso!");
         return ResponseEntity.ok(resposta);
     }
 

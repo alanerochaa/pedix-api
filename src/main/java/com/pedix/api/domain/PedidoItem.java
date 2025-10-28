@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-
 import java.math.BigDecimal;
 
 @Entity
@@ -24,7 +23,7 @@ public class PedidoItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PEDIDO_ID", nullable = false)
-    @JsonBackReference // evita loop recursivo com Pedido
+    @JsonBackReference
     private Pedido pedido;
 
     @ManyToOne(fetch = FetchType.EAGER)

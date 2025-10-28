@@ -21,7 +21,7 @@ public interface ItemCardapioRepository extends JpaRepository<ItemCardapio, Long
     // Filtra por categoria e apenas itens disponíveis
     List<ItemCardapio> findByCategoriaAndDisponivelTrue(CategoriaItem categoria);
 
-    // 🔍 Exemplo de consulta JPQL personalizada (para demonstrar domínio)
+    // Exemplo de consulta JPQL personalizada (para demonstrar domínio)
     @Query("SELECT i FROM ItemCardapio i WHERE LOWER(i.nome) LIKE LOWER(CONCAT('%', :nome, '%')) AND i.disponivel = true")
     List<ItemCardapio> buscarPorNome(@Param("nome") String nome);
 }

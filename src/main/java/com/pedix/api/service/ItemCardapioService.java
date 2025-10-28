@@ -19,9 +19,6 @@ public class ItemCardapioService {
 
     private final ItemCardapioRepository repository;
 
-
-      // Lista todos os itens disponíveis
-
     public List<ItemCardapio> listarDisponiveis() {
         return repository.findByDisponivelTrue();
     }
@@ -30,23 +27,15 @@ public class ItemCardapioService {
         return repository.findByDisponivelTrue(pageable);
     }
 
-
-     // Lista itens por categoria
-
     public List<ItemCardapio> listarPorCategoria(CategoriaItem categoria) {
         return repository.findByCategoriaAndDisponivelTrue(categoria);
     }
 
 
-     // Busca item por ID (ou lança exceção)
-
     public ItemCardapio buscarPorId(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Item não encontrado: " + id));
     }
-
-
-     // Cria um novo item de cardápio
 
     @Transactional
     public ItemCardapio criar(ItemCardapioDTO dto) {
@@ -59,9 +48,6 @@ public class ItemCardapioService {
         return repository.save(item);
     }
 
-
-     // Atualiza um item existente
-
     @Transactional
     public ItemCardapio atualizar(Long id, ItemCardapioDTO dto) {
         ItemCardapio item = buscarPorId(id);
@@ -73,13 +59,9 @@ public class ItemCardapioService {
         return repository.save(item);
     }
 
-     // Deleta (ou desativa) um item do cardápio
-
     @Transactional
     public void deletar(Long id) {
         ItemCardapio item = buscarPorId(id);
-        // remoção física (delete do banco)
         repository.delete(item);
-
     }
 }

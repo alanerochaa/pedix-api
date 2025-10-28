@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -45,9 +44,9 @@ public class Pedido {
     @Column(name = "DATA_HORA", updatable = false)
     private LocalDateTime dataHora;
 
-    /** Relação bidirecional com PedidoItem */
+    // Relação bidirecional com PedidoItem
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference // evita loop infinito na serialização JSON
+    @JsonManagedReference
     private List<PedidoItem> itens = new ArrayList<>();
 
     public void addItem(PedidoItem item) {

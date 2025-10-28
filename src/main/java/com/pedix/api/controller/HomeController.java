@@ -34,7 +34,7 @@ public class HomeController {
                   </style>
                 </head>
                 <body>
-                  <h1>🚀 API Pedix está rodando!</h1>
+                  <h1> API Pedix está rodando!</h1>
                   <p>Acesse o <a href="/swagger-ui/index.html">Swagger UI</a> para testar os endpoints.</p>
                 </body>
                 </html>
