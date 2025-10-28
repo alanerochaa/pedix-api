@@ -1,0 +1,347 @@
+{
+	"info": {
+		"_postman_id": "5f34c553-288d-490c-b97c-4a4dd3f02840",
+		"name": "Pedix API - Testes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49195647"
+	},
+	"item": [
+		{
+			"name": "GET/home",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/home",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"home"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /api/item-cardapio",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/item-cardapio",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"item-cardapio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /api/item-cardapio/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/item-cardapio/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"item-cardapio",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /api/item-cardapio",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Hambúrguer Artesanal\",\r\n  \"descricao\": \"Hambúrguer com queijo e bacon artesanal\",\r\n  \"preco\": 28.90,\r\n  \"categoria\": \"PRATO\",\r\n  \"disponivel\": true,\r\n  \"imagemUrl\": null\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/item-cardapio",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"item-cardapio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /api/item-cardapio/{id}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Pizza Calabresa Grande\",\r\n  \"descricao\": \"Pizza grande com calabresa e queijo extra\",\r\n  \"preco\": 40.00,\r\n  \"categoria\": \"PRATO\",\r\n  \"disponivel\": true,\r\n  \"imagemUrl\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/item-cardapio/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"item-cardapio",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /api/item-cardapio/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/item-cardapio/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"item-cardapio",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /api/pedido",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/pedido",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedido"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /api/pedido/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/pedido/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedido",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /api/pedido/comanda/{comandaId}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/pedido/comanda/1001",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedido",
+						"comanda",
+						"1001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /api/pedido/comanda/{comandaId}",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"itens\": [\r\n{ \"itemCardapioId\": 2, \"quantidade\": 2 },\r\n{ \"itemCardapioId\": 3, \"quantidade\": 1 }\r\n],\r\n\"observacao\": \"Um refrigerante com gelo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/pedido/comanda/1002",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedido",
+						"comanda",
+						"1002"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /api/pedido/{id}/status?status=PRONTO",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/pedido/1/status?status=PRONTO",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedido",
+						"1",
+						"status"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "PRONTO"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET/api/pedido/999",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"itens\": [\r\n{ \"itemCardapioId\": 2, \"quantidade\": 2 },\r\n{ \"itemCardapioId\": 3, \"quantidade\": 1 }\r\n],\r\n\"observacao\": \"Um refrigerante com gelo\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/pedido/999",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedido",
+						"999"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /api/pedido/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/pedido/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedido",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /api/pedido/comanda/1002",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"itens\": [\r\n    { \"itemCardapioId\": 999, \"quantidade\": 1 }\r\n  ],\r\n  \"observacao\": \"Teste de item inexistente\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/pedido/comanda/1002",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedido",
+						"comanda",
+						"1002"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
