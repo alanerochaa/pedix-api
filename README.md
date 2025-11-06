@@ -27,6 +27,34 @@ Principais avanços:
 
 > 🧠 Com isso, a API evoluiu de um CRUD REST básico (Nível 2) para uma API navegável e autodescritiva (Nível 3).
 
+
+## 🗓️ Cronograma Macro do Projeto
+
+| Sprint       | Período                  | Objetivos Principais                                | Entregáveis / Funcionalidades                                                                                                                                                                                                                                                                                                 | Status                 |
+| ------------ | ------------------------ | --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| **Sprint 1** | 25/09/2025 → 12/10/2025  | Estrutura inicial do ecossistema Pedix              | - Criação das **APIs base (Java e C#)**<br>- Configuração de **persistência Oracle**<br>- CRUD de `ItemCardapio` e `Pedido`<br>- Documentação Swagger inicial                                                                                                                                                                 | ✅ Concluído            |
+| **Sprint 2** | 13/10/2025 → 06/11/2025  | Elevação de maturidade técnica e integração parcial | - Implementação de **HATEOAS (REST Nível 3)**<br>- Refatoração e DTOs padronizados<br>- Validações e Exception Handler global<br>- **Integração entre API Java e API .NET (base de dados compartilhada)**<br>- Testes versionados (Postman v1/v2)<br>- Telas iniciais do **App Mobile (React Native)** integradas com as APIs | ✅ Concluído            |
+| **Sprint 3** | Prevista p/ 1º Sem. 2026 | Expansão funcional e automação de processos         | - Novas classes para **entidades auxiliares**: `Mesa`, `Cliente`, `Garcom`, `Comanda`<br>- Integração completa entre **Java ↔ .NET ↔ Mobile**<br>- Implementação de **notificações em tempo real (WebSocket ou SignalR)**<br>- Módulo de **Dashboard Administrativo** com métricas                                            | 🧩 Em planejamento     |
+| **Sprint 4** | Prevista p/ 2º Sem. 2026 | Fase de estabilidade, segurança e deploy            | - **DevOps (CI/CD com GitHub Actions e Azure)**<br>- Logs e monitoramento de métricas<br>- Autenticação (JWT) e controle de acesso por perfil<br>- **Deploy de ambiente produtivo** com pipeline automatizado                                                                                                                 | 🕓 Backlog estratégico |
+
+
+## 👥 Plano de Responsabilidades (RACI)
+
+Legenda: **R** = Responsável (executa) • **A** = Aprovador (decide) • **C** = Consultado • **I** = Informado
+
+| Entregável / Atividade | Alane Rocha | Anna Bonfim | Maria Eduarda | Observações |
+|------------------------|-------------|-------------|---------------|-------------|
+| API Java – CRUD + Oracle (S1) | **R/A** | I | C | Concluído na Sprint 1 |
+| HATEOAS Nivel 3 (S2) | **R/A** | I | C | Implementado em `Home`, `ItemCardapio`, `Pedido` |
+| DTO + Bean Validation (S2) | **R** | I | C | Padronização de payload e erros |
+| Handler Global de Exceções (S2) | **R** | I | C | 400/404 com mensagens amigáveis |
+| Diagramas (DER + Classes) (S2) | **R** | C | I | Em `docs/diagramas` |
+| Coleções Postman v1/v2 (S1/S2) | **R** | I | C | Evidência de evolução entre sprints |
+| App Mobile (React Native) | I | **R/A** | C | Integração prevista p/ S3 |
+| API .NET (Comandas/Mesas) | I | C | **R/A** | Integração prevista p/ S3 |
+| DevOps / Deploy | I | C | **R** | Planejado p/ S4 (CI/CD) |
+
+
 ## 📱 Interface do Aplicativo Pedix
 
 <p align="center">
@@ -1139,7 +1167,7 @@ Mostra as classes principais da aplicação Java, seus atributos e relacionament
 A coleção completa de testes da API está disponível para importação no **Postman**.  
 O arquivo inclui todos os endpoints (`GET`, `POST`, `PUT`, `DELETE`) com exemplos de requisição e resposta, além de cenários de erro e exceções tratadas globalmente (`404`, `400`).
 
-📄 **[Acessar coleção Postman (JSON)](docs/testes/pedix_api_postman.json)**  
+📄 **[Acessar coleção Postman (JSON)](docs/testes/pedix_api_postman._v1.json)**  
 
 
 ---
