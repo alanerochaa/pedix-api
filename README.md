@@ -178,23 +178,24 @@ pedix-api/
 │   ├── imagens/
 │   │   ├── tela-inicial-app.png         → Tela inicial do aplicativo mobile Pedix
 │   │   └── colecao-postman/             → Evidências visuais dos testes dos endpoints (prints do Postman)
-│   │       ├── 1-GET-item-cardapio.png
-│   │       ├── 2-GET-item-cardapio-ID.png
-│   │       ├── 3-POST-item-cardápio.png
-│   │       ├── 4-PUT-item-cardápio-ID.png
-│   │       ├── 5-DELETE-item-cardápio-ID.png
-│   │       ├── 6-GET-listar-pedidos.png
-│   │       ├── 7-GET-listar-pedidos-ID.png
-│   │       ├── 8-GET-listar-pedido-comandaID.png
-│   │       ├── 9-POST-cria-pedido-vinculado-comanda.png
-│   │       ├── 10-PUT-atualiza-status-pedido.png
-│   │       ├── 11-DELETE-pedido-ID.png
-│   │       ├── 12-GET-teste-erro-404.png
-│   │       ├── 13-POST-teste-erro-400.png
-│   │       └── 14-GET-home-hateoas.png   → (Novo) Retorno HATEOAS do endpoint `/home`
-│   │
+│   │       └── 1-GET-home-hateoas.png   → (Novo) Retorno HATEOAS do endpoint `/home`
+│   │       ├── 2-GET-item-cardapio.png
+│   │       ├── 3-GET-item-cardapio-ID.png
+│   │       ├── 4-POST-item-cardápio.png
+│   │       ├── 5-PUT-item-cardápio-ID.png
+│   │       ├── 6-DELETE-item-cardápio-ID.png
+│   │       ├── 7-GET-listar-pedidos.png
+│   │       ├── 8-GET-listar-pedidos-ID.png
+│   │       ├── 9-GET-listar-pedido-comandaID.png
+│   │       ├── 10-POST-cria-pedido-vinculado-comanda.png
+│   │       ├── 11-PUT-atualiza-status-pedido.png
+│   │       ├── 12-DELETE-pedido-ID.png
+│   │       ├── 13-GET-teste-erro-404.png
+│   │       ├── 14-POST-teste-erro-400.png
+│   │       
 │   └── testes/
-│       └── pedix_api_postman.json       → Coleção exportada do Postman com todos os endpoints testados
+│       └── pedix_api_postman._v1.json      
+        └── pedix_api_postman._v2.json 
 │
 ├── src/
 │   ├── main/

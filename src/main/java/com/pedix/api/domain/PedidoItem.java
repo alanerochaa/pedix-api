@@ -5,16 +5,13 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import java.math.BigDecimal;
 
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "PEDIDO_ITEM")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class PedidoItem {
 
@@ -52,20 +49,27 @@ public class PedidoItem {
         }
     }
 
-
     public void recalcularSubtotal() {
         if (precoUnitario != null && quantidade != null) {
             this.subtotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
         }
     }
 
+    @PrePersist @PreUpdate
+    private void onPersistOrUpdate() {
+        if (this.precoUnitario == null && this.itemCardapio != null) {
+            this.precoUnitario = this.itemCardapio.getPreco();
+        }
+        recalcularSubtotal();
+    }
+
     @Override
     public String toString() {
-        return String.format("PedidoItem{id=%d, item='%s', qtd=%d, preco=%.2f, subtotal=%.2f}",
+        return String.format("PedidoItem{id=%d, item='%s', qtd=%d, preco=%s, subtotal=%s}",
                 id,
                 itemCardapio != null ? itemCardapio.getNome() : "N/A",
                 quantidade,
-                precoUnitario,
-                subtotal);
+                String.valueOf(precoUnitario),
+                String.valueOf(subtotal));
     }
 }
