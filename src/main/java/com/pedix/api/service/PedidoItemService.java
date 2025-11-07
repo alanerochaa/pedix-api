@@ -26,9 +26,6 @@ public class PedidoItemService {
     private final PedidoRepository pedidoRepository;
     private final ItemCardapioService itemCardapioService;
 
-    // =========================
-    // READS
-    // =========================
     @Transactional(readOnly = true)
     public List<PedidoItemResponseDTO> listarTodosDTO() {
         return pedidoItemRepository.findAll().stream()
@@ -48,12 +45,9 @@ public class PedidoItemService {
                 .orElseThrow(() -> new EntityNotFoundException("Item de pedido não encontrado: " + id));
     }
 
-    // =========================
-    // WRITES
-    // =========================
     @Transactional
     public PedidoItemResponseDTO criar(PedidoItemRequestDTO dto) {
-        validar(dto);
+        validarCriacao(dto);
 
         Pedido pedido = pedidoRepository.findById(dto.getPedidoId())
                 .orElseThrow(() -> new EntityNotFoundException("Pedido não encontrado: " + dto.getPedidoId()));
@@ -67,46 +61,34 @@ public class PedidoItemService {
                 .pedido(pedido)
                 .itemCardapio(itemCardapio)
                 .quantidade(dto.getQuantidade())
-                .precoUnitario(dto.getPrecoUnitario())
-                .subtotal(calcSubtotal(dto.getPrecoUnitario(), dto.getQuantidade()))
                 .build();
 
-        // Garante consistência se preço não vier no DTO
-        if (entity.getPrecoUnitario() == null) {
-            entity.definirPrecoPadrao();
+        if (dto.getPrecoUnitario() != null) {
+            entity.setPrecoUnitario(dto.getPrecoUnitario());
         } else {
-            entity.recalcularSubtotal();
+            entity.definirPrecoPadrao();
         }
 
+        entity.recalcularSubtotal();
         PedidoItem salvo = pedidoItemRepository.save(entity);
 
-        // Recalcula total do pedido
         pedido.recalcularTotal();
-        pedidoRepository.save(pedido);
 
         return toResponse(salvo);
     }
 
     @Transactional
     public PedidoItemResponseDTO atualizar(Long id, PedidoItemRequestDTO dto) {
-        // Update “scoped”: somente quantidade e preço; pedidoId/itemCardapioId permanecem
-        validar(dto);
+        validarAtualizacao(dto);
 
         PedidoItem entity = buscarPorId(id);
         entity.setQuantidade(dto.getQuantidade());
         entity.setPrecoUnitario(dto.getPrecoUnitario());
-        entity.setSubtotal(calcSubtotal(dto.getPrecoUnitario(), dto.getQuantidade()));
-
-        // Lifecycle-safe
         entity.recalcularSubtotal();
 
-        PedidoItem atualizado = pedidoItemRepository.save(entity);
+        entity.getPedido().recalcularTotal();
 
-        Pedido pedido = atualizado.getPedido();
-        pedido.recalcularTotal();
-        pedidoRepository.save(pedido);
-
-        return toResponse(atualizado);
+        return toResponse(entity);
     }
 
     @Transactional
@@ -119,14 +101,10 @@ public class PedidoItemService {
         Pedido pedido = pedidoRepository.findById(pedidoId)
                 .orElseThrow(() -> new EntityNotFoundException("Pedido não encontrado: " + pedidoId));
         pedido.recalcularTotal();
-        pedidoRepository.save(pedido);
 
         return pedidoId;
     }
 
-    // =========================
-    // MAPPER
-    // =========================
     public PedidoItemResponseDTO toResponse(PedidoItem item) {
         return PedidoItemResponseDTO.builder()
                 .id(item.getId())
@@ -139,10 +117,22 @@ public class PedidoItemService {
                 .build();
     }
 
-    // =========================
-    // HELPERS
-    // =========================
-    private void validar(PedidoItemRequestDTO dto) {
+    private void validarCriacao(PedidoItemRequestDTO dto) {
+        if (dto.getPedidoId() == null || dto.getPedidoId() <= 0) {
+            throw new IllegalArgumentException("PedidoId inválido: " + dto.getPedidoId());
+        }
+        if (dto.getItemCardapioId() == null || dto.getItemCardapioId() <= 0) {
+            throw new IllegalArgumentException("ItemCardapioId inválido: " + dto.getItemCardapioId());
+        }
+        if (dto.getQuantidade() == null || dto.getQuantidade() <= 0) {
+            throw new IllegalArgumentException("Quantidade inválida: " + dto.getQuantidade());
+        }
+        if (dto.getPrecoUnitario() != null && dto.getPrecoUnitario().signum() < 0) {
+            throw new IllegalArgumentException("Preço unitário inválido: " + dto.getPrecoUnitario());
+        }
+    }
+
+    private void validarAtualizacao(PedidoItemRequestDTO dto) {
         if (dto.getQuantidade() == null || dto.getQuantidade() <= 0) {
             throw new IllegalArgumentException("Quantidade inválida: " + dto.getQuantidade());
         }

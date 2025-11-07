@@ -38,23 +38,6 @@ Principais avanços:
 | **Sprint 4** | Prevista p/ 2º Sem. 2026 | Fase de estabilidade, segurança e deploy            | - **DevOps (CI/CD com GitHub Actions e Azure)**<br>- Logs e monitoramento de métricas<br>- Autenticação (JWT) e controle de acesso por perfil<br>- **Deploy de ambiente produtivo** com pipeline automatizado                                                                                                                 | 🕓 Backlog estratégico |
 
 
-## 👥 Plano de Responsabilidades (RACI)
-
-Legenda: **R** = Responsável (executa) • **A** = Aprovador (decide) • **C** = Consultado • **I** = Informado
-
-| Entregável / Atividade | Alane Rocha | Anna Bonfim | Maria Eduarda | Observações |
-|------------------------|-------------|-------------|---------------|-------------|
-| API Java – CRUD + Oracle (S1) | **R/A** | I | C | Concluído na Sprint 1 |
-| HATEOAS Nivel 3 (S2) | **R/A** | I | C | Implementado em `Home`, `ItemCardapio`, `Pedido` |
-| DTO + Bean Validation (S2) | **R** | I | C | Padronização de payload e erros |
-| Handler Global de Exceções (S2) | **R** | I | C | 400/404 com mensagens amigáveis |
-| Diagramas (DER + Classes) (S2) | **R** | C | I | Em `docs/diagramas` |
-| Coleções Postman v1/v2 (S1/S2) | **R** | I | C | Evidência de evolução entre sprints |
-| App Mobile (React Native) | I | **R/A** | C | Integração prevista p/ S3 |
-| API .NET (Comandas/Mesas) | I | C | **R/A** | Integração prevista p/ S3 |
-| DevOps / Deploy | I | C | **R** | Planejado p/ S4 (CI/CD) |
-
-
 ## 📱 Interface do Aplicativo Pedix
 
 <p align="center">
@@ -64,16 +47,16 @@ Legenda: **R** = Responsável (executa) • **A** = Aprovador (decide) • **C**
 </p>
 
 
-| Data       | Atividade                                                       | Responsável          | Status          |
-| ---------- | --------------------------------------------------------------- | -------------------- | --------------- |
-| 20/09/2025 | Configuração inicial do projeto (Spring Boot + Oracle)          | **Alane Rocha**      | ✅ Concluído     |
-| 21/09/2025 | Implementação do CRUD de `ItemCardapio`                         | **Alane Rocha**      | ✅ Concluído     |
-| 23/09/2025 | Criação do `PedidoController` e integração com Oracle           | **Alane Rocha**      | ✅ Concluído     |
-| 25/09/2025 | Testes iniciais e documentação Swagger                          | **Alane Rocha**      | ✅ Concluído     |
-| 28/10/2025 | Implementação do HATEOAS e refatoração dos controllers          | **Alane Rocha**      | ✅ Concluído     |
-| 28/10/2025 | Atualização do README, coleção Postman e geração das evidências | **Alane Rocha**      | ✅ Concluído     |
-| 31/10/2025 | Geração dos diagramas e gravação do vídeo de apresentação       | **Alane Rocha**      | ✅ Concluído     |
-| 05/11/2025 | Testes finais e validação completa do sistema                   | **Equipe CodeGirls** | 🔄 Em andamento |
+| Data       | Atividade                                                       | Responsável          | Status       |
+| ---------- | --------------------------------------------------------------- | -------------------- |--------------|
+| 20/09/2025 | Configuração inicial do projeto (Spring Boot + Oracle)          | **Alane Rocha**      | ✅ Concluído  |
+| 21/09/2025 | Implementação do CRUD de `ItemCardapio`                         | **Alane Rocha**      | ✅ Concluído  |
+| 23/09/2025 | Criação do `PedidoController` e integração com Oracle           | **Alane Rocha**      | ✅ Concluído  |
+| 25/09/2025 | Testes iniciais e documentação Swagger                          | **Alane Rocha**      | ✅ Concluído  |
+| 28/10/2025 | Implementação do HATEOAS e refatoração dos controllers          | **Alane Rocha**      | ✅ Concluído  |
+| 28/10/2025 | Atualização do README, coleção Postman e geração das evidências | **Alane Rocha**      | ✅ Concluído  |
+| 31/10/2025 | Geração dos diagramas e gravação do vídeo de apresentação       | **Alane Rocha**      | ✅ Concluído  |
+| 05/11/2025 | Testes finais e validação completa do sistema                   | **Equipe CodeGirls** | ✅ Concluído  |
 
 
 
@@ -171,6 +154,8 @@ pedix-api/
 ├── .mvn/                           → Arquivos de suporte do Maven Wrapper
 │
 ├── docs/                           → Documentação do projeto
+│   ├── cronograma
+│   │   ├── Cronograma-java-advanced.pdf
 │   ├── diagramas/
 │   │   ├── diagrama-classes-pedix.png   → Diagrama de Classes (UML da aplicação Java)
 │   │   └── diagrama-mer-pedix.png       → Modelo Entidade-Relacionamento (MER) do banco Oracle
@@ -297,7 +282,7 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
 ```
 > O endpoint /home serve como ponto de entrada da API, retornando mensagem de status e links navegáveis para os principais recursos.
 
-## 📦 Cardápio
+## 📦 Cardápio — ItemCardápio
 | Método   | Endpoint                             | Descrição                                                    | Exemplo de uso                                                                                                     |
 | :------- | :----------------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
 | `GET`    | `/api/item-cardapio`                 | Lista todos os itens disponíveis no cardápio.                | [http://localhost:8080/api/item-cardapio](http://localhost:8080/api/item-cardapio)                                 |
@@ -317,6 +302,18 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
 | `POST`   | `/api/pedido/comanda/{comandaId}`       | Cria um novo pedido vinculado a uma comanda.     | —                                                                                              |
 | `PUT`    | `/api/pedido/{id}/status?status=PRONTO` | Atualiza o status de um pedido existente.        | —                                                                                              |
 | `DELETE` | `/api/pedido/{id}`                      | Remove um pedido existente pelo ID.              | [http://localhost:8080/api/pedido/3](http://localhost:8080/api/pedido/3)                       |
+
+
+🧾 Item de Pedido — PedidoItem
+
+| Método   | Endpoint                | Descrição                                | Exemplo                                                                            |
+| -------- | ----------------------- | ---------------------------------------- | ---------------------------------------------------------------------------------- |
+| `GET`    | `/api/pedido-item`      | Lista todos os itens de pedido.          | [http://localhost:8080/api/pedido-item](http://localhost:8080/api/pedido-item)     |
+| `GET`    | `/api/pedido-item/{id}` | Busca um item de pedido pelo ID.         | [http://localhost:8080/api/pedido-item/1](http://localhost:8080/api/pedido-item/1) |
+| `POST`   | `/api/pedido-item`      | Cria um novo item vinculado a um pedido. | —                                                                                  |
+| `PUT`    | `/api/pedido-item/{id}` | Atualiza um item de pedido existente.    | —                                                                                  |
+| `DELETE` | `/api/pedido-item/{id}` | Remove um item de pedido.                | —                                                                                  |
+
 
 
 
@@ -522,29 +519,21 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
 ```
 {
   "id": 1,
-  "comandaId": 1001,
-  "status": "EM_PREPARO",
-  "dataCriacao": "2025-10-19T10:45:24.94496",
-  "observacao": "Sem queijo ralado",
-  "total": 35,
-  "itens": [
-    {
-      "itemCardapioId": 1,
-      "nome": "Pizza Calabresa",
-      "quantidade": 1,
-      "precoUnitario": 35,
-      "subtotal": 35
-    }
-  ],
+  "nome": "Pizza Calabresa",
+  "descricao": "Deliciosa pizza com calabresa",
+  "categoria": "PRATO",
+  "preco": 35,
+  "disponivel": true,
+  "imagemUrl": null,
   "_links": {
     "self": {
-      "href": "http://localhost:8080/api/pedido/1"
+      "href": "http://localhost:8080/api/item-cardapio/1"
     },
-    "todos_pedidos": {
-      "href": "http://localhost:8080/api/pedido"
+    "todos_itens": {
+      "href": "http://localhost:8080/api/item-cardapio{?categoria}",
+      "templated": true
     }
   }
-}
 ```
 
 ➕ POST /api/item-cardapio — Cria um novo item do cardápio
@@ -603,31 +592,32 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
 
 ```
 {
+  "mensagem": "Item do cardápio atualizado com sucesso!",
+  "_links": {
+    "todos_itens": "http://localhost:8080/api/item-cardapio",
+    "self": "http://localhost:8080/api/item-cardapio/1"
+  },
   "item": {
-    "id": 11,
+    "id": 1,
     "nome": "Lasanha quatro queijos",
     "descricao": "Lasanha tradicional com molho bolonhesa e queijo gratinado",
     "categoria": "PRATO",
     "preco": 42.5,
-    "disponivel": true
-  },
-  "mensagem": "Item do cardápio atualizado com sucesso!",
-  "_links": {
-    "todos_itens": "http://localhost:8080/api/item-cardapio",
-    "self": "http://localhost:8080/api/item-cardapio/11"
+    "disponivel": true,
+    "imagemUrl": null
   }
 }
 ```
 
-🗑️ DELETE /api/item-cardapio/{id} — Deleta um item do cardápio (ex: id = 2)
+🗑️ DELETE /api/item-cardapio/{id} — Deleta um item do cardápio (ex: id = 10)
 
-* 🔗 URL de teste: http://localhost:8080/api/item-cardapio/2
+* 🔗 URL de teste: http://localhost:8080/api/item-cardapio/10
 
 ✅ Resposta esperada:
 ```
 {
-  "timestamp": "2025-10-28T15:56:07.4669788",
   "mensagem": " Item do cardápio removido com sucesso!",
+  "timestamp": "2025-11-06T20:39:09.2439547",
   "status": 200
 }
 ```
@@ -754,6 +744,9 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
 ➕ POST /api/pedido/comanda/{comandaId} — Cria um novo pedido vinculado a uma comanda
 
 * 🔗 URL de teste: http://localhost:8080/api/pedido/comanda/1002
+
+📤 Exemplo de Requisição:
+
 ```
 {
 "itens": [
@@ -768,13 +761,13 @@ Antes de testar os endpoints, é possível verificar o status da API e acessar s
 ```
 {
   "_links": {
-    "todos_pedidos": "http://localhost:8080/api/pedido",
-    "self": "http://localhost:8080/api/pedido/4"
+    "self": "http://localhost:8080/api/pedido/4",
+    "todos_pedidos": "http://localhost:8080/api/pedido"
   },
   "mensagem": "Pedido criado com sucesso!",
   "pedido": {
     "id": 4,
-    "comandaId": 1002,
+    "comandaId": 1001,
     "status": "EM_PREPARO",
     "dataCriacao": null,
     "observacao": "Um refrigerante sem gelo",
@@ -842,9 +835,233 @@ Não é necessário enviar corpo — apenas o ID do pedido na URL.
 
 ```
 {
-  "timestamp": "2025-10-28T15:56:07.4669788",
-  "mensagem": " Item do cardápio removido com sucesso!",
-  "status": 200
+  "status": 200,
+  "mensagem": " Pedido removido com sucesso!",
+  "timestamp": "2025-11-06T20:46:17.2942339"
+}
+```
+
+
+
+### 🧾 Endpoints de Item de Pedido
+
+📦 GET /api/pedido-item - Listar todos os itens do pedido
+* 🔗 URL de teste: http://localhost:8080/api/pedido-item
+
+```
+[
+  {
+    "id": 2,
+    "pedidoId": 2,
+    "itemCardapioId": 2,
+    "nomeItem": "Refrigerante",
+    "quantidade": 2,
+    "precoUnitario": 8.5,
+    "subtotal": 17,
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://localhost:8080/api/pedido-item/2"
+      },
+      {
+        "rel": "todos_itens",
+        "href": "http://localhost:8080/api/pedido-item"
+      },
+      {
+        "rel": "pedido",
+        "href": "http://localhost:8080/api/pedido/2"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "pedidoId": 3,
+    "itemCardapioId": 5,
+    "nomeItem": "Pizza Frango",
+    "quantidade": 1,
+    "precoUnitario": 40,
+    "subtotal": 40,
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://localhost:8080/api/pedido-item/3"
+      },
+      {
+        "rel": "todos_itens",
+        "href": "http://localhost:8080/api/pedido-item"
+      },
+      {
+        "rel": "pedido",
+        "href": "http://localhost:8080/api/pedido/3"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "pedidoId": 4,
+    "itemCardapioId": 2,
+    "nomeItem": "Refrigerante",
+    "quantidade": 2,
+    "precoUnitario": 8.5,
+    "subtotal": 17,
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://localhost:8080/api/pedido-item/4"
+      },
+      {
+        "rel": "todos_itens",
+        "href": "http://localhost:8080/api/pedido-item"
+      },
+      {
+        "rel": "pedido",
+        "href": "http://localhost:8080/api/pedido/4"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "pedidoId": 4,
+    "itemCardapioId": 3,
+    "nomeItem": "Sorvete Chocolate",
+    "quantidade": 1,
+    "precoUnitario": 12,
+    "subtotal": 12,
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://localhost:8080/api/pedido-item/5"
+      },
+      {
+        "rel": "todos_itens",
+        "href": "http://localhost:8080/api/pedido-item"
+      },
+      {
+        "rel": "pedido",
+        "href": "http://localhost:8080/api/pedido/4"
+      }
+    ]
+  }
+]
+```
+
+
+📄 GET /api/pedido-item{id} — Busca item de pedido por ID (ex = 2)
+
+* 🔗 URL de teste: http://localhost:8080/api/pedido-item/2
+
+```
+{
+"id": 2,
+"pedidoId": 2,
+"itemCardapioId": 2,
+"nomeItem": "Refrigerante",
+"quantidade": 2,
+"precoUnitario": 8.5,
+"subtotal": 17,
+"_links": {
+"self": {
+"href": "http://localhost:8080/api/pedido-item/2"
+},
+"todos_itens": {
+"href": "http://localhost:8080/api/pedido-item"
+},
+"pedido": {
+"href": "http://localhost:8080/api/pedido/2"
+}
+}
+}
+```
+
+➕ POST /api/pedido-item — Cria um novo pedido 
+* 🔗 URL de teste: http://localhost:8080/api/pedido-item
+
+📤 Exemplo de Requisição:
+```
+{
+"pedidoId": 4,
+"itemCardapioId": 2,
+"quantidade": 2,
+"precoUnitario": 8.5
+}
+```
+
+✅ Resposta esperada:
+```
+{
+"item": {
+"id": 6,
+"pedidoId": 4,
+"itemCardapioId": 2,
+"nomeItem": "Refrigerante",
+"quantidade": 2,
+"precoUnitario": 8.5,
+"subtotal": 17
+},
+"mensagem": "Item de pedido criado com sucesso!",
+"_links": {
+"self": "http://localhost:8080/api/pedido-item/6",
+"pedido": "http://localhost:8080/api/pedido/4",
+"todos_itens": "http://localhost:8080/api/pedido-item"
+}
+}
+```
+
+🔄 PUT /api/pedido-item{ID} — Atualiza o status de um pedido (ex: id = 2)
+
+* 🔗 URL de teste:
+
+📤 Exemplo de Requisição:
+
+
+```
+{
+    
+    "pedidoId": 2,
+    "itemCardapioId": 2,
+    "nomeItem": "Refrigerante com gelo ",
+    "quantidade": 2,
+    "precoUnitario": 8.5
+}
+   
+```
+
+✅ Resposta esperada:
+
+```
+{
+  "item": {
+    "id": 2,
+    "pedidoId": 2,
+    "itemCardapioId": 2,
+    "nomeItem": "Refrigerante",
+    "quantidade": 2,
+    "precoUnitario": 8.5,
+    "subtotal": 17
+  },
+  "mensagem": "Item de pedido atualizado com sucesso!",
+  "_links": {
+    "self": "http://localhost:8080/api/pedido-item/2",
+    "pedido": "http://localhost:8080/api/pedido/2",
+    "todos_itens": "http://localhost:8080/api/pedido-item"
+  }
+}
+```
+
+🗑️ DELETE /api/pedido-item/{id} — Deletar pedido por ID
+* 🔗 URL de teste: http://localhost:8080/api/pedido-item/
+
+✅ Resposta esperada:
+
+```
+{
+  "status": 200,
+  "mensagem": "Item de pedido removido com sucesso!",
+  "_links": {
+    "pedido": "http://localhost:8080/api/pedido/4",
+    "todos_itens": "http://localhost:8080/api/pedido-item"
+  },
+  "timestamp": "2025-11-06T21:25:07.1866765"
 }
 ```
 
@@ -1168,7 +1385,13 @@ Mostra as classes principais da aplicação Java, seus atributos e relacionament
 A coleção completa de testes da API está disponível para importação no **Postman**.  
 O arquivo inclui todos os endpoints (`GET`, `POST`, `PUT`, `DELETE`) com exemplos de requisição e resposta, além de cenários de erro e exceções tratadas globalmente (`404`, `400`).
 
-📄 **[Acessar coleção Postman (JSON)](docs/testes/pedix_api_postman._v1.json)**  
+## Coleções Postman por Sprint
+
+📌 **Sprint 1 – Testes dos Endpoints Básicos (CRUD + REST Nível 1)**  
+📄 **[Baixar coleção Sprint 1](docs/testes/pedix_api_postman._v1.json)**
+
+📌 **Sprint 2 – Testes da Evolução (HATEOAS + maturidade nível 3 + refatorações)**  
+📄 **[Baixar coleção Sprint 2](docs/testes/pedix_api_postman._v2.json)**
 
 
 ---
@@ -1197,9 +1420,6 @@ Abaixo estão capturas de tela de todos os testes executados com sucesso:
 | ⚠️ **POST** | **Teste de erro `IllegalArgumentException (400)`** | ![POST 400](docs/imagens/colecao-postman/14-POST-teste-erro-400.png)                   |
 
 </div>
-
-
-
 
 ✅ **Todos os endpoints foram testados com sucesso**, com respostas esperadas e tratamento global de exceções ativo.
 
