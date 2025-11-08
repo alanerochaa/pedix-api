@@ -1423,17 +1423,14 @@ Abaixo estão capturas de tela de todos os testes executados com sucesso:
 
 ✅ **Todos os endpoints foram testados com sucesso**, com respostas esperadas e tratamento global de exceções ativo.
 
-
-
 ---
 
 ## 🎬 Vídeo de Apresentação
 
 O vídeo de apresentação demonstra o funcionamento completo da aplicação Pedix API, incluindo a execução dos endpoints, testes no Postman e integração com o banco de dados Oracle.
 
-📺 **Assista aqui:** [Apresentação Pedix API - CodeGirls](https://www.youtube.com/watch?v=Kfnr0p-5UDw)
-🧾 O vídeo mostra o Swagger UI, execução dos endpoints no Postman e o retorno HATEOAS do /home.
-
+📺 **Assista aqui:** [Apresentação Pedix API - CodeGirls](https://www.youtube.com/watch?v=IoaK88IQYF4)
+🧾 O vídeo mostra a execução dos endpoints no Postman, o retorno HATEOAS do /home e encerra com o caso de uso integrado entre API, aplicativo e banco Oracle.
 
 --- 
 
