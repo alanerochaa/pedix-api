@@ -1,4 +1,4 @@
-package com.pedix.api.controller;
+package com.pedix.api.controller.api;
 
 import com.pedix.api.dto.PedidoItemRequestDTO;
 import com.pedix.api.dto.PedidoItemResponseDTO;

@@ -1,8 +1,11 @@
 package com.pedix.api.controller;
 
+import com.pedix.api.controller.api.ItemCardapioController;
+import com.pedix.api.controller.api.PedidoController;
 import com.pedix.api.dto.MensagemResponse;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,8 +22,8 @@ public class HomeController {
 
         EntityModel<MensagemResponse> model = EntityModel.of(mensagem,
                 linkTo(methodOn(HomeController.class).home()).withSelfRel(),
-                linkTo(methodOn(PedidoController.class).listarTodos()).withRel("pedidos"),
-                linkTo(methodOn(ItemCardapioController.class).listar(null)).withRel("cardapio"),
+                WebMvcLinkBuilder.linkTo(methodOn(PedidoController.class).listarTodos()).withRel("pedidos"),
+                WebMvcLinkBuilder.linkTo(methodOn(ItemCardapioController.class).listar(null)).withRel("cardapio"),
                 Link.of("/swagger-ui/index.html").withRel("swagger-ui")
         );
 

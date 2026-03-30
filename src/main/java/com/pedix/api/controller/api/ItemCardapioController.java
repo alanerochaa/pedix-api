@@ -1,4 +1,4 @@
-package com.pedix.api.controller;
+package com.pedix.api.controller.api;
 
 import com.pedix.api.domain.ItemCardapio;
 import com.pedix.api.domain.enums.CategoriaItem;
