@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio | Pedix</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body class="pedix-body">
+
+<header class="page-header">
+    <div>
+        <h1>Cardápio</h1>
+        <p>Gestão dos itens disponíveis</p>
+    </div>
+
+    <div class="header-actions">
+        <a th:href="@{/home}" class="icon-btn secondary-btn" title="Voltar para home">
+            <i class="fa-solid fa-house"></i>
+        </a>
+    </div>
+</header>
+
+<section class="search-panel">
+    <form th:action="@{/cardapio}" method="get" class="search-actions-line">
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text"
+                   name="busca"
+                   placeholder="Buscar no cardápio..."
+                   th:value="${busca}">
+        </div>
+
+        <button type="submit" class="btn-primary inline-btn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Buscar
+        </button>
+
+        <a th:if="${busca != null and !#strings.isEmpty(busca)}"
+           th:href="@{/cardapio}"
+           class="btn-outline inline-btn">
+            Limpar
+        </a>
+
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/cardapio/novo}" class="btn-primary inline-btn">
+            <i class="fa-solid fa-plus"></i>
+            Novo item
+        </a>
+    </form>
+</section>
+
+<main class="list-content">
+    <div th:if="${#lists.isEmpty(itens)}" class="card-default empty-state-card">
+        <i class="fa-solid fa-utensils empty-icon"></i>
+        <h2>Nenhum item encontrado</h2>
+
+        <p th:if="${busca != null and !#strings.isEmpty(busca)}">
+            Nenhum resultado localizado para a busca informada.
+        </p>
+
+        <p th:if="${busca == null or #strings.isEmpty(busca)}">
+            Cadastre itens para começar a montar o cardápio.
+        </p>
+    </div>
+
+    <div class="menu-grid" th:if="${not #lists.isEmpty(itens)}">
+        <article class="menu-item-card" th:each="item : ${itens}">
+            <div class="menu-item-icon">🍽️</div>
+
+            <div class="menu-item-content">
+                <h3 th:text="${item.nome}">Nome do item</h3>
+
+                <p class="menu-item-desc"
+                   th:text="${item.descricao != null and !#strings.isEmpty(item.descricao) ? item.descricao : 'Sem descrição cadastrada'}">
+                    Descrição
+                </p>
+
+                <div class="menu-item-footer">
+                    <span class="price-tag"
+                          th:text="${'R$ ' + #numbers.formatDecimal(item.preco, 1, 'POINT', 2, 'COMMA')}">
+                        R$ 0,00
+                    </span>
+
+                    <span class="status-chip"
+                          th:classappend="${item.disponivel} ? ' status-active' : ' status-inactive'"
+                          th:text="${item.disponivel} ? 'Disponível' : 'Indisponível'">
+                        Disponível
+                    </span>
+                </div>
+
+                <div class="form-actions-line" sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/cardapio/editar/{id}(id=${item.id})}" class="btn-outline">
+                        <i class="fa-solid fa-pen"></i>
+                        Editar
+                    </a>
+
+                    <form th:action="@{/cardapio/excluir/{id}(id=${item.id})}"
+                          method="post"
+                          style="display: inline;">
+                        <button type="submit"
+                                class="btn-outline"
+                                onclick="return confirm('Deseja excluir este item do cardápio?');">
+                            <i class="fa-solid fa-trash"></i>
+                            Excluir
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </article>
+    </div>
+</main>
+
+</body>
+</html>

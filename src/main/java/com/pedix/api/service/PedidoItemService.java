@@ -53,6 +53,7 @@ public class PedidoItemService {
                 .orElseThrow(() -> new EntityNotFoundException("Pedido não encontrado: " + dto.getPedidoId()));
 
         ItemCardapio itemCardapio = itemCardapioService.buscarPorId(dto.getItemCardapioId());
+
         if (!Boolean.TRUE.equals(itemCardapio.getDisponivel())) {
             throw new IllegalArgumentException("Item indisponível: " + itemCardapio.getNome());
         }
@@ -66,13 +67,14 @@ public class PedidoItemService {
         if (dto.getPrecoUnitario() != null) {
             entity.setPrecoUnitario(dto.getPrecoUnitario());
         } else {
-            entity.definirPrecoPadrao();
+            entity.setPrecoUnitario(itemCardapio.getPreco());
         }
 
-        entity.recalcularSubtotal();
-        PedidoItem salvo = pedidoItemRepository.save(entity);
+        entity.setSubtotal(calcSubtotal(entity.getPrecoUnitario(), entity.getQuantidade()));
+        pedido.adicionarItem(entity);
 
-        pedido.recalcularTotal();
+        PedidoItem salvo = pedidoItemRepository.save(entity);
+        pedidoRepository.save(pedido);
 
         return toResponse(salvo);
     }
@@ -82,25 +84,48 @@ public class PedidoItemService {
         validarAtualizacao(dto);
 
         PedidoItem entity = buscarPorId(id);
+
+        if (dto.getItemCardapioId() != null
+                && !dto.getItemCardapioId().equals(entity.getItemCardapio().getId())) {
+
+            ItemCardapio novoItem = itemCardapioService.buscarPorId(dto.getItemCardapioId());
+
+            if (!Boolean.TRUE.equals(novoItem.getDisponivel())) {
+                throw new IllegalArgumentException("Item indisponível: " + novoItem.getNome());
+            }
+
+            entity.setItemCardapio(novoItem);
+        }
+
         entity.setQuantidade(dto.getQuantidade());
-        entity.setPrecoUnitario(dto.getPrecoUnitario());
-        entity.recalcularSubtotal();
 
-        entity.getPedido().recalcularTotal();
+        if (dto.getPrecoUnitario() != null) {
+            entity.setPrecoUnitario(dto.getPrecoUnitario());
+        } else {
+            entity.setPrecoUnitario(entity.getItemCardapio().getPreco());
+        }
 
-        return toResponse(entity);
+        entity.setSubtotal(calcSubtotal(entity.getPrecoUnitario(), entity.getQuantidade()));
+
+        PedidoItem atualizado = pedidoItemRepository.save(entity);
+
+        Pedido pedido = atualizado.getPedido();
+        pedido.recalcularTotal();
+        pedidoRepository.save(pedido);
+
+        return toResponse(atualizado);
     }
 
     @Transactional
     public Long deletar(Long id) {
         PedidoItem entity = buscarPorId(id);
-        Long pedidoId = entity.getPedido().getId();
+        Pedido pedido = entity.getPedido();
+        Long pedidoId = pedido.getId();
 
+        pedido.removerItem(entity);
         pedidoItemRepository.delete(entity);
-
-        Pedido pedido = pedidoRepository.findById(pedidoId)
-                .orElseThrow(() -> new EntityNotFoundException("Pedido não encontrado: " + pedidoId));
         pedido.recalcularTotal();
+        pedidoRepository.save(pedido);
 
         return pedidoId;
     }
@@ -136,7 +161,7 @@ public class PedidoItemService {
         if (dto.getQuantidade() == null || dto.getQuantidade() <= 0) {
             throw new IllegalArgumentException("Quantidade inválida: " + dto.getQuantidade());
         }
-        if (dto.getPrecoUnitario() == null || dto.getPrecoUnitario().signum() < 0) {
+        if (dto.getPrecoUnitario() != null && dto.getPrecoUnitario().signum() < 0) {
             throw new IllegalArgumentException("Preço unitário inválido: " + dto.getPrecoUnitario());
         }
     }

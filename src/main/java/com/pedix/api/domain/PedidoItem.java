@@ -10,8 +10,11 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "PEDIDO_ITEM")
-@Getter @Setter
-@NoArgsConstructor @AllArgsConstructor @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class PedidoItem {
 
@@ -26,7 +29,7 @@ public class PedidoItem {
     @JsonBackReference
     private Pedido pedido;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ITEM_CARDAPIO_ID", nullable = false)
     @NotNull(message = "O item do cardápio é obrigatório.")
     private ItemCardapio itemCardapio;
@@ -45,8 +48,8 @@ public class PedidoItem {
     public void definirPrecoPadrao() {
         if (itemCardapio != null && itemCardapio.getPreco() != null) {
             this.precoUnitario = itemCardapio.getPreco();
-            this.subtotal = precoUnitario.multiply(BigDecimal.valueOf(quantidade));
         }
+        recalcularSubtotal();
     }
 
     public void recalcularSubtotal() {
@@ -55,7 +58,8 @@ public class PedidoItem {
         }
     }
 
-    @PrePersist @PreUpdate
+    @PrePersist
+    @PreUpdate
     private void onPersistOrUpdate() {
         if (this.precoUnitario == null && this.itemCardapio != null) {
             this.precoUnitario = this.itemCardapio.getPreco();
@@ -65,11 +69,13 @@ public class PedidoItem {
 
     @Override
     public String toString() {
-        return String.format("PedidoItem{id=%d, item='%s', qtd=%d, preco=%s, subtotal=%s}",
+        return String.format(
+                "PedidoItem{id=%d, item='%s', qtd=%d, preco=%s, subtotal=%s}",
                 id,
                 itemCardapio != null ? itemCardapio.getNome() : "N/A",
                 quantidade,
                 String.valueOf(precoUnitario),
-                String.valueOf(subtotal));
+                String.valueOf(subtotal)
+        );
     }
 }

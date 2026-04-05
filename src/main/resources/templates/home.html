@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Pedix</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body class="pedix-body">
+
+<header class="dashboard-header">
+    <div class="dashboard-header-content">
+        <div class="dashboard-user-block">
+            <span class="welcome-text">Bem-vindo de volta</span>
+            <h1 sec:authentication="name">Usuário</h1>
+            <p class="dashboard-subtitle">Painel operacional · Pedix</p>
+        </div>
+
+        <div class="dashboard-header-actions">
+            <a th:href="@{/logout}" class="icon-btn logout-btn" title="Sair">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </a>
+        </div>
+    </div>
+</header>
+
+<main class="dashboard-container">
+
+    <section class="dashboard-section">
+        <span class="section-label">Acesso principal</span>
+
+        <div class="shortcut-grid">
+            <a th:href="@{/cardapio}" class="shortcut-card">
+                <div class="shortcut-icon">
+                    <i class="fa-solid fa-utensils"></i>
+                </div>
+                <div class="shortcut-content">
+                    <h2>Cardápio</h2>
+                    <p>Consulte os itens disponíveis para atendimento.</p>
+                </div>
+                <div class="shortcut-arrow">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+            </a>
+
+            <a th:href="@{/pedidos}" class="shortcut-card">
+                <div class="shortcut-icon">
+                    <i class="fa-regular fa-clipboard"></i>
+                </div>
+                <div class="shortcut-content">
+                    <h2>Pedidos</h2>
+                    <p>Crie, acompanhe e gerencie os pedidos em operação.</p>
+                </div>
+                <div class="shortcut-arrow">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="dashboard-section">
+        <span class="section-label">Visão geral</span>
+
+        <div class="hero-panel">
+            <div class="hero-brand">
+                <img class="hero-logo" th:src="@{/images/pedix-mascot.png}" alt="Pedix">
+            </div>
+
+
+
+
+
+            <div class="hero-text">
+                <h2>Sistema de atendimento de restaurante</h2>
+                <p>
+                    Plataforma web integrada ao Spring Boot para suporte ao fluxo operacional
+                    de cardápio, pedidos e autenticação por perfil.
+                </p>
+
+                <div class="hero-tags">
+                    <span class="hero-tag">Operação</span>
+                    <span class="hero-tag">Agilidade</span>
+                    <span class="hero-tag">Controle por perfil</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="dashboard-section" sec:authorize="hasRole('ADMIN')">
+        <span class="section-label">Área técnica</span>
+
+        <div class="admin-grid">
+            <a th:href="@{/swagger-ui/index.html}" class="admin-card" target="_blank">
+                <div class="admin-card-icon">
+                    <i class="fa-solid fa-book"></i>
+                </div>
+                <div class="admin-card-content">
+                    <h3>Swagger</h3>
+                    <p>Documentação interativa dos endpoints da aplicação.</p>
+                </div>
+            </a>
+
+            <a th:href="@{/v3/api-docs}" class="admin-card" target="_blank">
+                <div class="admin-card-icon">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+                <div class="admin-card-content">
+                    <h3>API Docs</h3>
+                    <p>Acesso ao OpenAPI JSON para validação técnica e integração.</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+</main>
+
+</body>
+</html>

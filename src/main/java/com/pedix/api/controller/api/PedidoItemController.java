@@ -12,12 +12,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @RestController
@@ -26,8 +24,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 @Tag(
         name = "Item de Pedido",
         description = """
-        Controla os **itens individuais de pedidos**.
-        Permite **criar**, **listar**, **buscar por ID**, **atualizar** e **remover** itens.
+        Controla os itens individuais de pedidos.
+        Permite criar, listar, buscar por ID, atualizar e remover itens.
         """
 )
 public class PedidoItemController {

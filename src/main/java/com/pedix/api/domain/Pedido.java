@@ -6,11 +6,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Entity
 @Table(name = "PEDIDO")
@@ -46,20 +46,27 @@ public class Pedido {
     @Column(name = "DATA_HORA", updatable = false)
     private LocalDateTime dataHora;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @Column(name = "GARCOM_RESPONSAVEL", length = 150)
+    private String garcomResponsavel;
+
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference
+    @Builder.Default
     private List<PedidoItem> itens = new ArrayList<>();
 
-
     public void adicionarItem(PedidoItem item) {
-        if (item == null) return;
+        if (item == null) {
+            return;
+        }
         item.setPedido(this);
         this.itens.add(item);
         recalcularTotal();
     }
 
     public void removerItem(PedidoItem item) {
-        if (item == null) return;
+        if (item == null) {
+            return;
+        }
         item.setPedido(null);
         this.itens.remove(item);
         recalcularTotal();
@@ -71,6 +78,9 @@ public class Pedido {
         }
     }
 
+    public void cancelar() {
+        this.status = StatusPedido.CANCELADO;
+    }
 
     @PrePersist
     @PreUpdate
@@ -82,7 +92,14 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return String.format("Pedido{id=%d, comandaId=%d, status=%s, total=%.2f, itens=%d}",
-                id, comandaId, status, total, itens.size());
+        return String.format(
+                "Pedido{id=%d, comandaId=%d, status=%s, total=%s, garcomResponsavel=%s, itens=%d}",
+                id,
+                comandaId,
+                status,
+                total,
+                garcomResponsavel,
+                itens != null ? itens.size() : 0
+        );
     }
 }

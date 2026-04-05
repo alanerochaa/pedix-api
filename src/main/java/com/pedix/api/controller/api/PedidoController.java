@@ -12,14 +12,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api/pedido")
@@ -27,13 +31,14 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 @Tag(
         name = "Pedido",
         description = """
-        Controla os **pedidos** vinculados às comandas do restaurante.  
-        Permite **criar pedidos**, **listar por comanda**, **listar todos**, **buscar por ID** e **atualizar status**.
+        Controla os pedidos vinculados às comandas do restaurante.
+        Permite criar pedidos, listar por comanda, listar todos, buscar por ID e atualizar status.
         """
 )
 public class PedidoController {
 
     private final PedidoService service;
+
     @Operation(summary = "Listar todos os pedidos")
     @GetMapping
     public ResponseEntity<List<EntityModel<PedidoResponseDTO>>> listarTodos() {
@@ -46,6 +51,7 @@ public class PedidoController {
 
         return ResponseEntity.ok(resposta);
     }
+
     @Operation(summary = "Buscar pedido por ID")
     @GetMapping("/{id}")
     public ResponseEntity<EntityModel<PedidoResponseDTO>> obter(@PathVariable Long id) {
@@ -62,10 +68,10 @@ public class PedidoController {
     @Operation(summary = "Listar pedidos por comanda")
     @GetMapping("/comanda/{comandaId}")
     public ResponseEntity<List<PedidoResponseDTO>> listarPorComanda(@PathVariable Long comandaId) {
-        List<Pedido> pedidos = service.listarPorComanda(comandaId);
-        List<PedidoResponseDTO> resposta = pedidos.stream()
+        List<PedidoResponseDTO> resposta = service.listarPorComanda(comandaId).stream()
                 .map(service::toResponse)
                 .collect(Collectors.toList());
+
         return ResponseEntity.ok(resposta);
     }
 
@@ -74,9 +80,12 @@ public class PedidoController {
     public ResponseEntity<Map<String, Object>> criar(
             @PathVariable Long comandaId,
             @Valid @RequestBody PedidoDTO dto,
+            Authentication authentication,
             UriComponentsBuilder uri) {
 
-        PedidoResponseDTO resp = service.criarPedido(comandaId, dto);
+        String loginGarcom = authentication != null ? authentication.getName() : "api";
+
+        PedidoResponseDTO resp = service.criarPedido(comandaId, dto, loginGarcom);
         URI location = uri.path("/api/pedido/{id}").buildAndExpand(resp.getId()).toUri();
 
         Map<String, Object> body = Map.of(
@@ -111,19 +120,17 @@ public class PedidoController {
         return ResponseEntity.ok(body);
     }
 
-    @Operation(summary = "Deletar pedido por ID")
+    @Operation(summary = "Excluir pedido por ID")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deletar(@PathVariable Long id) {
-        service.deletarPedido(id);
+    public ResponseEntity<Map<String, Object>> excluir(@PathVariable Long id) {
+        service.excluir(id);
 
         Map<String, Object> body = Map.of(
-                "mensagem", " Pedido removido com sucesso!",
+                "mensagem", "Pedido removido com sucesso!",
                 "status", HttpStatus.OK.value(),
-                "timestamp", java.time.LocalDateTime.now()
+                "timestamp", LocalDateTime.now()
         );
 
         return ResponseEntity.ok(body);
     }
-
-
 }

@@ -1,9 +1,13 @@
 package com.pedix.api.dto;
 
 import lombok.*;
+
 import java.math.BigDecimal;
 
-@Data @NoArgsConstructor @AllArgsConstructor @Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class PedidoItemResponseDTO {
     private Long id;
     private Long pedidoId;

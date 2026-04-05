@@ -2,6 +2,7 @@ package com.pedix.api.dto;
 
 import com.pedix.api.domain.enums.StatusPedido;
 import lombok.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,10 +17,9 @@ public class PedidoResponseDTO {
     private Long comandaId;
     private StatusPedido status;
     private LocalDateTime dataCriacao;
-
     private String observacao;
-
     private BigDecimal total;
+    private String garcomResponsavel;
     private List<ItemResumo> itens;
 
     @Getter

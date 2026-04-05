@@ -10,10 +10,10 @@ import lombok.*;
 @Builder
 public class PedidoItemDTO {
 
-    @NotNull(message = "O ID do item do cardápio é obrigatório.")
+    @NotNull(message = "O item do cardápio é obrigatório.")
     private Long itemCardapioId;
 
     @NotNull(message = "A quantidade é obrigatória.")
-    @Min(value = 1, message = "A quantidade mínima é 1.")
+    @Min(value = 1, message = "A quantidade deve ser no mínimo 1.")
     private Integer quantidade;
 }

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Pedix</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body class="pedix-body pedix-login-body">
+
+<div class="login-page-shell">
+
+    <section class="login-hero-panel">
+        <div class="theme-icon">
+            <i class="fa-regular fa-sun"></i>
+        </div>
+
+        <div class="login-brand-wrap">
+            <img class="hero-logo" th:src="@{/images/pedix-mascot.png}" alt="Pedix">
+            <h1 class="hero-title">PEDIX</h1>
+            <p class="hero-subtitle">Sistema de atendimento de restaurante</p>
+        </div>
+
+        <div class="hero-highlight-box">
+            <h2>Operação mais simples e organizada</h2>
+            <p>
+                Acesse a plataforma para consultar cardápio, acompanhar pedidos
+                e operar o atendimento com segurança por perfil.
+            </p>
+        </div>
+    </section>
+
+    <section class="login-card">
+        <div class="login-card-header">
+            <h2>Acessar sistema</h2>
+            <p>Informe suas credenciais para continuar.</p>
+        </div>
+
+        <div class="info-box">
+            <i class="fa-regular fa-circle-info"></i>
+            <span>Use seu usuário e senha cadastrados no sistema.</span>
+        </div>
+
+        <form th:action="@{/login}" method="post" class="pedix-form">
+            <div class="form-group">
+                <label for="username">Usuário</label>
+                <div class="input-row">
+                    <i class="fa-regular fa-user input-icon"></i>
+                    <input id="username"
+                           name="username"
+                           type="text"
+                           placeholder="Ex: admin"
+                           autocomplete="username"
+                           required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <div class="input-row">
+                    <i class="fa-solid fa-lock input-icon"></i>
+                    <input id="password"
+                           name="password"
+                           type="password"
+                           placeholder="Digite sua senha"
+                           autocomplete="current-password"
+                           required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary login-submit-btn">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                Entrar
+            </button>
+        </form>
+
+        <div th:if="${param.error}" class="feedback-box feedback-error">
+            Usuário ou senha inválidos.
+        </div>
+
+        <div th:if="${param.logout}" class="feedback-box feedback-success">
+            Logout realizado com sucesso.
+        </div>
+
+        <div class="credentials-box">
+            <h3>Credenciais de teste</h3>
+            <div class="credential-line">
+                <span class="credential-badge">ADMIN</span>
+                <span>admin / admin123</span>
+            </div>
+            <div class="credential-line">
+                <span class="credential-badge secondary">GARÇOM</span>
+                <span>garcom / garcom123</span>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+</body>
+</html>

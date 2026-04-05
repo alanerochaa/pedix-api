@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos | Pedix</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body class="pedix-body">
+
+<header class="page-header">
+    <div>
+        <h1>Pedidos</h1>
+        <p>Acompanhamento operacional</p>
+    </div>
+
+    <div class="header-actions">
+        <a th:href="@{/home}" class="icon-btn secondary-btn">
+            <i class="fa-solid fa-house"></i>
+        </a>
+    </div>
+</header>
+
+<main class="list-content">
+    <div class="form-actions-line page-actions">
+        <a th:href="@{/pedidos/novo}" class="btn-primary">
+            <i class="fa-solid fa-plus"></i>
+            Novo pedido
+        </a>
+    </div>
+
+    <div th:if="${#lists.isEmpty(pedidos)}" class="card-default empty-state-card">
+        <i class="fa-regular fa-clipboard empty-icon"></i>
+        <h2>Nenhum pedido encontrado</h2>
+        <p>Quando houver pedidos cadastrados, eles aparecerão aqui.</p>
+    </div>
+
+    <div class="orders-list" th:if="${not #lists.isEmpty(pedidos)}">
+        <article class="order-card" th:each="pedido : ${pedidos}">
+            <div class="order-header">
+                <div>
+                    <h3 th:text="${'Pedido #' + pedido.id}">Pedido #1</h3>
+                    <p class="order-subtitle"
+                       th:text="${'Comanda #' + pedido.comandaId + ' · Garçom: ' + (pedido.garcomResponsavel != null ? pedido.garcomResponsavel : 'N/A')}">
+                        Fluxo operacional do Pedix
+                    </p>
+                </div>
+
+                <span class="status-chip"
+                      th:classappend="${
+                          pedido.status != null && pedido.status.name() == 'CANCELADO' ? ' status-inactive' :
+                          (pedido.status != null && pedido.status.name() == 'PRONTO' ? ' status-active' : ' status-pending')
+                      }"
+                      th:text="${pedido.status != null ? pedido.status : 'EM_PREPARO'}">
+                    EM_PREPARO
+                </span>
+            </div>
+
+            <p class="order-note"
+               th:text="${pedido.observacao != null and !#strings.isEmpty(pedido.observacao) ? pedido.observacao : 'Sem observações registradas'}">
+                Observação
+            </p>
+
+            <div class="order-meta-line">
+                <span th:text="${'Itens: ' + (pedido.itens != null ? pedido.itens.size() : 0)}">Itens: 0</span>
+                <span th:text="${'Total: R$ ' + #numbers.formatDecimal(pedido.total,1,'POINT',2,'COMMA')}">Total: R$ 0,00</span>
+            </div>
+
+            <div class="form-actions-line">
+                <a th:href="@{/pedidos/{id}(id=${pedido.id})}" class="btn-outline">
+                    Ver detalhe
+                </a>
+
+                <form th:action="@{/pedidos/cancelar/{id}(id=${pedido.id})}"
+                      method="post"
+                      th:if="${pedido.status != null and pedido.status.name() != 'CANCELADO'}">
+                    <button type="submit" class="btn-danger">
+                        Cancelar pedido
+                    </button>
+                </form>
+
+                <form sec:authorize="hasRole('ADMIN')"
+                      th:action="@{/pedidos/excluir/{id}(id=${pedido.id})}"
+                      method="post"
+                      onsubmit="return confirm('Deseja excluir este pedido?');">
+                    <button type="submit" class="btn-outline">
+                        Excluir
+                    </button>
+                </form>
+            </div>
+        </article>
+    </div>
+</main>
+
+</body>
+</html>

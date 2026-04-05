@@ -1,8 +1,12 @@
 package com.pedix.api.dto;
 
 import com.pedix.api.domain.enums.CategoriaItem;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.*;
+
 import java.math.BigDecimal;
 
 @Data
@@ -26,4 +30,7 @@ public class ItemCardapioDTO {
     private BigDecimal preco;
 
     private Boolean disponivel = true;
+
+    @Size(max = 500, message = "A URL da imagem deve ter no máximo 500 caracteres.")
+    private String imagemUrl;
 }

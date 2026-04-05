@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo pedido | Pedix</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body class="pedix-body">
+
+<header class="page-header">
+    <div>
+        <h1>Novo pedido</h1>
+        <p>Monte o pedido vinculando itens do cardápio</p>
+    </div>
+
+    <div class="header-actions">
+        <a th:href="@{/pedidos}" class="icon-btn secondary-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+    </div>
+</header>
+
+<main class="content-area">
+    <section class="card-default">
+        <form th:action="@{/pedidos/salvar}"
+              th:object="${pedido}"
+              method="post"
+              class="pedix-form pedix-form-light">
+
+            <div class="form-group-light">
+                <label for="comandaId">Comanda</label>
+                <input id="comandaId" type="number" min="1" th:field="*{comandaId}" required>
+                <small class="field-error"
+                       th:if="${#fields.hasErrors('comandaId')}"
+                       th:errors="*{comandaId}"></small>
+            </div>
+
+            <div class="form-group-light">
+                <label for="observacao">Observação</label>
+                <textarea id="observacao"
+                          th:field="*{observacao}"
+                          rows="4"
+                          placeholder="Ex: retirar cebola, sem gelo, mesa próxima à janela..."></textarea>
+            </div>
+
+            <div class="form-group-light">
+                <label>Itens do pedido</label>
+
+                <div th:if="${erroItens}" class="feedback-box feedback-error" th:text="${erroItens}"></div>
+
+                <div class="pedido-item-row" th:each="item, stat : ${itensCardapio}">
+                    <div class="pedido-item-check">
+                        <input type="checkbox"
+                               th:id="${'item_' + item.id}"
+                               th:name="${'itens[' + stat.index + '].itemCardapioId'}"
+                               th:value="${item.id}">
+                        <label th:for="${'item_' + item.id}">
+                            <span class="pedido-item-nome" th:text="${item.nome}">Item</span>
+                            <span class="pedido-item-preco"
+                                  th:text="${'R$ ' + #numbers.formatDecimal(item.preco,1,'POINT',2,'COMMA')}">R$ 0,00</span>
+                        </label>
+                    </div>
+
+                    <div class="pedido-item-quantidade">
+                        <label th:for="${'qtd_' + item.id}">Qtd.</label>
+                        <input type="number"
+                               min="1"
+                               value="1"
+                               th:id="${'qtd_' + item.id}"
+                               th:name="${'itens[' + stat.index + '].quantidade'}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions-line">
+                <button type="submit" class="btn-primary">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Criar pedido
+                </button>
+
+                <a th:href="@{/pedidos}" class="btn-outline">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </section>
+</main>
+
+</body>
+</html>

@@ -1,10 +1,1107 @@
+.pedix-body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #edf1f5;
+    color: #1f2937;
+}
+
+.dashboard-header {
+    background: linear-gradient(135deg, #1f4678 0%, #193760 100%);
+    padding: 32px 24px 96px;
+}
+
+.dashboard-header-content {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.dashboard-user-block h1 {
+    margin: 4px 0 6px;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-transform: lowercase;
+}
+
+.welcome-text {
+    display: inline-block;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.dashboard-subtitle {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.95rem;
+}
+
+.dashboard-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icon-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.logout-btn {
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 255, 255, 0.24);
+    transform: translateY(-1px);
+}
+
+.dashboard-container {
+    max-width: 1080px;
+    margin: -56px auto 0;
+    padding: 0 24px 40px;
+}
+
+.dashboard-section {
+    margin-bottom: 28px;
+}
+
+.section-label {
+    display: inline-block;
+    margin-bottom: 14px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #5e6c84;
+}
+
+.shortcut-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+}
+
+.shortcut-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 22px 22px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    border: 1px solid #e5e7eb;
+    transition: all 0.22s ease;
+}
+
+.shortcut-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.12);
+}
+
+.shortcut-icon {
+    width: 58px;
+    height: 58px;
+    min-width: 58px;
+    border-radius: 16px;
+    background: #fff4ec;
+    color: #ff6b35;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+}
+
+.shortcut-content {
+    flex: 1;
+}
+
+.shortcut-content h2 {
+    margin: 0 0 6px;
+    font-size: 1.1rem;
+    color: #152238;
+}
+
+.shortcut-content p {
+    margin: 0;
+    font-size: 0.94rem;
+    color: #64748b;
+    line-height: 1.45;
+}
+
+.shortcut-arrow {
+    color: #94a3b8;
+    font-size: 0.95rem;
+}
+
+.hero-panel {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 36px 32px;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    border: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+.hero-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 140px;
+}
+
+.hero-logo {
+    max-width: 120px;
+    width: 100%;
+    height: auto;
+}
+
+.hero-text {
+    flex: 1;
+    min-width: 260px;
+}
+
+.hero-text h2 {
+    margin: 0 0 12px;
+    font-size: 1.9rem;
+    color: #152238;
+}
+
+.hero-text p {
+    margin: 0 0 18px;
+    color: #5b6778;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 700px;
+}
+
+.hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.hero-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: #f4f7fb;
+    border: 1px solid #dde5ef;
+    color: #355070;
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+}
+
+.admin-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 22px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    border: 1px solid #e5e7eb;
+    transition: all 0.22s ease;
+}
+
+.admin-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.12);
+}
+
+.admin-card-icon {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    border-radius: 14px;
+    background: #eef4ff;
+    color: #1f4678;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.admin-card-content h3 {
+    margin: 0 0 6px;
+    font-size: 1rem;
+    color: #152238;
+}
+
+.admin-card-content p {
+    margin: 0;
+    font-size: 0.92rem;
+    color: #64748b;
+    line-height: 1.45;
+}
+
+@media (max-width: 768px) {
+    .dashboard-header {
+        padding: 24px 18px 86px;
+    }
+
+    .dashboard-container {
+        padding: 0 18px 32px;
+    }
+
+    .dashboard-user-block h1 {
+        font-size: 1.7rem;
+    }
+
+    .hero-panel {
+        padding: 28px 22px;
+    }
+
+    .hero-text h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+.pedix-login-body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top left, rgba(255, 107, 53, 0.10), transparent 28%),
+        linear-gradient(135deg, #edf2f7 0%, #e7edf4 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 20px;
+}
+
+.login-page-shell {
+    width: 100%;
+    max-width: 1120px;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    background: #ffffff;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 28px 60px rgba(15, 23, 42, 0.14);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    min-height: 680px;
+}
+
+.login-hero-panel {
+    position: relative;
+    background: linear-gradient(145deg, #1f4678 0%, #18365d 100%);
+    color: #ffffff;
+    padding: 42px 38px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 26px;
+}
+
+.theme-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.14);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1rem;
+    backdrop-filter: blur(6px);
+}
+
+.login-brand-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.login-hero-panel .hero-logo {
+    width: 110px;
+    height: auto;
+    margin-bottom: 12px;
+}
+
+.login-hero-panel .hero-title {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: #ffffff;
+}
+
+.login-hero-panel .hero-subtitle {
+    margin: 8px 0 0;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.84);
+    line-height: 1.5;
+}
+
+.hero-highlight-box {
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 22px;
+    padding: 22px 20px;
+    backdrop-filter: blur(8px);
+}
+
+.hero-highlight-box h2 {
+    margin: 0 0 10px;
+    font-size: 1.35rem;
+    line-height: 1.3;
+    color: #ffffff;
+}
+
+.hero-highlight-box p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.82);
+    line-height: 1.65;
+    font-size: 0.96rem;
+}
+
+.login-card {
+    background: #ffffff;
+    padding: 48px 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 18px;
+}
+
+.login-card-header h2 {
+    margin: 0 0 8px;
+    font-size: 1.9rem;
+    color: #152238;
+}
+
+.login-card-header p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.98rem;
+    line-height: 1.5;
+}
+
+.info-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    padding: 14px 16px;
+    border-radius: 16px;
+    font-size: 0.95rem;
+    line-height: 1.45;
+}
+
+.info-box i {
+    color: #1f4678;
+    margin-top: 2px;
+}
+
+.pedix-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 0.94rem;
+    font-weight: 700;
+    color: #243247;
+}
+
+.input-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #dbe3ee;
+    border-radius: 16px;
+    min-height: 54px;
+    transition: all 0.2s ease;
+}
+
+.input-row:focus-within {
+    border-color: #1f4678;
+    box-shadow: 0 0 0 4px rgba(31, 70, 120, 0.10);
+}
+
+.input-icon {
+    position: absolute;
+    left: 16px;
+    color: #94a3b8;
+    font-size: 0.95rem;
+}
+
+.input-row input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 15px 16px 15px 46px;
+    font-size: 0.98rem;
+    color: #152238;
+    font-family: inherit;
+}
+
+.input-row input::placeholder {
+    color: #9aa7b8;
+}
+
+.btn-primary {
+    border: none;
+    border-radius: 16px;
+    min-height: 54px;
+    padding: 0 18px;
+    font-size: 0.98rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.22s ease;
+}
+
+.login-submit-btn {
+    background: linear-gradient(135deg, #ff7a3d 0%, #ff6b35 100%);
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 12px 24px rgba(255, 107, 53, 0.24);
+}
+
+.login-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 28px rgba(255, 107, 53, 0.30);
+}
+
+.feedback-box {
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 0.94rem;
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+.feedback-error {
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+    color: #b42318;
+}
+
+.feedback-success {
+    background: #ecfdf3;
+    border: 1px solid #abefc6;
+    color: #067647;
+}
+
+.credentials-box {
+    margin-top: 6px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    padding: 18px 18px;
+}
+
+.credentials-box h3 {
+    margin: 0 0 14px;
+    font-size: 1rem;
+    color: #152238;
+}
+
+.credential-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-size: 0.95rem;
+    color: #475569;
+}
+
+.credential-line + .credential-line {
+    margin-top: 10px;
+}
+
+.credential-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 74px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #eef4ff;
+    color: #1f4678;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+}
+
+.credential-badge.secondary {
+    background: #fff4ec;
+    color: #ff6b35;
+}
+
+@media (max-width: 920px) {
+    .login-page-shell {
+        grid-template-columns: 1fr;
+        min-height: auto;
+    }
+
+    .login-hero-panel {
+        padding: 30px 24px;
+        gap: 22px;
+    }
+
+    .login-card {
+        padding: 32px 24px;
+    }
+
+    .login-hero-panel .hero-title {
+        font-size: 2rem;
+    }
+
+    .login-card-header h2 {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 560px) {
+    .pedix-login-body {
+        padding: 16px;
+    }
+
+    .login-hero-panel,
+    .login-card {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .login-hero-panel .hero-logo {
+        width: 88px;
+    }
+
+    .login-hero-panel .hero-title {
+        font-size: 1.7rem;
+    }
+
+    .input-row {
+        min-height: 50px;
+    }
+
+    .btn-primary {
+        min-height: 50px;
+    }
+}
+
+/* =========================================================
+   CARDÁPIO
+========================================================= */
+
+.page-header {
+    background: linear-gradient(135deg, #1f4678 0%, #193760 100%);
+    padding: 32px 24px 96px;
+}
+
+.page-header > div,
+.page-header .header-actions,
+.search-panel,
+.list-content {
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.page-header h1 {
+    margin: 0 0 6px;
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.page-header p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.98rem;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.secondary-btn {
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+}
+
+.secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.24);
+    transform: translateY(-1px);
+}
+
+.search-panel {
+    margin-top: -56px;
+    padding: 0 24px;
+}
+
+.search-card {
+    background: #ffffff;
+    border-radius: 24px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08);
+    padding: 22px;
+}
+
+.search-actions-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search-input-group {
+    flex: 1;
+    min-width: 280px;
+    position: relative;
+}
+
+.search-input-group .search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 0.95rem;
+}
+
+.search-input-group input {
+    width: 100%;
+    min-height: 52px;
+    border-radius: 16px;
+    border: 1px solid #dbe3ee;
+    background: #ffffff;
+    padding: 0 16px 0 44px;
+    font-size: 0.96rem;
+    font-family: inherit;
+    color: #152238;
+    outline: none;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.search-input-group input:focus {
+    border-color: #1f4678;
+    box-shadow: 0 0 0 4px rgba(31, 70, 120, 0.10);
+}
+
+.search-btn,
+.primary-btn,
+.outline-btn,
+.danger-btn {
+    min-height: 50px;
+    padding: 0 18px;
+    border-radius: 14px;
+    border: none;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.22s ease;
+    box-sizing: border-box;
+}
+
+.search-btn,
+.primary-btn {
+    background: linear-gradient(135deg, #ff7a3d 0%, #ff6b35 100%);
+    color: #ffffff;
+    box-shadow: 0 12px 24px rgba(255, 107, 53, 0.20);
+}
+
+.search-btn:hover,
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 28px rgba(255, 107, 53, 0.28);
+}
+
+.outline-btn {
+    background: #ffffff;
+    color: #1f4678;
+    border: 1px solid #d6dfeb;
+}
+
+.outline-btn:hover {
+    background: #f8fafc;
+    transform: translateY(-1px);
+}
+
+.danger-btn {
+    background: #fff1f2;
+    color: #b42318;
+    border: 1px solid #fecdd3;
+}
+
+.danger-btn:hover {
+    background: #ffe4e8;
+    transform: translateY(-1px);
+}
+
+.list-content {
+    max-width: 1080px;
+    margin: 28px auto 0;
+    padding: 0 24px 42px;
+}
+
+.list-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.list-count {
+    font-size: 0.92rem;
+    color: #64748b;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 20px;
+}
+
+.menu-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    transition: all 0.22s ease;
+}
+
+.menu-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.12);
+}
+
+.menu-card-image {
+    height: 190px;
+    background: linear-gradient(135deg, #eff4fb 0%, #dfe9f6 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.menu-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.menu-card-image .placeholder-icon {
+    font-size: 2.1rem;
+    color: #8ea3bf;
+}
+
+.menu-card-body {
+    padding: 20px;
+}
+
+.menu-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.menu-card-title {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #152238;
+    line-height: 1.3;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.status-badge.available {
+    background: #ecfdf3;
+    color: #067647;
+    border: 1px solid #abefc6;
+}
+
+.status-badge.unavailable {
+    background: #fff1f2;
+    color: #b42318;
+    border: 1px solid #fecdd3;
+}
+
+.menu-card-description {
+    margin: 0 0 18px;
+    color: #64748b;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    min-height: 48px;
+}
+
+.menu-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.menu-price {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #152238;
+}
+
+.menu-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.empty-state {
+    background: #ffffff;
+    border: 1px dashed #cfd8e3;
+    border-radius: 24px;
+    padding: 46px 24px;
+    text-align: center;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+}
+
+.empty-state i {
+    font-size: 2rem;
+    color: #94a3b8;
+    margin-bottom: 14px;
+}
+
+.empty-state h2 {
+    margin: 0 0 8px;
+    color: #152238;
+    font-size: 1.3rem;
+}
+
+.empty-state p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.96rem;
+}
+
+@media (max-width: 768px) {
+    .page-header {
+        padding: 24px 18px 86px;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-panel {
+        padding: 0 18px;
+    }
+
+    .search-actions-line {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-input-group {
+        min-width: 100%;
+    }
+
+    .list-content {
+        padding: 0 18px 34px;
+    }
+
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos | Pedix</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
-<body>
+<body class="pedix-body">
+
+<header class="page-header">
+    <div>
+        <h1>Pedidos</h1>
+        <p>Acompanhamento operacional</p>
+    </div>
+
+    <div class="header-actions">
+        <a th:href="@{/home}" class="icon-btn secondary-btn" title="Voltar para home">
+            <i class="fa-solid fa-house"></i>
+        </a>
+    </div>
+</header>
+
+<section class="search-panel">
+    <div class="search-card">
+        <div class="search-actions-line">
+            <div class="panel-summary">
+                <span class="panel-summary-label">Visão da operação</span>
+                <h2>Gerencie os pedidos em andamento</h2>
+                <p>Consulte detalhes, acompanhe o status e execute ações conforme o perfil.</p>
+            </div>
+
+            <a th:href="@{/pedidos/novo}" class="primary-btn">
+                <i class="fa-solid fa-plus"></i>
+                Novo pedido
+            </a>
+        </div>
+    </div>
+</section>
+
+<main class="list-content">
+    <div class="list-toolbar">
+        <span class="list-count"
+              th:text="${#lists.isEmpty(pedidos) ? '0 pedidos encontrados' : pedidos.size() + ' pedidos encontrados'}">
+            0 pedidos encontrados
+        </span>
+    </div>
+
+    <div th:if="${#lists.isEmpty(pedidos)}" class="empty-state">
+        <i class="fa-regular fa-clipboard"></i>
+        <h2>Nenhum pedido encontrado</h2>
+        <p>Não existem pedidos cadastrados no momento.</p>
+    </div>
+
+    <section th:unless="${#lists.isEmpty(pedidos)}" class="order-grid">
+        <article class="order-card" th:each="pedido : ${pedidos}">
+            <div class="order-card-top">
+                <div>
+                    <h2 class="order-title" th:text="'Pedido #' + ${pedido.id}">Pedido #1</h2>
+                    <p class="order-meta">
+                        <span th:text="'Comanda #' + ${pedido.comandaId}">Comanda #1001</span>
+                        <span class="meta-dot">•</span>
+                        <span th:text="'Garçom: ' + ${pedido.garcomResponsavel}">Garçom: admin</span>
+                    </p>
+                </div>
+
+                <span class="order-status"
+                      th:classappend="
+                        ${pedido.status.name() == 'EM_PREPARO'} ? ' preparing' :
+                        (${pedido.status.name() == 'PRONTO'} ? ' ready' :
+                        (${pedido.status.name() == 'CANCELADO'} ? ' cancelled' : ''))
+                      ">
+                    <span th:text="${#strings.replace(pedido.status.name(), '_', ' ')}">EM PREPARO</span>
+                </span>
+            </div>
+
+            <div class="order-card-body">
+                <p class="order-observation"
+                   th:text="${pedido.observacao != null and !#strings.isEmpty(pedido.observacao) ? pedido.observacao : 'Sem observações registradas.'}">
+                    Sem observações registradas.
+                </p>
+            </div>
+
+            <div class="order-card-footer">
+                <div class="order-metrics">
+                    <div class="metric-chip">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <span th:text="'Itens: ' + ${pedido.itens != null ? pedido.itens.size() : 0}">Itens: 0</span>
+                    </div>
+
+                    <div class="metric-chip highlight">
+                        <i class="fa-solid fa-brazilian-real-sign"></i>
+                        <span th:text="'Total: R$ ' + #numbers.formatDecimal(pedido.total, 1, 'POINT', 2, 'COMMA')">Total: R$ 0,00</span>
+                    </div>
+                </div>
+
+                <div class="order-actions">
+                    <a th:href="@{/pedidos/{id}(id=${pedido.id})}" class="outline-btn">
+                        <i class="fa-solid fa-eye"></i>
+                        Ver detalhe
+                    </a>
+
+                    <form th:if="${pedido.status.name() != 'CANCELADO'}"
+                          th:action="@{/pedidos/cancelar/{id}(id=${pedido.id})}"
+                          method="post"
+                          sec:authorize="hasRole('ADMIN')">
+                        <button type="submit" class="warning-btn"
+                                onclick="return confirm('Deseja cancelar este pedido?');">
+                            <i class="fa-solid fa-ban"></i>
+                            Cancelar
+                        </button>
+                    </form>
+
+                    <a th:href="@{/pedidos/excluir/{id}(id=${pedido.id})}"
+                       class="danger-btn"
+                       sec:authorize="hasRole('ADMIN')"
+                       onclick="return confirm('Deseja excluir este pedido?');">
+                        <i class="fa-solid fa-trash"></i>
+                        Excluir
+                    </a>
+                </div>
+            </div>
+        </article>
+    </section>
+</main>
 
 </body>
 </html>

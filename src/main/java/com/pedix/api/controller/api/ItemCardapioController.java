@@ -13,13 +13,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
-
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/api/item-cardapio")
@@ -27,26 +29,34 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 @Tag(
         name = "Cardápio",
         description = """
-        Controla os **itens do cardápio** do restaurante.
-        Permite **criar**, **listar**, **buscar**, **atualizar** e **remover** pratos, bebidas e sobremesas.
+        Controla os itens do cardápio do restaurante.
+        Permite criar, listar, buscar, atualizar e remover pratos, bebidas e sobremesas.
         """
 )
 public class ItemCardapioController {
 
     private final ItemCardapioService service;
 
-
     @Operation(summary = "Listar itens do cardápio")
     @GetMapping
-    public ResponseEntity<List<EntityModel<ItemCardapio>>> listar(@RequestParam(required = false) CategoriaItem categoria) {
-        List<ItemCardapio> itens = (categoria != null)
-                ? service.listarPorCategoria(categoria)
-                : service.listarDisponiveis();
+    public ResponseEntity<List<EntityModel<ItemCardapio>>> listar(
+            @RequestParam(required = false) CategoriaItem categoria,
+            @RequestParam(required = false) String busca) {
+
+        List<ItemCardapio> itens;
+
+        if (busca != null && !busca.trim().isEmpty()) {
+            itens = service.buscarDisponiveisPorNome(busca);
+        } else if (categoria != null) {
+            itens = service.listarPorCategoria(categoria);
+        } else {
+            itens = service.listarDisponiveis();
+        }
 
         List<EntityModel<ItemCardapio>> resposta = itens.stream()
                 .map(item -> EntityModel.of(item,
                         linkTo(methodOn(ItemCardapioController.class).buscarPorId(item.getId())).withSelfRel(),
-                        linkTo(methodOn(ItemCardapioController.class).listar(null)).withRel("todos_itens")))
+                        linkTo(methodOn(ItemCardapioController.class).listar(null, null)).withRel("todos_itens")))
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(resposta);
@@ -59,7 +69,7 @@ public class ItemCardapioController {
 
         EntityModel<ItemCardapio> model = EntityModel.of(item,
                 linkTo(methodOn(ItemCardapioController.class).buscarPorId(id)).withSelfRel(),
-                linkTo(methodOn(ItemCardapioController.class).listar(null)).withRel("todos_itens"));
+                linkTo(methodOn(ItemCardapioController.class).listar(null, null)).withRel("todos_itens"));
 
         return ResponseEntity.ok(model);
     }
@@ -80,7 +90,7 @@ public class ItemCardapioController {
                 "item", salvo,
                 "_links", Map.of(
                         "self", linkTo(methodOn(ItemCardapioController.class).buscarPorId(salvo.getId())).toUri(),
-                        "todos_itens", linkTo(methodOn(ItemCardapioController.class).listar(null)).toUri()
+                        "todos_itens", linkTo(methodOn(ItemCardapioController.class).listar(null, null)).toUri()
                 )
         );
 
@@ -100,7 +110,7 @@ public class ItemCardapioController {
                 "item", atualizado,
                 "_links", Map.of(
                         "self", linkTo(methodOn(ItemCardapioController.class).buscarPorId(atualizado.getId())).toUri(),
-                        "todos_itens", linkTo(methodOn(ItemCardapioController.class).listar(null)).toUri()
+                        "todos_itens", linkTo(methodOn(ItemCardapioController.class).listar(null, null)).toUri()
                 )
         );
 
@@ -109,17 +119,15 @@ public class ItemCardapioController {
 
     @Operation(summary = "Remover item do cardápio")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> deletar(@PathVariable Long id) {
-        service.deletar(id);
+    public ResponseEntity<Map<String, Object>> excluir(@PathVariable Long id) {
+        service.excluir(id);
 
         Map<String, Object> body = Map.of(
-                "mensagem", " Item do cardápio removido com sucesso!",
+                "mensagem", "Item do cardápio removido com sucesso!",
                 "status", HttpStatus.OK.value(),
-                "timestamp", java.time.LocalDateTime.now()
+                "timestamp", LocalDateTime.now()
         );
 
         return ResponseEntity.ok(body);
     }
-
-
 }
