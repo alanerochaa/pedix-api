@@ -26,21 +26,22 @@ public class SecurityConfig {
                                 "/css/**",
                                 "/js/**",
                                 "/images/**",
-                                "/favicon.ico",
-                                "/swagger-ui/**",
-                                "/swagger-ui.html",
-                                "/v3/api-docs/**"
+                                "/favicon.ico"
                         ).permitAll()
 
                         // Páginas base
                         .requestMatchers("/", "/home", "/403").authenticated()
 
+                        // Área técnica - somente ADMIN
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/v3/api-docs/**"
+                        ).hasRole("ADMIN")
+
                         // =========================
                         // FRONT WEB
                         // =========================
-
-                        // Home
-                        .requestMatchers(HttpMethod.GET, "/api", "/api/home").hasRole("ADMIN")
 
                         // Cardápio - visualização para ADMIN e GARCOM
                         .requestMatchers(HttpMethod.GET, "/cardapio", "/cardapio/**")
