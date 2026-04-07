@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pedidos | Pedix</title>
+    <title>Detalhe do pedido | Pedix</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
@@ -12,79 +12,78 @@
 
 <header class="page-header">
     <div>
-        <h1>Pedidos</h1>
-        <p>Acompanhamento operacional</p>
+        <h1>Detalhe do pedido</h1>
+        <p>Acompanhamento operacional do pedido selecionado</p>
     </div>
 
     <div class="header-actions">
-        <a th:href="@{/home}" class="icon-btn secondary-btn">
+        <a th:href="@{/pedidos}" class="icon-btn secondary-btn" title="Voltar para pedidos">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+
+        <a th:href="@{/home}" class="icon-btn secondary-btn" title="Voltar para home">
             <i class="fa-solid fa-house"></i>
         </a>
     </div>
 </header>
 
-<main class="list-content">
-    <div class="form-actions-line page-actions">
-        <a th:href="@{/pedidos/novo}" class="btn-primary">
-            <i class="fa-solid fa-plus"></i>
-            Novo pedido
-        </a>
-    </div>
+<main class="content-area">
+    <section class="card-default order-detail-card">
+        <div class="order-card-top">
+            <div>
+                <h2 class="order-title" th:text="|Pedido #${pedido.id}|">Pedido #1</h2>
 
-    <div th:if="${#lists.isEmpty(pedidos)}" class="card-default empty-state-card">
-        <i class="fa-regular fa-clipboard empty-icon"></i>
-        <h2>Nenhum pedido encontrado</h2>
-        <p>Quando houver pedidos cadastrados, eles aparecerão aqui.</p>
-    </div>
-
-    <div class="orders-list" th:if="${not #lists.isEmpty(pedidos)}">
-        <article class="order-card" th:each="pedido : ${pedidos}">
-            <div class="order-header">
-                <div>
-                    <h3 th:text="${'Pedido #' + pedido.id}">Pedido #1</h3>
-                    <p class="order-subtitle"
-                       th:text="${'Comanda #' + pedido.comandaId + ' · Garçom: ' + (pedido.garcomResponsavel != null ? pedido.garcomResponsavel : 'N/A')}">
-                        Fluxo operacional do Pedix
-                    </p>
-                </div>
-
-                <span class="status-chip"
-                      th:classappend="${
-                          pedido.status != null && pedido.status.name() == 'CANCELADO' ? ' status-inactive' :
-                          (pedido.status != null && pedido.status.name() == 'PRONTO' ? ' status-active' : ' status-pending')
-                      }"
-                      th:text="${pedido.status != null ? pedido.status : 'EM_PREPARO'}">
-                    EM_PREPARO
-                </span>
+                <p class="order-meta">
+                    <span th:text="|Comanda #${pedido.comandaId}|">Comanda #1001</span>
+                    <span class="meta-dot">•</span>
+                    <span th:text="|Garçom: ${pedido.garcomResponsavel != null ? pedido.garcomResponsavel : 'N/A'}|">
+                        Garçom: N/A
+                    </span>
+                </p>
             </div>
 
-            <p class="order-note"
-               th:text="${pedido.observacao != null and !#strings.isEmpty(pedido.observacao) ? pedido.observacao : 'Sem observações registradas'}">
-                Observação
+            <span class="order-status">
+                <span th:text="${pedido.status != null ? pedido.status : 'EM_PREPARO'}">EM_PREPARO</span>
+            </span>
+        </div>
+
+        <div class="order-card-body">
+            <p class="order-observation"
+               th:text="${pedido.observacao != null and !#strings.isEmpty(pedido.observacao) ? pedido.observacao : 'Sem observações registradas.'}">
+                Sem observações registradas.
             </p>
+        </div>
 
-            <div class="order-meta-line">
-                <span th:text="${'Itens: ' + (pedido.itens != null ? #lists.size(pedido.itens) : 0)}">Itens: 0</span>
-                <span th:text="${'Total: R$ ' + #numbers.formatDecimal(pedido.total,1,'POINT',2,'COMMA')}">Total: R$ 0,00</span>
+        <div class="order-card-footer">
+            <div class="order-metrics">
+                <div class="metric-chip highlight">
+                    <i class="fa-solid fa-brazilian-real-sign"></i>
+                    <span th:text="|Total: R$ ${#numbers.formatDecimal(pedido.total, 1, 'POINT', 2, 'COMMA')}|">
+                        Total: R$ 0,00
+                    </span>
+                </div>
             </div>
+        </div>
+    </section>
 
-            <div class="form-actions-line">
-                <a th:href="@{/pedidos/{id}(id=${pedido.id})}" class="btn-outline">
-                    Ver detalhe
-                </a>
+    <div class="form-actions-line detail-page-actions">
+        <a th:href="@{/pedidos}" class="outline-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+        </a>
 
-                <form sec:authorize="hasRole('ADMIN')"
-                      th:action="@{/pedidos/cancelar/{id}(id=${pedido.id})}"
-                      method="post"
-                      th:if="${pedido.status != null and pedido.status.name() != 'CANCELADO'}">
-                    <button type="submit" class="btn-danger">
-                        Cancelar pedido
-                    </button>
-                </form>
-            </div>
-        </article>
+        <form sec:authorize="hasRole('ADMIN')"
+              th:action="@{/pedidos/cancelar/{id}(id=${pedido.id})}"
+              method="post">
+            <button type="submit"
+                    class="warning-btn"
+                    onclick="return confirm('Deseja cancelar este pedido?');">
+                <i class="fa-solid fa-ban"></i>
+                Cancelar pedido
+            </button>
+        </form>
     </div>
 </main>
-me de
+
 </body>
 </html>

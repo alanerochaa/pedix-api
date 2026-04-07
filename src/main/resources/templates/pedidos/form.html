@@ -16,7 +16,7 @@
     </div>
 
     <div class="header-actions">
-        <a th:href="@{/pedidos}" class="icon-btn secondary-btn">
+        <a th:href="@{/pedidos}" class="icon-btn secondary-btn" title="Voltar para pedidos">
             <i class="fa-solid fa-arrow-left"></i>
         </a>
     </div>
@@ -29,58 +29,62 @@
               method="post"
               class="pedix-form pedix-form-light">
 
-            <div class="form-group-light">
-                <label for="comandaId">Comanda</label>
-                <input id="comandaId" type="number" min="1" th:field="*{comandaId}" required>
-                <small class="field-error"
-                       th:if="${#fields.hasErrors('comandaId')}"
-                       th:errors="*{comandaId}"></small>
-            </div>
+            <div class="form-grid">
+                <div class="form-group-light">
+                    <label for="comandaId">Comanda</label>
+                    <input id="comandaId" type="number" min="1" th:field="*{comandaId}" required>
+                    <small class="field-error"
+                           th:if="${#fields.hasErrors('comandaId')}"
+                           th:errors="*{comandaId}"></small>
+                </div>
 
-            <div class="form-group-light">
-                <label for="observacao">Observação</label>
-                <textarea id="observacao"
-                          th:field="*{observacao}"
-                          rows="4"
-                          placeholder="Ex: retirar cebola, sem gelo, mesa próxima à janela..."></textarea>
-            </div>
+                <div class="form-group-light form-group-full">
+                    <label for="observacao">Observação</label>
+                    <textarea id="observacao"
+                              th:field="*{observacao}"
+                              rows="4"
+                              placeholder="Ex: retirar cebola, sem gelo, mesa próxima à janela..."></textarea>
+                </div>
 
-            <div class="form-group-light">
-                <label>Itens do pedido</label>
+                <div class="form-group-light form-group-full">
+                    <label>Itens do pedido</label>
 
-                <div th:if="${erroItens}" class="feedback-box feedback-error" th:text="${erroItens}"></div>
+                    <div th:if="${erroItens}" class="feedback-box feedback-error" th:text="${erroItens}"></div>
 
-                <div class="pedido-item-row" th:each="item, stat : ${itensCardapio}">
-                    <div class="pedido-item-check">
-                        <input type="checkbox"
-                               th:id="${'item_' + item.id}"
-                               th:name="${'itens[' + stat.index + '].itemCardapioId'}"
-                               th:value="${item.id}">
-                        <label th:for="${'item_' + item.id}">
-                            <span class="pedido-item-nome" th:text="${item.nome}">Item</span>
-                            <span class="pedido-item-preco"
-                                  th:text="${'R$ ' + #numbers.formatDecimal(item.preco,1,'POINT',2,'COMMA')}">R$ 0,00</span>
-                        </label>
-                    </div>
+                    <div class="pedido-item-row" th:each="item, stat : ${itensCardapio}">
+                        <div class="pedido-item-check">
+                            <input type="checkbox"
+                                   th:id="${'item_' + item.id}"
+                                   th:name="${'itens[' + stat.index + '].itemCardapioId'}"
+                                   th:value="${item.id}">
+                            <label th:for="${'item_' + item.id}">
+                                <span class="pedido-item-nome" th:text="${item.nome}">Item</span>
+                                <span class="pedido-item-preco"
+                                      th:text="${'R$ ' + #numbers.formatDecimal(item.preco,1,'POINT',2,'COMMA')}">
+                                    R$ 0,00
+                                </span>
+                            </label>
+                        </div>
 
-                    <div class="pedido-item-quantidade">
-                        <label th:for="${'qtd_' + item.id}">Qtd.</label>
-                        <input type="number"
-                               min="1"
-                               value="1"
-                               th:id="${'qtd_' + item.id}"
-                               th:name="${'itens[' + stat.index + '].quantidade'}">
+                        <div class="pedido-item-quantidade">
+                            <label th:for="${'qtd_' + item.id}">Qtd.</label>
+                            <input type="number"
+                                   min="1"
+                                   value="1"
+                                   th:id="${'qtd_' + item.id}"
+                                   th:name="${'itens[' + stat.index + '].quantidade'}">
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="form-actions-line">
-                <button type="submit" class="btn-primary">
+                <button type="submit" class="primary-btn">
                     <i class="fa-solid fa-floppy-disk"></i>
                     Criar pedido
                 </button>
 
-                <a th:href="@{/pedidos}" class="btn-outline">
+                <a th:href="@{/pedidos}" class="outline-btn">
                     Cancelar
                 </a>
             </div>

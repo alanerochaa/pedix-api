@@ -317,6 +317,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
+    text-align: center;
     gap: 26px;
 }
 
@@ -331,18 +333,23 @@
     color: #ffffff;
     font-size: 1rem;
     backdrop-filter: blur(6px);
+    align-self: flex-start;
 }
 
 .login-brand-wrap {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    flex: 1;
 }
 
 .login-hero-panel .hero-logo {
-    width: 110px;
+    width: 130px;
     height: auto;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 }
 
 .login-hero-panel .hero-title {
@@ -358,6 +365,7 @@
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.84);
     line-height: 1.5;
+    max-width: 320px;
 }
 
 .hero-highlight-box {
@@ -366,6 +374,9 @@
     border-radius: 22px;
     padding: 22px 20px;
     backdrop-filter: blur(8px);
+    width: 100%;
+    max-width: 340px;
+    text-align: left;
 }
 
 .hero-highlight-box h2 {
@@ -593,6 +604,10 @@
     .login-card-header h2 {
         font-size: 1.6rem;
     }
+
+    .hero-highlight-box {
+        max-width: 100%;
+    }
 }
 
 @media (max-width: 560px) {
@@ -607,7 +622,7 @@
     }
 
     .login-hero-panel .hero-logo {
-        width: 88px;
+        width: 96px;
     }
 
     .login-hero-panel .hero-title {
@@ -736,7 +751,8 @@
 .search-btn,
 .primary-btn,
 .outline-btn,
-.danger-btn {
+.danger-btn,
+.warning-btn {
     min-height: 50px;
     padding: 0 18px;
     border-radius: 14px;
@@ -786,6 +802,17 @@
 
 .danger-btn:hover {
     background: #ffe4e8;
+    transform: translateY(-1px);
+}
+
+.warning-btn {
+    background: #fff7ed;
+    color: #c2410c;
+    border: 1px solid #fdba74;
+}
+
+.warning-btn:hover {
+    background: #ffedd5;
     transform: translateY(-1px);
 }
 
@@ -945,6 +972,173 @@
     font-size: 0.96rem;
 }
 
+/* =========================================================
+   PEDIDOS
+========================================================= */
+
+.panel-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.panel-summary-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #5e6c84;
+}
+
+.panel-summary h2 {
+    margin: 0;
+    font-size: 1.45rem;
+    color: #152238;
+}
+
+.panel-summary p {
+    margin: 0;
+    color: #64748b;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+.order-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.order-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 22px;
+    padding: 22px;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    transition: all 0.22s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.order-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.12);
+}
+
+.order-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.order-title {
+    margin: 0 0 6px;
+    font-size: 1.15rem;
+    color: #152238;
+}
+
+.order-meta {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+.meta-dot {
+    color: #94a3b8;
+}
+
+.order-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+    text-transform: uppercase;
+    background: #eef4ff;
+    color: #1f4678;
+    border: 1px solid #cddcf3;
+}
+
+.order-status.preparing {
+    background: #fff7ed;
+    color: #c2410c;
+    border: 1px solid #fdba74;
+}
+
+.order-status.ready {
+    background: #ecfdf3;
+    color: #067647;
+    border: 1px solid #abefc6;
+}
+
+.order-status.cancelled {
+    background: #fff1f2;
+    color: #b42318;
+    border: 1px solid #fecdd3;
+}
+
+.order-card-body {
+    padding-top: 2px;
+}
+
+.order-observation {
+    margin: 0;
+    color: #475569;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.order-card-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.order-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.metric-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 12px;
+    border-radius: 999px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.metric-chip.highlight {
+    background: #fff4ec;
+    border-color: #ffd7c2;
+    color: #c2410c;
+}
+
+.order-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.order-actions form {
+    margin: 0;
+}
+
 @media (max-width: 768px) {
     .page-header {
         padding: 24px 18px 86px;
@@ -969,139 +1163,503 @@
         padding: 0 18px 34px;
     }
 
-    .card-grid {
+    .card-grid,
+    .order-grid {
         grid-template-columns: 1fr;
+    }
+
+    .order-card-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .order-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .order-actions a,
+    .order-actions button {
+        width: 100%;
     }
 }
 
-<!DOCTYPE html>
-<html lang="pt-BR"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pedidos | Pedix</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-</head>
-<body class="pedix-body">
+/* =========================================================
+   CARDÁPIO - AJUSTES DE LAYOUT
+   Adicionar no final do arquivo para sobrescrever sem quebrar o restante
+========================================================= */
 
-<header class="page-header">
-    <div>
-        <h1>Pedidos</h1>
-        <p>Acompanhamento operacional</p>
-    </div>
+.content-area {
+    max-width: 1080px;
+    margin: -56px auto 0;
+    padding: 0 24px 42px;
+}
 
-    <div class="header-actions">
-        <a th:href="@{/home}" class="icon-btn secondary-btn" title="Voltar para home">
-            <i class="fa-solid fa-house"></i>
-        </a>
-    </div>
-</header>
+.card-default {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 24px;
+    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08);
+    padding: 28px;
+}
 
-<section class="search-panel">
-    <div class="search-card">
-        <div class="search-actions-line">
-            <div class="panel-summary">
-                <span class="panel-summary-label">Visão da operação</span>
-                <h2>Gerencie os pedidos em andamento</h2>
-                <p>Consulte detalhes, acompanhe o status e execute ações conforme o perfil.</p>
-            </div>
+.pedix-form-light {
+    gap: 24px;
+}
 
-            <a th:href="@{/pedidos/novo}" class="primary-btn">
-                <i class="fa-solid fa-plus"></i>
-                Novo pedido
-            </a>
-        </div>
-    </div>
-</section>
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
 
-<main class="list-content">
-    <div class="list-toolbar">
-        <span class="list-count"
-              th:text="${#lists.isEmpty(pedidos) ? '0 pedidos encontrados' : pedidos.size() + ' pedidos encontrados'}">
-            0 pedidos encontrados
-        </span>
-    </div>
+.form-group-light {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
 
-    <div th:if="${#lists.isEmpty(pedidos)}" class="empty-state">
-        <i class="fa-regular fa-clipboard"></i>
-        <h2>Nenhum pedido encontrado</h2>
-        <p>Não existem pedidos cadastrados no momento.</p>
-    </div>
+.form-group-light label {
+    font-size: 0.94rem;
+    font-weight: 700;
+    color: #243247;
+}
 
-    <section th:unless="${#lists.isEmpty(pedidos)}" class="order-grid">
-        <article class="order-card" th:each="pedido : ${pedidos}">
-            <div class="order-card-top">
-                <div>
-                    <h2 class="order-title" th:text="'Pedido #' + ${pedido.id}">Pedido #1</h2>
-                    <p class="order-meta">
-                        <span th:text="'Comanda #' + ${pedido.comandaId}">Comanda #1001</span>
-                        <span class="meta-dot">•</span>
-                        <span th:text="'Garçom: ' + ${pedido.garcomResponsavel}">Garçom: admin</span>
-                    </p>
-                </div>
+.form-group-light input,
+.form-group-light textarea,
+.form-group-light select {
+    width: 100%;
+    min-height: 52px;
+    border-radius: 16px;
+    border: 1px solid #dbe3ee;
+    background: #ffffff;
+    padding: 14px 16px;
+    font-size: 0.96rem;
+    font-family: inherit;
+    color: #152238;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
 
-                <span class="order-status"
-                      th:classappend="
-                        ${pedido.status.name() == 'EM_PREPARO'} ? ' preparing' :
-                        (${pedido.status.name() == 'PRONTO'} ? ' ready' :
-                        (${pedido.status.name() == 'CANCELADO'} ? ' cancelled' : ''))
-                      ">
-                    <span th:text="${#strings.replace(pedido.status.name(), '_', ' ')}">EM PREPARO</span>
-                </span>
-            </div>
+.form-group-light textarea {
+    min-height: 120px;
+    resize: vertical;
+}
 
-            <div class="order-card-body">
-                <p class="order-observation"
-                   th:text="${pedido.observacao != null and !#strings.isEmpty(pedido.observacao) ? pedido.observacao : 'Sem observações registradas.'}">
-                    Sem observações registradas.
-                </p>
-            </div>
+.form-group-light input:focus,
+.form-group-light textarea:focus,
+.form-group-light select:focus {
+    border-color: #1f4678;
+    box-shadow: 0 0 0 4px rgba(31, 70, 120, 0.10);
+}
 
-            <div class="order-card-footer">
-                <div class="order-metrics">
-                    <div class="metric-chip">
-                        <i class="fa-solid fa-layer-group"></i>
-                        <span th:text="'Itens: ' + ${pedido.itens != null ? pedido.itens.size() : 0}">Itens: 0</span>
-                    </div>
+.form-group-full {
+    grid-column: 1 / -1;
+}
 
-                    <div class="metric-chip highlight">
-                        <i class="fa-solid fa-brazilian-real-sign"></i>
-                        <span th:text="'Total: R$ ' + #numbers.formatDecimal(pedido.total, 1, 'POINT', 2, 'COMMA')">Total: R$ 0,00</span>
-                    </div>
-                </div>
+.field-error {
+    font-size: 0.84rem;
+    color: #b42318;
+    font-weight: 600;
+}
 
-                <div class="order-actions">
-                    <a th:href="@{/pedidos/{id}(id=${pedido.id})}" class="outline-btn">
-                        <i class="fa-solid fa-eye"></i>
-                        Ver detalhe
-                    </a>
+.checkbox-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 2px;
+}
 
-                    <form th:if="${pedido.status.name() != 'CANCELADO'}"
-                          th:action="@{/pedidos/cancelar/{id}(id=${pedido.id})}"
-                          method="post"
-                          sec:authorize="hasRole('ADMIN')">
-                        <button type="submit" class="warning-btn"
-                                onclick="return confirm('Deseja cancelar este pedido?');">
-                            <i class="fa-solid fa-ban"></i>
-                            Cancelar
-                        </button>
-                    </form>
+.checkbox-line input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #1f4678;
+}
 
-                    <a th:href="@{/pedidos/excluir/{id}(id=${pedido.id})}"
-                       class="danger-btn"
-                       sec:authorize="hasRole('ADMIN')"
-                       onclick="return confirm('Deseja excluir este pedido?');">
-                        <i class="fa-solid fa-trash"></i>
-                        Excluir
-                    </a>
-                </div>
-            </div>
-        </article>
-    </section>
-</main>
+.checkbox-line label {
+    margin: 0;
+    font-size: 0.94rem;
+    color: #243247;
+    font-weight: 600;
+}
 
-</body>
-</html>
+.form-actions-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+}
+
+.search-box {
+    flex: 1;
+    min-width: 280px;
+    position: relative;
+}
+
+.search-box i {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 0.95rem;
+}
+
+.search-box input {
+    width: 100%;
+    min-height: 52px;
+    border-radius: 16px;
+    border: 1px solid #dbe3ee;
+    background: #ffffff;
+    padding: 0 16px 0 44px;
+    font-size: 0.96rem;
+    font-family: inherit;
+    color: #152238;
+    outline: none;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.search-box input:focus {
+    border-color: #1f4678;
+    box-shadow: 0 0 0 4px rgba(31, 70, 120, 0.10);
+}
+
+.inline-btn {
+    min-height: 50px;
+    white-space: nowrap;
+}
+
+.btn-outline {
+    min-height: 50px;
+    padding: 0 18px;
+    border-radius: 14px;
+    background: #ffffff;
+    color: #1f4678;
+    border: 1px solid #d6dfeb;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-sizing: border-box;
+    transition: all 0.22s ease;
+}
+
+.btn-outline:hover {
+    background: #f8fafc;
+    transform: translateY(-1px);
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 20px;
+}
+
+.menu-item-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 22px;
+    padding: 22px;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    transition: all 0.22s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.menu-item-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.12);
+}
+
+.menu-item-icon {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    border-radius: 16px;
+    background: #fff4ec;
+    color: #ff6b35;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.menu-item-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.menu-item-content h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #152238;
+    line-height: 1.35;
+}
+
+.menu-item-desc {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.94rem;
+    line-height: 1.55;
+    min-height: 44px;
+}
+
+.menu-item-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.price-tag {
+    font-size: 1.08rem;
+    font-weight: 800;
+    color: #152238;
+}
+
+.status-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+    border: 1px solid transparent;
+}
+
+.status-active {
+    background: #ecfdf3;
+    color: #067647;
+    border-color: #abefc6;
+}
+
+.status-inactive {
+    background: #fff1f2;
+    color: #b42318;
+    border-color: #fecdd3;
+}
+
+.empty-state-card {
+    text-align: center;
+    padding: 48px 24px;
+}
+
+.empty-icon {
+    font-size: 2rem;
+    color: #94a3b8;
+    margin-bottom: 14px;
+}
+
+.empty-state-card h2 {
+    margin: 0 0 10px;
+    font-size: 1.3rem;
+    color: #152238;
+}
+
+.empty-state-card p {
+    margin: 0;
+    font-size: 0.96rem;
+    color: #64748b;
+    line-height: 1.55;
+}
+
+.menu-item-card .form-actions-line {
+    margin-top: 2px;
+}
+
+.menu-item-card .form-actions-line form {
+    margin: 0;
+}
+
+.menu-item-card .form-actions-line .btn-outline,
+.menu-item-card .form-actions-line button.btn-outline {
+    min-height: 44px;
+    padding: 0 16px;
+}
+
+@media (max-width: 768px) {
+    .content-area {
+        padding: 0 18px 34px;
+    }
+
+    .card-default {
+        padding: 22px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .search-actions-line {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box {
+        min-width: 100%;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-item-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .menu-item-icon {
+        width: 52px;
+        height: 52px;
+        min-width: 52px;
+    }
+
+    .menu-item-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .form-actions-line {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .form-actions-line a,
+    .form-actions-line button,
+    .form-actions-line form {
+        width: 100%;
+    }
+
+    .form-actions-line form button {
+        width: 100%;
+    }
+}
+
+.highlight-btn {
+    background: linear-gradient(135deg, #ff7a3d 0%, #ff6b35 100%);
+    color: #ffffff !important;
+    border: none;
+    box-shadow: 0 12px 24px rgba(255, 107, 53, 0.25);
+}
+
+.highlight-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 28px rgba(255, 107, 53, 0.30);
+}
+
+.order-detail-card,
+.detail-items-card {
+    margin-bottom: 24px;
+}
+
+.detail-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.detail-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    background: #ffffff;
+}
+
+.detail-item-main {
+    flex: 1;
+}
+
+.detail-item-main h3 {
+    margin: 0 0 6px;
+    font-size: 1rem;
+    color: #152238;
+}
+
+.detail-item-main p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.94rem;
+    line-height: 1.5;
+}
+
+.detail-item-side {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.detail-page-actions {
+    margin-top: 8px;
+}
+
+.detail-empty-state {
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .detail-item-row {
+        flex-direction: column;
+    }
+
+    .detail-item-side {
+        justify-content: flex-start;
+    }
+
+    .detail-page-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .detail-page-actions a,
+    .detail-page-actions button,
+    .detail-page-actions form {
+        width: 100%;
+    }
+
+    .detail-page-actions form button {
+        width: 100%;
+    }
+}
+.order-detail-card {
+    margin-bottom: 24px;
+}
+
+.detail-page-actions {
+    margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+    .detail-page-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .detail-page-actions a,
+    .detail-page-actions button,
+    .detail-page-actions form {
+        width: 100%;
+    }
+
+    .detail-page-actions form button {
+        width: 100%;
+    }
+}
