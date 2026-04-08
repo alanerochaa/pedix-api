@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -43,12 +44,14 @@ public class PedidoWebController {
     public String novo(Model model) {
         var itensDisponiveis = itemCardapioService.listarDisponiveis();
 
-        List<PedidoItemDTO> itens = itensDisponiveis.stream()
-                .map(item -> PedidoItemDTO.builder()
-                        .itemCardapioId(item.getId())
-                        .quantidade(0)
-                        .build())
-                .toList();
+        List<PedidoItemDTO> itens = new ArrayList<>(
+                itensDisponiveis.stream()
+                        .map(item -> PedidoItemDTO.builder()
+                                .itemCardapioId(item.getId())
+                                .quantidade(0)
+                                .build())
+                        .toList()
+        );
 
         PedidoDTO dto = PedidoDTO.builder()
                 .itens(itens)
@@ -74,6 +77,7 @@ public class PedidoWebController {
                          Model model) {
 
         if (dto.getItens() != null) {
+            dto.setItens(new ArrayList<>(dto.getItens()));
             dto.getItens().removeIf(item ->
                     item.getItemCardapioId() == null ||
                             item.getQuantidade() == null ||
@@ -81,14 +85,16 @@ public class PedidoWebController {
             );
         }
 
-        if (bindingResult.hasErrors()) {
+        if (dto.getItens() == null || dto.getItens().isEmpty()) {
             model.addAttribute("itensCardapio", itemCardapioService.listarDisponiveis());
+            model.addAttribute("pedido", dto);
+            model.addAttribute("erroItens", "Selecione ao menos um item com quantidade válida.");
             return "pedidos/form";
         }
 
-        if (dto.getItens() == null || dto.getItens().isEmpty()) {
+        if (bindingResult.hasFieldErrors("comandaId")) {
             model.addAttribute("itensCardapio", itemCardapioService.listarDisponiveis());
-            model.addAttribute("erroItens", "Selecione ao menos um item com quantidade válida.");
+            model.addAttribute("pedido", dto);
             return "pedidos/form";
         }
 
