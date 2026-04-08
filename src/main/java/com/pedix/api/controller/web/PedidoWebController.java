@@ -41,11 +41,21 @@ public class PedidoWebController {
 
     @GetMapping("/novo")
     public String novo(Model model) {
-        PedidoDTO dto = PedidoDTO.builder().build();
-        dto.getItens().add(PedidoItemDTO.builder().build());
+        var itensDisponiveis = itemCardapioService.listarDisponiveis();
+
+        List<PedidoItemDTO> itens = itensDisponiveis.stream()
+                .map(item -> PedidoItemDTO.builder()
+                        .itemCardapioId(item.getId())
+                        .quantidade(0)
+                        .build())
+                .toList();
+
+        PedidoDTO dto = PedidoDTO.builder()
+                .itens(itens)
+                .build();
 
         model.addAttribute("pedido", dto);
-        model.addAttribute("itensCardapio", itemCardapioService.listarDisponiveis());
+        model.addAttribute("itensCardapio", itensDisponiveis);
 
         return "pedidos/form";
     }
@@ -63,17 +73,22 @@ public class PedidoWebController {
                          Authentication authentication,
                          Model model) {
 
-        dto.getItens().removeIf(item ->
-                item.getItemCardapioId() == null ||
-                        item.getQuantidade() == null ||
-                        item.getQuantidade() <= 0
-        );
+        if (dto.getItens() != null) {
+            dto.getItens().removeIf(item ->
+                    item.getItemCardapioId() == null ||
+                            item.getQuantidade() == null ||
+                            item.getQuantidade() <= 0
+            );
+        }
 
-        if (bindingResult.hasErrors() || dto.getItens().isEmpty()) {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("itensCardapio", itemCardapioService.listarDisponiveis());
-            if (dto.getItens().isEmpty()) {
-                model.addAttribute("erroItens", "Selecione ao menos um item com quantidade válida.");
-            }
+            return "pedidos/form";
+        }
+
+        if (dto.getItens() == null || dto.getItens().isEmpty()) {
+            model.addAttribute("itensCardapio", itemCardapioService.listarDisponiveis());
+            model.addAttribute("erroItens", "Selecione ao menos um item com quantidade válida.");
             return "pedidos/form";
         }
 

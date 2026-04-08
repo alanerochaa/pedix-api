@@ -32,7 +32,12 @@
             <div class="form-grid">
                 <div class="form-group-light">
                     <label for="comandaId">Comanda</label>
-                    <input id="comandaId" type="number" min="1" th:field="*{comandaId}" required>
+                    <input id="comandaId"
+                           type="number"
+                           min="1"
+                           th:field="*{comandaId}"
+                           required>
+
                     <small class="field-error"
                            th:if="${#fields.hasErrors('comandaId')}"
                            th:errors="*{comandaId}"></small>
@@ -49,30 +54,40 @@
                 <div class="form-group-light form-group-full">
                     <label>Itens do pedido</label>
 
-                    <div th:if="${erroItens}" class="feedback-box feedback-error" th:text="${erroItens}"></div>
+                    <div th:if="${erroItens}"
+                         class="feedback-box feedback-error"
+                         th:text="${erroItens}"></div>
 
-                    <div class="pedido-item-row" th:each="item, stat : ${itensCardapio}">
-                        <div class="pedido-item-check">
-                            <input type="checkbox"
-                                   th:id="${'item_' + item.id}"
+                    <div class="pedido-itens-lista">
+                        <div class="pedido-item-row" th:each="item, stat : ${itensCardapio}">
+                            <input type="hidden"
                                    th:name="${'itens[' + stat.index + '].itemCardapioId'}"
                                    th:value="${item.id}">
-                            <label th:for="${'item_' + item.id}">
-                                <span class="pedido-item-nome" th:text="${item.nome}">Item</span>
-                                <span class="pedido-item-preco"
-                                      th:text="${'R$ ' + #numbers.formatDecimal(item.preco,1,'POINT',2,'COMMA')}">
-                                    R$ 0,00
-                                </span>
-                            </label>
-                        </div>
 
-                        <div class="pedido-item-quantidade">
-                            <label th:for="${'qtd_' + item.id}">Qtd.</label>
-                            <input type="number"
-                                   min="1"
-                                   value="1"
-                                   th:id="${'qtd_' + item.id}"
-                                   th:name="${'itens[' + stat.index + '].quantidade'}">
+                            <div class="pedido-item-info">
+                                <input type="checkbox"
+                                       class="pedido-item-checkbox"
+                                       th:id="${'selecionado_' + item.id}"
+                                       onchange="toggleQuantidade(this)">
+
+                                <label th:for="${'selecionado_' + item.id}" class="pedido-item-label">
+                                    <span class="pedido-item-nome" th:text="${item.nome}">Item</span>
+                                    <span class="pedido-item-preco"
+                                          th:text="${'R$ ' + #numbers.formatDecimal(item.preco,1,'POINT',2,'COMMA')}">
+                                        R$ 0,00
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div class="pedido-item-quantidade">
+                                <label th:for="${'qtd_' + item.id}">Qtd.</label>
+                                <input type="number"
+                                       min="0"
+                                       value="0"
+                                       th:id="${'qtd_' + item.id}"
+                                       th:name="${'itens[' + stat.index + '].quantidade'}"
+                                       readonly>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -91,6 +106,23 @@
         </form>
     </section>
 </main>
+
+<script>
+    function toggleQuantidade(checkbox) {
+        const row = checkbox.closest('.pedido-item-row');
+        const quantidadeInput = row.querySelector('.pedido-item-quantidade input');
+
+        if (checkbox.checked) {
+            quantidadeInput.readOnly = false;
+            if (quantidadeInput.value === "0" || quantidadeInput.value === "") {
+                quantidadeInput.value = 1;
+            }
+        } else {
+            quantidadeInput.value = 0;
+            quantidadeInput.readOnly = true;
+        }
+    }
+</script>
 
 </body>
 </html>

@@ -1,27 +1,13 @@
-<!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Acesso negado | Pedix</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-</head>
-<body class="pedix-body">
+<body class="error-page">
 
-<main class="content-area">
-    <section class="card-default empty-state-card">
-        <i class="fa-solid fa-lock empty-icon"></i>
-        <h2>Acesso negado</h2>
-        <p>Você não possui permissão para acessar esta funcionalidade.</p>
+<div class="error-card">
+    <h1>Acesso negado</h1>
+    <p>Você não possui permissão para acessar esta funcionalidade.</p>
 
-        <div class="form-actions-line">
-            <a th:href="@{/home}" class="primary-btn">
-                <i class="fa-solid fa-house"></i>
-                Voltar para home
-            </a>
-        </div>
-    </section>
-</main>
+    <a th:href="@{/home}">
+        <i class="fa-solid fa-house"></i>
+        Voltar para home
+    </a>
+</div>
 
 </body>
-</html>
