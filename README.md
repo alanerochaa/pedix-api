@@ -695,7 +695,7 @@ O vídeo de apresentação demonstra o funcionamento completo da solução **Ped
 |--------------|----|-----------------------------|--------|
 | **Alane Rocha da Silva** | RM561052 | Arquitetura e desenvolvimento da API Java/Spring Boot, modelagem relacional Oracle, interface web administrativa e documentação técnica | [@alanerochaa](https://github.com/alanerochaa) |
 | **Anna Beatriz Bonfim** | RM559561 | Desenvolvimento do aplicativo mobile em React Native e integração com camada IoT | [@annabonfim](https://github.com/annabonfim) |
-| **Maria Eduarda Araujo Penas** | RM560944 | Desenvolvimento da API principal em C#, integração entre módulos e esteira DevOps | [@DudaAraujo14](https://github.com/DudaAraujo14) |
+| **Maria Eduarda Araujo Penas** | RM560944 | Desenvolvimento da API principal em C#, integração entre módulos e DevOps | [@DudaAraujo14](https://github.com/DudaAraujo14) |
 
 <p align="center">
   Desenvolvido com 💜 pela equipe <strong>CodeGirls</strong> — FIAP 2025.
