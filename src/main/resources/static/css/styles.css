@@ -1854,3 +1854,107 @@
     color: #94a3b8;
     cursor: not-allowed;
 }
+
+/* =========================================================
+   403 / ACESSO NEGADO
+   BLOCO ISOLADO - SEM IMPACTAR AS OUTRAS TELAS
+========================================================= */
+
+.error-page {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: #edf1f5;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.error-card {
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 24px;
+    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.12);
+    padding: 32px 28px;
+    text-align: center;
+}
+
+.error-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 18px;
+    border-radius: 20px;
+    background: #fff4ec;
+    color: #ff6b35;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+}
+
+.error-card h1 {
+    margin: 0 0 12px;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #152238;
+    line-height: 1.2;
+}
+
+.error-card p {
+    margin: 0 0 22px;
+    font-size: 0.96rem;
+    line-height: 1.55;
+    color: #64748b;
+}
+
+.error-link-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 0 20px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ff7a3d 0%, #ff6b35 100%);
+    color: #ffffff;
+    box-shadow: 0 12px 24px rgba(255, 107, 53, 0.22);
+    transition: all 0.22s ease;
+}
+
+.error-link-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 28px rgba(255, 107, 53, 0.30);
+}
+
+.error-link-btn:visited,
+.error-link-btn:focus,
+.error-link-btn:active {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+@media (max-width: 560px) {
+    .error-page {
+        padding: 16px;
+    }
+
+    .error-card {
+        padding: 24px 20px;
+        border-radius: 20px;
+    }
+
+    .error-card h1 {
+        font-size: 1.55rem;
+    }
+
+    .error-link-btn {
+        width: 100%;
+    }
+}
