@@ -1,4 +1,3 @@
-// src/main/java/com/pedix/api/exception/GlobalExceptionHandler.java
 package com.pedix.api.exception;
 
 import jakarta.persistence.EntityNotFoundException;

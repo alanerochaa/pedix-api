@@ -1,4 +1,3 @@
-// src/main/java/com/pedix/api/repository/PedidoRepository.java
 package com.pedix.api.repository;
 
 import com.pedix.api.domain.Pedido;

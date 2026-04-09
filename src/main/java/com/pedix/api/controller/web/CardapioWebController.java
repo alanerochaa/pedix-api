@@ -88,7 +88,6 @@ public class CardapioWebController {
         return "redirect:/cardapio";
     }
 
-    // 🔥 DELETE (novo)
     @PostMapping("/excluir/{id}")
     public String excluir(@PathVariable Long id) {
         itemCardapioService.excluir(id);

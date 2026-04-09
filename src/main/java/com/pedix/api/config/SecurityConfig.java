@@ -19,35 +19,24 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-
-                        // Público
                         .requestMatchers(
                                 "/login",
                                 "/css/**",
-                                "/js/**",
                                 "/images/**",
                                 "/favicon.ico"
                         ).permitAll()
 
-                        // Páginas base
                         .requestMatchers("/", "/home", "/403").authenticated()
 
-                        // Área técnica - somente ADMIN
                         .requestMatchers(
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
                                 "/v3/api-docs/**"
                         ).hasRole("ADMIN")
 
-                        // =========================
-                        // FRONT WEB
-                        // =========================
-
-                        // Cardápio - visualização para ADMIN e GARCOM
                         .requestMatchers(HttpMethod.GET, "/cardapio", "/cardapio/**")
                         .hasAnyRole("ADMIN", "GARCOM")
 
-                        // Cardápio - manutenção só ADMIN
                         .requestMatchers(
                                 "/cardapio/novo",
                                 "/cardapio/salvar",
@@ -56,7 +45,6 @@ public class SecurityConfig {
                                 "/cardapio/excluir/**"
                         ).hasRole("ADMIN")
 
-                        // Pedidos - operação para ADMIN e GARCOM
                         .requestMatchers(HttpMethod.GET, "/pedidos", "/pedidos/novo", "/pedidos/**")
                         .hasAnyRole("ADMIN", "GARCOM")
 
@@ -66,16 +54,12 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/pedidos/atualizar/**")
                         .hasAnyRole("ADMIN", "GARCOM")
 
-                        // Cancelar / excluir pedido só ADMIN
                         .requestMatchers(HttpMethod.POST, "/pedidos/cancelar/**")
                         .hasRole("ADMIN")
 
                         .requestMatchers("/pedidos/excluir/**")
                         .hasRole("ADMIN")
 
-                        // =========================
-                        // API - SOMENTE ADMIN
-                        // =========================
                         .requestMatchers("/api/**").hasRole("ADMIN")
 
                         .anyRequest().authenticated()
