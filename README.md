@@ -678,7 +678,7 @@ A API foi validada por meio de uma coleção completa de testes no Postman, cont
 
 O vídeo de apresentação demonstra o funcionamento completo da solução **Pedix**, contemplando a evolução implementada na Sprint 3, incluindo autenticação, controle de acesso por perfil, interface web administrativa e operacional, documentação técnica da API e integração com banco Oracle.
 
-📺 **Assista aqui:** [Apresentação Pedix API - CodeGirls](COLE_AQUI_O_LINK_DO_NOVO_VIDEO)
+📺 **Assista aqui:** [Vídeo Demonstração Sprint 3 - Pedix API/Web](https://www.youtube.com/watch?v=ean9UeOliyA)
 
 🧾 O vídeo apresenta:
 - Fluxo de autenticação com perfis **Administrador** e **Garçom**
