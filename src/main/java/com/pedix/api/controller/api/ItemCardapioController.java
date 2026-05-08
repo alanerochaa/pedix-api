@@ -38,7 +38,7 @@ public class ItemCardapioController {
 
     @Operation(summary = "Listar itens do cardápio")
     @GetMapping
-    public ResponseEntity<List<EntityModel<ItemCardapio>>> listar(
+    public ResponseEntity<List<EntityModel<ItemCardapioDTO>>> listar(
             @RequestParam(required = false) Long categoriaId,
             @RequestParam(required = false) String busca) {
 
@@ -52,9 +52,9 @@ public class ItemCardapioController {
             itens = service.listarDisponiveis();
         }
 
-        List<EntityModel<ItemCardapio>> resposta = itens.stream()
+        List<EntityModel<ItemCardapioDTO>> resposta = itens.stream()
                 .map(item -> EntityModel.of(
-                        item,
+                        ItemCardapioDTO.fromEntity(item),
                         linkTo(methodOn(ItemCardapioController.class)
                                 .buscarPorId(item.getId()))
                                 .withSelfRel(),
@@ -69,11 +69,11 @@ public class ItemCardapioController {
 
     @Operation(summary = "Buscar item por ID")
     @GetMapping("/{id}")
-    public ResponseEntity<EntityModel<ItemCardapio>> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<EntityModel<ItemCardapioDTO>> buscarPorId(@PathVariable Long id) {
         ItemCardapio item = service.buscarPorId(id);
 
-        EntityModel<ItemCardapio> model = EntityModel.of(
-                item,
+        EntityModel<ItemCardapioDTO> model = EntityModel.of(
+                ItemCardapioDTO.fromEntity(item),
                 linkTo(methodOn(ItemCardapioController.class)
                         .buscarPorId(id))
                         .withSelfRel(),
@@ -100,7 +100,7 @@ public class ItemCardapioController {
 
         Map<String, Object> body = Map.of(
                 "mensagem", "Item do cardápio criado com sucesso!",
-                "item", salvo,
+                "item", ItemCardapioDTO.fromEntity(salvo),
                 "_links", Map.of(
                         "self", linkTo(methodOn(ItemCardapioController.class)
                                 .buscarPorId(salvo.getId()))
@@ -124,7 +124,7 @@ public class ItemCardapioController {
 
         Map<String, Object> body = Map.of(
                 "mensagem", "Item do cardápio atualizado com sucesso!",
-                "item", atualizado,
+                "item", ItemCardapioDTO.fromEntity(atualizado),
                 "_links", Map.of(
                         "self", linkTo(methodOn(ItemCardapioController.class)
                                 .buscarPorId(atualizado.getId()))
