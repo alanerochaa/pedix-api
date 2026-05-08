@@ -1,12 +1,11 @@
-// src/main/java/com/pedix/api/domain/ItemCardapio.java
 package com.pedix.api.domain;
 
-import com.pedix.api.domain.enums.CategoriaItem;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
+
 import java.math.BigDecimal;
 
 @Entity
@@ -25,17 +24,17 @@ public class ItemCardapio {
     @SequenceGenerator(name = "item_seq_gen", sequenceName = "ITEM_CARDAPIO_SEQ", allocationSize = 1)
     private Long id;
 
+    @NotNull(message = "A categoria do item é obrigatória.")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CATEGORIA_ID", nullable = false)
+    private CategoriaCardapio categoria;
+
     @NotBlank(message = "O nome do item é obrigatório.")
     @Column(nullable = false, length = 120)
     private String nome;
 
     @Column(length = 500)
     private String descricao;
-
-    @Enumerated(EnumType.STRING)
-    @NotNull(message = "A categoria do item é obrigatória.")
-    @Column(nullable = false, length = 30)
-    private CategoriaItem categoria;
 
     @NotNull(message = "O preço é obrigatório.")
     @Positive(message = "O preço deve ser maior que zero.")
@@ -60,7 +59,7 @@ public class ItemCardapio {
     public void atualizarInformacoes(
             String nome,
             String descricao,
-            CategoriaItem categoria,
+            CategoriaCardapio categoria,
             BigDecimal preco,
             Boolean disponivel,
             String imagemUrl
@@ -68,16 +67,21 @@ public class ItemCardapio {
         if (nome != null && !nome.isBlank()) {
             this.nome = nome;
         }
+
         this.descricao = descricao;
+
         if (categoria != null) {
             this.categoria = categoria;
         }
+
         if (preco != null && preco.compareTo(BigDecimal.ZERO) > 0) {
             this.preco = preco;
         }
+
         if (disponivel != null) {
             this.disponivel = disponivel;
         }
+
         this.imagemUrl = imagemUrl;
     }
 
@@ -85,7 +89,11 @@ public class ItemCardapio {
     public String toString() {
         return String.format(
                 "ItemCardapio[id=%d, nome='%s', preco=%s, categoria=%s, disponivel=%s]",
-                id, nome, preco, categoria, disponivel
+                id,
+                nome,
+                preco,
+                categoria != null ? categoria.getNome() : null,
+                disponivel
         );
     }
 }

@@ -2,6 +2,7 @@ package com.pedix.api.controller.web;
 
 import com.pedix.api.domain.ItemCardapio;
 import com.pedix.api.dto.ItemCardapioDTO;
+import com.pedix.api.service.CategoriaCardapioService;
 import com.pedix.api.service.ItemCardapioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class CardapioWebController {
 
     private final ItemCardapioService itemCardapioService;
+    private final CategoriaCardapioService categoriaCardapioService;
 
     @GetMapping
     public String listar(@RequestParam(required = false) String busca, Model model) {
@@ -32,6 +34,7 @@ public class CardapioWebController {
     @GetMapping("/novo")
     public String novo(Model model) {
         model.addAttribute("item", new ItemCardapioDTO());
+        model.addAttribute("categorias", categoriaCardapioService.listar());
         model.addAttribute("modoEdicao", false);
         model.addAttribute("formAction", "/cardapio/salvar");
         return "cardapio/form";
@@ -44,13 +47,14 @@ public class CardapioWebController {
         ItemCardapioDTO dto = ItemCardapioDTO.builder()
                 .nome(item.getNome())
                 .descricao(item.getDescricao())
-                .categoria(item.getCategoria())
+                .categoriaId(item.getCategoria() != null ? item.getCategoria().getId() : null)
                 .preco(item.getPreco())
                 .disponivel(item.getDisponivel())
                 .imagemUrl(item.getImagemUrl())
                 .build();
 
         model.addAttribute("item", dto);
+        model.addAttribute("categorias", categoriaCardapioService.listar());
         model.addAttribute("modoEdicao", true);
         model.addAttribute("formAction", "/cardapio/atualizar/" + id);
 
@@ -63,6 +67,7 @@ public class CardapioWebController {
                          Model model) {
 
         if (result.hasErrors()) {
+            model.addAttribute("categorias", categoriaCardapioService.listar());
             model.addAttribute("modoEdicao", false);
             model.addAttribute("formAction", "/cardapio/salvar");
             return "cardapio/form";
@@ -79,6 +84,7 @@ public class CardapioWebController {
                             Model model) {
 
         if (result.hasErrors()) {
+            model.addAttribute("categorias", categoriaCardapioService.listar());
             model.addAttribute("modoEdicao", true);
             model.addAttribute("formAction", "/cardapio/atualizar/" + id);
             return "cardapio/form";

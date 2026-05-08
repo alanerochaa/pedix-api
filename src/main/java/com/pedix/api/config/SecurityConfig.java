@@ -11,6 +11,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 public class SecurityConfig {
@@ -18,7 +23,21 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(csrf -> csrf.disable())
+
                 .authorizeHttpRequests(auth -> auth
+
+                        // 🔓 PUBLICO (mobile + swagger)
+                        .requestMatchers(
+                                "/api/**",
+                                "/api/health",
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
+
+                        // 🔓 STATIC / LOGIN
                         .requestMatchers(
                                 "/login",
                                 "/css/**",
@@ -26,14 +45,11 @@ public class SecurityConfig {
                                 "/favicon.ico"
                         ).permitAll()
 
-                        .requestMatchers("/", "/home", "/403").authenticated()
+                        // 🔐 WEB - HOME
+                        .requestMatchers("/", "/home", "/403")
+                        .authenticated()
 
-                        .requestMatchers(
-                                "/swagger-ui/**",
-                                "/swagger-ui.html",
-                                "/v3/api-docs/**"
-                        ).hasRole("ADMIN")
-
+                        // 🔐 CARDAPIO (WEB)
                         .requestMatchers(HttpMethod.GET, "/cardapio", "/cardapio/**")
                         .hasAnyRole("ADMIN", "GARCOM")
 
@@ -45,48 +61,62 @@ public class SecurityConfig {
                                 "/cardapio/excluir/**"
                         ).hasRole("ADMIN")
 
-                        .requestMatchers(HttpMethod.GET, "/pedidos", "/pedidos/novo", "/pedidos/**")
+                        // 🔐 PEDIDOS (WEB)
+                        .requestMatchers(HttpMethod.GET, "/pedidos", "/pedidos/**")
                         .hasAnyRole("ADMIN", "GARCOM")
 
-                        .requestMatchers(HttpMethod.POST, "/pedidos/salvar")
+                        .requestMatchers(HttpMethod.POST, "/pedidos/**")
                         .hasAnyRole("ADMIN", "GARCOM")
 
-                        .requestMatchers(HttpMethod.POST, "/pedidos/atualizar/**")
-                        .hasAnyRole("ADMIN", "GARCOM")
-
-                        .requestMatchers(HttpMethod.POST, "/pedidos/cancelar/**")
+                        .requestMatchers("/pedidos/cancelar/**")
                         .hasRole("ADMIN")
 
-                        .requestMatchers("/pedidos/excluir/**")
-                        .hasRole("ADMIN")
-
-                        .requestMatchers("/api/**").hasRole("ADMIN")
-
+                        // 🔐 QUALQUER OUTRO
                         .anyRequest().authenticated()
                 )
+
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/home", true)
                         .failureUrl("/login?error")
                         .permitAll()
                 )
+
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 )
+
                 .exceptionHandling(exception -> exception
                         .accessDeniedPage("/403")
                 )
-                .httpBasic(Customizer.withDefaults())
-                .csrf(csrf -> csrf.disable());
+
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
 
+    // 🌐 CORS LIBERADO PRO MOBILE
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.setAllowedOriginPatterns(List.of("*"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(false);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+
+        return source;
+    }
+
+    // 👤 USERS MOCK
     @Bean
     public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
+
         UserDetails admin = User.builder()
                 .username("admin")
                 .password(passwordEncoder.encode("admin123"))

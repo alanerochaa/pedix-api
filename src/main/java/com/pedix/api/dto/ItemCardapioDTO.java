@@ -1,6 +1,5 @@
 package com.pedix.api.dto;
 
-import com.pedix.api.domain.enums.CategoriaItem;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -23,7 +22,7 @@ public class ItemCardapioDTO {
     private String descricao;
 
     @NotNull(message = "A categoria do item é obrigatória.")
-    private CategoriaItem categoria;
+    private Long categoriaId;
 
     @NotNull(message = "O preço é obrigatório.")
     @Positive(message = "O preço deve ser maior que zero.")

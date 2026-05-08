@@ -1,7 +1,6 @@
 package com.pedix.api.controller.api;
 
 import com.pedix.api.domain.ItemCardapio;
-import com.pedix.api.domain.enums.CategoriaItem;
 import com.pedix.api.dto.ItemCardapioDTO;
 import com.pedix.api.service.ItemCardapioService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,7 +17,6 @@ import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -29,9 +27,10 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Tag(
         name = "Cardápio",
         description = """
-        Controla os itens do cardápio do restaurante.
-        Permite criar, listar, buscar, atualizar e remover pratos, bebidas e sobremesas.
-        """
+                Controla os itens do cardápio do restaurante.
+                Permite criar, listar, buscar, atualizar e remover pratos,
+                bebidas e sobremesas, vinculando cada item a uma categoria.
+                """
 )
 public class ItemCardapioController {
 
@@ -40,24 +39,30 @@ public class ItemCardapioController {
     @Operation(summary = "Listar itens do cardápio")
     @GetMapping
     public ResponseEntity<List<EntityModel<ItemCardapio>>> listar(
-            @RequestParam(required = false) CategoriaItem categoria,
+            @RequestParam(required = false) Long categoriaId,
             @RequestParam(required = false) String busca) {
 
         List<ItemCardapio> itens;
 
         if (busca != null && !busca.trim().isEmpty()) {
             itens = service.buscarDisponiveisPorNome(busca);
-        } else if (categoria != null) {
-            itens = service.listarPorCategoria(categoria);
+        } else if (categoriaId != null) {
+            itens = service.listarPorCategoria(categoriaId);
         } else {
             itens = service.listarDisponiveis();
         }
 
         List<EntityModel<ItemCardapio>> resposta = itens.stream()
-                .map(item -> EntityModel.of(item,
-                        linkTo(methodOn(ItemCardapioController.class).buscarPorId(item.getId())).withSelfRel(),
-                        linkTo(methodOn(ItemCardapioController.class).listar(null, null)).withRel("todos_itens")))
-                .collect(Collectors.toList());
+                .map(item -> EntityModel.of(
+                        item,
+                        linkTo(methodOn(ItemCardapioController.class)
+                                .buscarPorId(item.getId()))
+                                .withSelfRel(),
+                        linkTo(methodOn(ItemCardapioController.class)
+                                .listar(null, null))
+                                .withRel("todos_itens")
+                ))
+                .toList();
 
         return ResponseEntity.ok(resposta);
     }
@@ -67,9 +72,15 @@ public class ItemCardapioController {
     public ResponseEntity<EntityModel<ItemCardapio>> buscarPorId(@PathVariable Long id) {
         ItemCardapio item = service.buscarPorId(id);
 
-        EntityModel<ItemCardapio> model = EntityModel.of(item,
-                linkTo(methodOn(ItemCardapioController.class).buscarPorId(id)).withSelfRel(),
-                linkTo(methodOn(ItemCardapioController.class).listar(null, null)).withRel("todos_itens"));
+        EntityModel<ItemCardapio> model = EntityModel.of(
+                item,
+                linkTo(methodOn(ItemCardapioController.class)
+                        .buscarPorId(id))
+                        .withSelfRel(),
+                linkTo(methodOn(ItemCardapioController.class)
+                        .listar(null, null))
+                        .withRel("todos_itens")
+        );
 
         return ResponseEntity.ok(model);
     }
@@ -81,7 +92,9 @@ public class ItemCardapioController {
             UriComponentsBuilder uriBuilder) {
 
         ItemCardapio salvo = service.criar(dto);
-        URI location = uriBuilder.path("/api/item-cardapio/{id}")
+
+        URI location = uriBuilder
+                .path("/api/item-cardapio/{id}")
                 .buildAndExpand(salvo.getId())
                 .toUri();
 
@@ -89,8 +102,12 @@ public class ItemCardapioController {
                 "mensagem", "Item do cardápio criado com sucesso!",
                 "item", salvo,
                 "_links", Map.of(
-                        "self", linkTo(methodOn(ItemCardapioController.class).buscarPorId(salvo.getId())).toUri(),
-                        "todos_itens", linkTo(methodOn(ItemCardapioController.class).listar(null, null)).toUri()
+                        "self", linkTo(methodOn(ItemCardapioController.class)
+                                .buscarPorId(salvo.getId()))
+                                .toUri(),
+                        "todos_itens", linkTo(methodOn(ItemCardapioController.class)
+                                .listar(null, null))
+                                .toUri()
                 )
         );
 
@@ -109,8 +126,12 @@ public class ItemCardapioController {
                 "mensagem", "Item do cardápio atualizado com sucesso!",
                 "item", atualizado,
                 "_links", Map.of(
-                        "self", linkTo(methodOn(ItemCardapioController.class).buscarPorId(atualizado.getId())).toUri(),
-                        "todos_itens", linkTo(methodOn(ItemCardapioController.class).listar(null, null)).toUri()
+                        "self", linkTo(methodOn(ItemCardapioController.class)
+                                .buscarPorId(atualizado.getId()))
+                                .toUri(),
+                        "todos_itens", linkTo(methodOn(ItemCardapioController.class)
+                                .listar(null, null))
+                                .toUri()
                 )
         );
 

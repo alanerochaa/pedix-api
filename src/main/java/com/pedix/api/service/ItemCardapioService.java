@@ -1,8 +1,9 @@
 package com.pedix.api.service;
 
+import com.pedix.api.domain.CategoriaCardapio;
 import com.pedix.api.domain.ItemCardapio;
-import com.pedix.api.domain.enums.CategoriaItem;
 import com.pedix.api.dto.ItemCardapioDTO;
+import com.pedix.api.repository.CategoriaCardapioRepository;
 import com.pedix.api.repository.ItemCardapioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 public class ItemCardapioService {
 
     private final ItemCardapioRepository itemCardapioRepository;
+    private final CategoriaCardapioRepository categoriaCardapioRepository;
 
     @Transactional(readOnly = true)
     public List<ItemCardapio> listarDisponiveis() {
@@ -38,8 +40,8 @@ public class ItemCardapioService {
     }
 
     @Transactional(readOnly = true)
-    public List<ItemCardapio> listarPorCategoria(CategoriaItem categoria) {
-        return itemCardapioRepository.findByDisponivelTrueAndCategoria(categoria).stream()
+    public List<ItemCardapio> listarPorCategoria(Long categoriaId) {
+        return itemCardapioRepository.findByDisponivelTrueAndCategoriaId(categoriaId).stream()
                 .sorted(Comparator.comparing(ItemCardapio::getNome))
                 .collect(Collectors.toList());
     }
@@ -52,10 +54,12 @@ public class ItemCardapioService {
 
     @Transactional
     public ItemCardapio criar(ItemCardapioDTO dto) {
+        CategoriaCardapio categoria = buscarCategoriaPorId(dto.getCategoriaId());
+
         ItemCardapio item = ItemCardapio.builder()
                 .nome(dto.getNome())
                 .descricao(dto.getDescricao())
-                .categoria(dto.getCategoria())
+                .categoria(categoria)
                 .preco(dto.getPreco())
                 .disponivel(dto.getDisponivel() != null ? dto.getDisponivel() : true)
                 .imagemUrl(dto.getImagemUrl())
@@ -67,11 +71,12 @@ public class ItemCardapioService {
     @Transactional
     public ItemCardapio atualizar(Long id, ItemCardapioDTO dto) {
         ItemCardapio item = buscarPorId(id);
+        CategoriaCardapio categoria = buscarCategoriaPorId(dto.getCategoriaId());
 
         item.atualizarInformacoes(
                 dto.getNome(),
                 dto.getDescricao(),
-                dto.getCategoria(),
+                categoria,
                 dto.getPreco(),
                 dto.getDisponivel(),
                 dto.getImagemUrl()
@@ -84,5 +89,10 @@ public class ItemCardapioService {
     public void excluir(Long id) {
         ItemCardapio item = buscarPorId(id);
         itemCardapioRepository.delete(item);
+    }
+
+    private CategoriaCardapio buscarCategoriaPorId(Long categoriaId) {
+        return categoriaCardapioRepository.findById(categoriaId)
+                .orElseThrow(() -> new EntityNotFoundException("Categoria do cardápio não encontrada: " + categoriaId));
     }
 }

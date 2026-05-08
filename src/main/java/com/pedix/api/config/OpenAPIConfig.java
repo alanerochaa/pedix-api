@@ -16,9 +16,10 @@ public class OpenAPIConfig {
                 .info(new Info()
                         .title("Pedix API – Comandas Inteligentes")
                         .description("""
-                                API oficial do sistema Pedix – módulo de gestão de comandas,
-                                pedidos, itens de pedido e Cardápio.
-                                """)
+                                    API do módulo secundário do sistema Pedix, responsável por
+                                    gestão de cardápio, categorias, avaliações, histórico de pedidos
+                                    e relatórios administrativos.
+                                    """)
                         .version("v2.0")
                         .license(new License()
                                 .name("Apache 2.0")

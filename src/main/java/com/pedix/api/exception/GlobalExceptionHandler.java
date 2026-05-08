@@ -15,25 +15,23 @@ public class GlobalExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleEntityNotFound(EntityNotFoundException ex) {
-        return buildResponse(
-                HttpStatus.NOT_FOUND,
-                "Recurso não encontrado.",
-                ex.getMessage()
-        );
+        return buildResponse(HttpStatus.NOT_FOUND, "Recurso não encontrado.", ex.getMessage());
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, Object>> handleIllegalArgument(IllegalArgumentException ex) {
-        return buildResponse(
-                HttpStatus.BAD_REQUEST,
-                "Requisição inválida.",
-                ex.getMessage()
-        );
+        return buildResponse(HttpStatus.BAD_REQUEST, "Requisição inválida.", ex.getMessage());
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Map<String, Object>> handleRuntime(RuntimeException ex) {
+        return buildResponse(HttpStatus.NOT_FOUND, "Recurso não encontrado.", ex.getMessage());
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidation(MethodArgumentNotValidException ex) {
         Map<String, String> fieldErrors = new HashMap<>();
+
         ex.getBindingResult().getFieldErrors().forEach(err ->
                 fieldErrors.put(err.getField(), err.getDefaultMessage())
         );
@@ -50,11 +48,7 @@ public class GlobalExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGeneric(Exception ex) {
-        return buildResponse(
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                "Erro interno no servidor.",
-                ex.getMessage()
-        );
+        return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Erro interno no servidor.", ex.getMessage());
     }
 
     private ResponseEntity<Map<String, Object>> buildResponse(HttpStatus status, String titulo, String mensagem) {

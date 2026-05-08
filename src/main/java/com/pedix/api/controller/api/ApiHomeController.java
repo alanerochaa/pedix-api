@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+import java.util.Map;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -25,7 +28,8 @@ public class ApiHomeController {
                 mensagem,
                 linkTo(methodOn(ApiHomeController.class).apiRoot()).withSelfRel(),
                 linkTo(methodOn(ApiHomeController.class).home()).withRel("status"),
-                Link.of("/swagger-ui/index.html").withRel("swagger-ui")
+                linkTo(methodOn(ApiHomeController.class).health()).withRel("health"),
+                Link.of("/swagger-ui.html").withRel("swagger-ui")
         );
     }
 
@@ -41,7 +45,18 @@ public class ApiHomeController {
                 linkTo(methodOn(PedidoController.class).listarTodos()).withRel("pedidos"),
                 linkTo(methodOn(ItemCardapioController.class).listar(null, null)).withRel("cardapio"),
                 linkTo(methodOn(PedidoItemController.class).listarTodos()).withRel("itens-pedido"),
-                Link.of("/swagger-ui/index.html").withRel("swagger-ui")
+                linkTo(methodOn(ApiHomeController.class).health()).withRel("health"),
+                Link.of("/swagger-ui.html").withRel("swagger-ui")
+        );
+    }
+
+    @GetMapping(value = "/health", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Object> health() {
+        return Map.of(
+                "status", "UP",
+                "service", "pedix-api-java",
+                "environment", "cloud-ready",
+                "timestamp", LocalDateTime.now()
         );
     }
 }
