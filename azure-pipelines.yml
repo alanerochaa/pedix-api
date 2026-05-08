@@ -1,0 +1,31 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  artifactName: 'pedix-api'
+
+steps:
+  - task: JavaToolInstaller@0
+    displayName: 'Configurar Java 17'
+    inputs:
+      versionSpec: '17'
+      jdkArchitectureOption: 'x64'
+      jdkSourceOption: 'PreInstalled'
+
+  - script: chmod +x mvnw
+    displayName: 'Permitir execução do Maven Wrapper'
+
+  - script: ./mvnw clean package -DskipTests
+    displayName: 'Build da API Java'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publicar artefato da API'
+    inputs:
+      PathtoPublish: 'target'
+      ArtifactName: '$(artifactName)'
+      publishLocation: 'Container'
