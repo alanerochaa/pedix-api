@@ -28,28 +28,45 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
-                        // 🔓 PUBLICO (mobile + swagger)
+                        // 🔓 HEALTH CHECK
+                        .requestMatchers("/api/health").permitAll()
+
+                        // 🔓 SWAGGER / OPENAPI
                         .requestMatchers(
-                                "/api/**",
-                                "/api/health",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
 
+                        // 🔓 API MOBILE - CONSULTAS PÚBLICAS
+                        .requestMatchers(HttpMethod.GET,
+                                "/api/item-cardapio/**",
+                                "/api/categorias-cardapio/**",
+                                "/api/avaliacoes/**",
+                                "/api/historicos-pedidos/**",
+                                "/api/relatorios/**"
+                        ).permitAll()
+
+                        // 🔓 API MOBILE - ENVIO DE AVALIAÇÃO
+                        .requestMatchers(HttpMethod.POST, "/api/avaliacoes").permitAll()
+
+                        // 🔐 API ADMIN - ALTERAÇÕES
+                        .requestMatchers(HttpMethod.POST, "/api/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")
+
                         // 🔓 STATIC / LOGIN
                         .requestMatchers(
                                 "/login",
                                 "/css/**",
+                                "/js/**",
                                 "/images/**",
                                 "/favicon.ico"
                         ).permitAll()
 
-                        // 🔐 WEB - HOME
-                        .requestMatchers("/", "/home", "/403")
-                        .authenticated()
+                        // 🔐 WEB
+                        .requestMatchers("/", "/home", "/403").authenticated()
 
-                        // 🔐 CARDAPIO (WEB)
                         .requestMatchers(HttpMethod.GET, "/cardapio", "/cardapio/**")
                         .hasAnyRole("ADMIN", "GARCOM")
 
@@ -61,7 +78,6 @@ public class SecurityConfig {
                                 "/cardapio/excluir/**"
                         ).hasRole("ADMIN")
 
-                        // 🔐 PEDIDOS (WEB)
                         .requestMatchers(HttpMethod.GET, "/pedidos", "/pedidos/**")
                         .hasAnyRole("ADMIN", "GARCOM")
 
@@ -71,7 +87,6 @@ public class SecurityConfig {
                         .requestMatchers("/pedidos/cancelar/**")
                         .hasRole("ADMIN")
 
-                        // 🔐 QUALQUER OUTRO
                         .anyRequest().authenticated()
                 )
 
@@ -97,7 +112,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // 🌐 CORS LIBERADO PRO MOBILE
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -105,6 +119,7 @@ public class SecurityConfig {
         configuration.setAllowedOriginPatterns(List.of("*"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
+        configuration.setExposedHeaders(List.of("*"));
         configuration.setAllowCredentials(false);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -113,10 +128,8 @@ public class SecurityConfig {
         return source;
     }
 
-    // 👤 USERS MOCK
     @Bean
     public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
-
         UserDetails admin = User.builder()
                 .username("admin")
                 .password(passwordEncoder.encode("admin123"))
