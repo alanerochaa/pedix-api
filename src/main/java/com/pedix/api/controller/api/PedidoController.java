@@ -29,43 +29,57 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RequestMapping("/api/pedido")
 @RequiredArgsConstructor
 @Tag(
-        name = "Pedido",
+        name = "Pedidos",
         description = """
-        Controla os pedidos vinculados às comandas do restaurante.
-        Permite criar pedidos, listar por comanda, listar todos, buscar por ID e atualizar status.
-        """
+                Controla os pedidos vinculados às comandas do restaurante.
+                Permite criar pedidos, listar por comanda, listar todos, buscar por ID,
+                atualizar status e remover registros operacionais.
+                """
 )
 public class PedidoController {
 
     private final PedidoService service;
 
-    @Operation(summary = "Listar todos os pedidos")
+    @Operation(
+            summary = "Listar todos os pedidos",
+            description = "Retorna todos os pedidos cadastrados no sistema, com links HATEOAS para navegação entre os recursos."
+    )
     @GetMapping
     public ResponseEntity<List<EntityModel<PedidoResponseDTO>>> listarTodos() {
         List<EntityModel<PedidoResponseDTO>> resposta = service.listarTodos().stream()
                 .map(service::toResponse)
-                .map(dto -> EntityModel.of(dto,
+                .map(dto -> EntityModel.of(
+                        dto,
                         linkTo(methodOn(PedidoController.class).obter(dto.getId())).withSelfRel(),
-                        linkTo(methodOn(PedidoController.class).listarTodos()).withRel("todos_pedidos")))
+                        linkTo(methodOn(PedidoController.class).listarTodos()).withRel("todos_pedidos")
+                ))
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(resposta);
     }
 
-    @Operation(summary = "Buscar pedido por ID")
+    @Operation(
+            summary = "Buscar pedido por ID",
+            description = "Consulta um pedido específico utilizando seu identificador único."
+    )
     @GetMapping("/{id}")
     public ResponseEntity<EntityModel<PedidoResponseDTO>> obter(@PathVariable Long id) {
         Pedido pedido = service.buscarPorId(id);
         PedidoResponseDTO dto = service.toResponse(pedido);
 
-        EntityModel<PedidoResponseDTO> model = EntityModel.of(dto,
+        EntityModel<PedidoResponseDTO> model = EntityModel.of(
+                dto,
                 linkTo(methodOn(PedidoController.class).obter(id)).withSelfRel(),
-                linkTo(methodOn(PedidoController.class).listarTodos()).withRel("todos_pedidos"));
+                linkTo(methodOn(PedidoController.class).listarTodos()).withRel("todos_pedidos")
+        );
 
         return ResponseEntity.ok(model);
     }
 
-    @Operation(summary = "Listar pedidos por comanda")
+    @Operation(
+            summary = "Listar pedidos por comanda",
+            description = "Retorna todos os pedidos vinculados a uma comanda específica."
+    )
     @GetMapping("/comanda/{comandaId}")
     public ResponseEntity<List<PedidoResponseDTO>> listarPorComanda(@PathVariable Long comandaId) {
         List<PedidoResponseDTO> resposta = service.listarPorComanda(comandaId).stream()
@@ -75,18 +89,25 @@ public class PedidoController {
         return ResponseEntity.ok(resposta);
     }
 
-    @Operation(summary = "Criar novo pedido vinculado a uma comanda")
+    @Operation(
+            summary = "Criar novo pedido vinculado a uma comanda",
+            description = "Cria um novo pedido para uma comanda existente, registrando o garçom responsável pela operação."
+    )
     @PostMapping("/comanda/{comandaId}")
     public ResponseEntity<Map<String, Object>> criar(
             @PathVariable Long comandaId,
             @Valid @RequestBody PedidoDTO dto,
             Authentication authentication,
-            UriComponentsBuilder uri) {
-
+            UriComponentsBuilder uri
+    ) {
         String loginGarcom = authentication != null ? authentication.getName() : "api";
 
         PedidoResponseDTO resp = service.criarPedido(comandaId, dto, loginGarcom);
-        URI location = uri.path("/api/pedido/{id}").buildAndExpand(resp.getId()).toUri();
+
+        URI location = uri
+                .path("/api/pedido/{id}")
+                .buildAndExpand(resp.getId())
+                .toUri();
 
         Map<String, Object> body = Map.of(
                 "mensagem", "Pedido criado com sucesso!",
@@ -100,12 +121,15 @@ public class PedidoController {
         return ResponseEntity.created(location).body(body);
     }
 
-    @Operation(summary = "Atualizar status do pedido")
+    @Operation(
+            summary = "Atualizar status do pedido",
+            description = "Atualiza o status operacional de um pedido, como recebido, em preparo, pronto, entregue ou cancelado."
+    )
     @PutMapping("/{id}/status")
     public ResponseEntity<Map<String, Object>> atualizarStatus(
             @PathVariable Long id,
-            @RequestParam StatusPedido status) {
-
+            @RequestParam StatusPedido status
+    ) {
         PedidoResponseDTO atualizado = service.atualizarStatus(id, status);
 
         Map<String, Object> body = Map.of(
@@ -120,7 +144,10 @@ public class PedidoController {
         return ResponseEntity.ok(body);
     }
 
-    @Operation(summary = "Excluir pedido por ID")
+    @Operation(
+            summary = "Excluir pedido por ID",
+            description = "Remove um pedido cadastrado no sistema através do identificador informado."
+    )
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> excluir(@PathVariable Long id) {
         service.excluir(id);

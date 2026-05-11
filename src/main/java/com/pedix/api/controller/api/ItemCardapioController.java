@@ -36,12 +36,15 @@ public class ItemCardapioController {
 
     private final ItemCardapioService service;
 
-    @Operation(summary = "Listar itens do cardápio")
+    @Operation(
+            summary = "Listar itens do cardápio",
+            description = "Retorna todos os itens disponíveis no cardápio, permitindo filtros por categoria ou busca textual."
+    )
     @GetMapping
     public ResponseEntity<List<EntityModel<ItemCardapioDTO>>> listar(
             @RequestParam(required = false) Long categoriaId,
-            @RequestParam(required = false) String busca) {
-
+            @RequestParam(required = false) String busca
+    ) {
         List<ItemCardapio> itens;
 
         if (busca != null && !busca.trim().isEmpty()) {
@@ -67,7 +70,10 @@ public class ItemCardapioController {
         return ResponseEntity.ok(resposta);
     }
 
-    @Operation(summary = "Buscar item por ID")
+    @Operation(
+            summary = "Buscar item por ID",
+            description = "Consulta um item específico do cardápio utilizando seu identificador único."
+    )
     @GetMapping("/{id}")
     public ResponseEntity<EntityModel<ItemCardapioDTO>> buscarPorId(@PathVariable Long id) {
         ItemCardapio item = service.buscarPorId(id);
@@ -85,12 +91,15 @@ public class ItemCardapioController {
         return ResponseEntity.ok(model);
     }
 
-    @Operation(summary = "Criar novo item no cardápio")
+    @Operation(
+            summary = "Criar novo item no cardápio",
+            description = "Cadastra um novo item no cardápio do restaurante, vinculando-o a uma categoria."
+    )
     @PostMapping
     public ResponseEntity<Map<String, Object>> criar(
             @Valid @RequestBody ItemCardapioDTO dto,
-            UriComponentsBuilder uriBuilder) {
-
+            UriComponentsBuilder uriBuilder
+    ) {
         ItemCardapio salvo = service.criar(dto);
 
         URI location = uriBuilder
@@ -114,12 +123,15 @@ public class ItemCardapioController {
         return ResponseEntity.created(location).body(body);
     }
 
-    @Operation(summary = "Atualizar item existente")
+    @Operation(
+            summary = "Atualizar item existente",
+            description = "Atualiza as informações de um item do cardápio já cadastrado."
+    )
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> atualizar(
             @PathVariable Long id,
-            @Valid @RequestBody ItemCardapioDTO dto) {
-
+            @Valid @RequestBody ItemCardapioDTO dto
+    ) {
         ItemCardapio atualizado = service.atualizar(id, dto);
 
         Map<String, Object> body = Map.of(
@@ -138,7 +150,10 @@ public class ItemCardapioController {
         return ResponseEntity.ok(body);
     }
 
-    @Operation(summary = "Remover item do cardápio")
+    @Operation(
+            summary = "Remover item do cardápio",
+            description = "Remove um item do cardápio a partir do identificador informado."
+    )
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> excluir(@PathVariable Long id) {
         service.excluir(id);
