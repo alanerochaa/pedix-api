@@ -25,7 +25,7 @@ public class ItemCardapio {
     private Long id;
 
     @NotNull(message = "A categoria do item é obrigatória.")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CATEGORIA_ID", nullable = false)
     private CategoriaCardapio categoria;
 
