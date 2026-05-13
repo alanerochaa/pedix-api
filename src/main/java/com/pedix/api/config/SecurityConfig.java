@@ -28,18 +28,23 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
-                        // 🔓 HEALTH CHECK
+                        // LANDING / HOME PÚBLICA
+                        .requestMatchers("/", "/home", "/403").permitAll()
+
+                        //  HEALTH CHECK
                         .requestMatchers("/api/health").permitAll()
 
-                        // 🔓 SWAGGER / OPENAPI
+                        //  SWAGGER / OPENAPI
                         .requestMatchers(
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
 
-                        // 🔓 API MOBILE - CONSULTAS PÚBLICAS
+                        //  API MOBILE - CONSULTAS PÚBLICAS
                         .requestMatchers(HttpMethod.GET,
+                                "/api",
+                                "/api/home",
                                 "/api/item-cardapio/**",
                                 "/api/categorias-cardapio/**",
                                 "/api/avaliacoes/**",
@@ -47,15 +52,15 @@ public class SecurityConfig {
                                 "/api/relatorios/**"
                         ).permitAll()
 
-                        // 🔓 API MOBILE - ENVIO DE AVALIAÇÃO
+                        // API MOBILE - ENVIO DE AVALIAÇÃO
                         .requestMatchers(HttpMethod.POST, "/api/avaliacoes").permitAll()
 
-                        // 🔐 API ADMIN - ALTERAÇÕES
+                        // API ADMIN - ALTERAÇÕES
                         .requestMatchers(HttpMethod.POST, "/api/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")
 
-                        // 🔓 STATIC / LOGIN
+                        // STATIC / LOGIN
                         .requestMatchers(
                                 "/login",
                                 "/css/**",
@@ -64,9 +69,7 @@ public class SecurityConfig {
                                 "/favicon.ico"
                         ).permitAll()
 
-                        // 🔐 WEB
-                        .requestMatchers("/", "/home", "/403").authenticated()
-
+                        // WEB OPERACIONAL
                         .requestMatchers(HttpMethod.GET, "/cardapio", "/cardapio/**")
                         .hasAnyRole("ADMIN", "GARCOM")
 
@@ -99,7 +102,7 @@ public class SecurityConfig {
 
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout")
+                        .logoutSuccessUrl("/home")
                         .permitAll()
                 )
 

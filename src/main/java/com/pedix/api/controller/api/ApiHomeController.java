@@ -20,74 +20,75 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RequestMapping("/api")
 @Tag(
         name = "Home da API",
-        description = "Endpoint inicial da API Pedix, responsável por disponibilizar links de navegação, status da aplicação e informações de saúde do serviço."
+        description = "Endpoint inicial da API Java do Pedix, responsável por disponibilizar links de navegação, status da aplicação e informações de saúde do serviço."
 )
 public class ApiHomeController {
 
     @Operation(
-            summary = "Página inicial da API",
-            description = "Retorna os principais links de navegação da API Pedix utilizando HATEOAS."
+            summary = "Página inicial da API Java",
+            description = "Retorna os principais links de navegação da API Java do Pedix utilizando HATEOAS."
     )
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public EntityModel<MensagemResponse> apiRoot() {
 
         MensagemResponse mensagem = new MensagemResponse(
-                "Bem-vinda à API Pedix. Utilize os links disponíveis para navegar pelos recursos."
+                "Bem-vinda à API Java do Pedix. Este serviço atua como camada secundária de suporte e gestão, sendo consumido pelo aplicativo mobile e integrado ao ecossistema Pedix."
         );
 
         return EntityModel.of(
                 mensagem,
 
-                // SELF
                 linkTo(methodOn(ApiHomeController.class).apiRoot()).withSelfRel(),
 
-                // LINKS PRINCIPAIS
                 linkTo(methodOn(ApiHomeController.class).home()).withRel("home"),
                 linkTo(methodOn(ApiHomeController.class).health()).withRel("health"),
 
-                // MÓDULOS
-                linkTo(methodOn(PedidoController.class).listarTodos()).withRel("pedidos"),
+                linkTo(methodOn(PedidoController.class).listarTodos()).withRel("pedidos-apoio"),
                 linkTo(methodOn(ItemCardapioController.class).listar(null, null)).withRel("cardapio"),
-                linkTo(methodOn(PedidoItemController.class).listarTodos()).withRel("itens-pedido"),
+                linkTo(methodOn(PedidoItemController.class).listarTodos()).withRel("itens-pedido-apoio"),
 
-                // SWAGGER
+                Link.of("/api/categorias-cardapio").withRel("categorias-cardapio"),
+                Link.of("/api/avaliacoes").withRel("avaliacoes"),
+                Link.of("/api/historicos-pedidos").withRel("historicos-pedidos"),
+                Link.of("/api/relatorios").withRel("relatorios"),
                 Link.of("/swagger-ui.html").withRel("swagger-ui")
         );
     }
 
     @Operation(
-            summary = "Status da API",
-            description = "Retorna informações sobre o funcionamento da API e links para os principais módulos do sistema."
+            summary = "Status da API Java",
+            description = "Retorna informações sobre o funcionamento da API Java e links para os principais módulos de suporte do sistema."
     )
     @GetMapping(value = "/home", produces = MediaType.APPLICATION_JSON_VALUE)
     public EntityModel<MensagemResponse> home() {
 
         MensagemResponse mensagem = new MensagemResponse(
-                "API Pedix está operacional e pronta para consumo."
+                "API Java do Pedix operacional. Serviço secundário de suporte e gestão para cardápio, avaliações, histórico, relatórios e integração mobile."
         );
 
         return EntityModel.of(
                 mensagem,
 
-                // SELF
                 linkTo(methodOn(ApiHomeController.class).home()).withSelfRel(),
 
-                // LINKS PRINCIPAIS
-                linkTo(methodOn(PedidoController.class).listarTodos()).withRel("pedidos"),
                 linkTo(methodOn(ItemCardapioController.class).listar(null, null)).withRel("cardapio"),
-                linkTo(methodOn(PedidoItemController.class).listarTodos()).withRel("itens-pedido"),
+                Link.of("/api/categorias-cardapio").withRel("categorias-cardapio"),
+                Link.of("/api/avaliacoes").withRel("avaliacoes"),
+                Link.of("/api/historicos-pedidos").withRel("historicos-pedidos"),
+                Link.of("/api/relatorios").withRel("relatorios"),
 
-                // HEALTH
+                linkTo(methodOn(PedidoController.class).listarTodos()).withRel("pedidos-apoio"),
+                linkTo(methodOn(PedidoItemController.class).listarTodos()).withRel("itens-pedido-apoio"),
+
                 linkTo(methodOn(ApiHomeController.class).health()).withRel("health"),
 
-                // SWAGGER
                 Link.of("/swagger-ui.html").withRel("swagger-ui")
         );
     }
 
     @Operation(
             summary = "Health Check da API",
-            description = "Verifica o status operacional da API Pedix, retornando informações básicas de disponibilidade do serviço."
+            description = "Verifica o status operacional da API Java do Pedix, retornando informações básicas de disponibilidade do serviço."
     )
     @GetMapping(value = "/health", produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, Object> health() {
@@ -95,6 +96,9 @@ public class ApiHomeController {
         return Map.of(
                 "status", "UP",
                 "service", "pedix-api-java",
+                "role", "secondary-support-management-api",
+                "consumedBy", "pedix-mobile",
+                "mainOperationalFlow", "pedix-csharp-api",
                 "environment", "cloud-ready",
                 "timestamp", LocalDateTime.now()
         );
