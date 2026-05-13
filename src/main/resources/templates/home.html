@@ -1,50 +1,55 @@
 <!DOCTYPE html>
 <html lang="pt-BR"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pedix API Java</title>
+
     <link rel="stylesheet" th:href="@{/css/styles.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
+
 <body class="pedix-body">
 
 <header class="dashboard-header">
     <div class="dashboard-header-content">
+
         <div class="dashboard-user-block">
             <span class="welcome-text">Pedix API Java</span>
+
             <h1>Serviço secundário de suporte e gestão</h1>
+
             <p class="dashboard-subtitle">
                 API integrada ao ecossistema Pedix para consumo web, mobile e validação técnica.
             </p>
         </div>
 
-        <div class="dashboard-header-actions">
-            <a th:href="@{/logout}" class="icon-btn logout-btn" title="Sair">
-                <i class="fa-solid fa-right-from-bracket"></i>
-            </a>
-        </div>
     </div>
 </header>
 
 <main class="dashboard-container">
 
+    <!-- VISÃO GERAL -->
     <section class="dashboard-section">
         <span class="section-label">Visão geral</span>
 
         <div class="hero-panel">
+
             <div class="hero-brand">
-                <img class="hero-logo" th:src="@{/images/pedix-mascot.png}" alt="Pedix">
+                <img class="hero-logo"
+                     th:src="@{/images/pedix-mascot.png}"
+                     alt="Pedix">
             </div>
 
             <div class="hero-text">
+
                 <h2>API Java de suporte ao Pedix</h2>
+
                 <p>
                     Esta API é consumida pelo aplicativo mobile Pedix e disponibiliza funcionalidades
-                    relacionadas a cardápio, categorias, avaliações, histórico de pedidos e relatórios
-                    administrativos.
+                    relacionadas a cardápio, categorias, avaliações, histórico de pedidos e relatórios administrativos.
                 </p>
 
                 <p>
@@ -58,65 +63,101 @@
                     <span class="hero-tag">Mobile</span>
                     <span class="hero-tag">Gestão</span>
                 </div>
+
             </div>
         </div>
     </section>
 
+    <!-- CONSUMO DA API -->
     <section class="dashboard-section">
         <span class="section-label">Consumo da API</span>
 
         <div class="shortcut-grid">
-            <a th:href="@{/api/item-cardapio}" class="shortcut-card" target="_blank">
+
+            <a th:href="@{/api/item-cardapio}"
+               class="shortcut-card"
+               target="_blank">
+
                 <div class="shortcut-icon">
                     <i class="fa-solid fa-utensils"></i>
                 </div>
+
                 <div class="shortcut-content">
                     <h2>Mobile</h2>
-                    <p>Consumir endpoints REST pelo padrão <strong>/api/...</strong>.</p>
+                    <p>
+                        Consumir endpoints REST pelo padrão
+                        <strong>/api/...</strong>.
+                    </p>
                 </div>
+
                 <div class="shortcut-arrow">
                     <i class="fa-solid fa-chevron-right"></i>
                 </div>
             </a>
 
-            <a th:href="@{/api/health}" class="shortcut-card" target="_blank">
+            <a th:href="@{/api/health}"
+               class="shortcut-card"
+               target="_blank">
+
                 <div class="shortcut-icon">
                     <i class="fa-solid fa-heart-pulse"></i>
                 </div>
+
                 <div class="shortcut-content">
                     <h2>Health Check</h2>
-                    <p>Verificação rápida de disponibilidade da aplicação em nuvem.</p>
+                    <p>
+                        Verificação rápida de disponibilidade da aplicação em nuvem.
+                    </p>
                 </div>
+
                 <div class="shortcut-arrow">
                     <i class="fa-solid fa-chevron-right"></i>
                 </div>
             </a>
+
         </div>
     </section>
 
+    <!-- ÁREA TÉCNICA -->
     <section class="dashboard-section">
         <span class="section-label">Área técnica</span>
 
         <div class="admin-grid">
-            <a th:href="@{/swagger-ui.html}" class="admin-card" target="_blank">
+
+            <a th:href="@{/swagger-ui.html}"
+               class="admin-card"
+               target="_blank">
+
                 <div class="admin-card-icon">
                     <i class="fa-solid fa-book"></i>
                 </div>
+
                 <div class="admin-card-content">
                     <h3>Swagger</h3>
-                    <p>Para testar os endpoints, acesse a documentação interativa da API.</p>
+
+                    <p>
+                        Para testar os endpoints, acesse a documentação interativa da API.
+                    </p>
                 </div>
             </a>
 
-            <a th:href="@{/v3/api-docs}" class="admin-card" target="_blank">
+            <a th:href="@{/v3/api-docs}"
+               class="admin-card"
+               target="_blank">
+
                 <div class="admin-card-icon">
                     <i class="fa-solid fa-code"></i>
                 </div>
+
                 <div class="admin-card-content">
                     <h3>OpenAPI JSON</h3>
-                    <p>Acesso ao contrato técnico da API para validação e integração.</p>
+
+                    <p>
+                        Acesso ao contrato técnico da API para validação e integração.
+                    </p>
                 </div>
             </a>
+
         </div>
     </section>
 
