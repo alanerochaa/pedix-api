@@ -26,13 +26,19 @@ public class PedidoWebController {
 
     @GetMapping
     public String listar(Authentication authentication, Model model) {
-        boolean isAdmin = authentication.getAuthorities()
-                .stream()
-                .anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+
+        boolean isAdmin = authentication != null &&
+                authentication.getAuthorities()
+                        .stream()
+                        .anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+
+        String username = authentication != null
+                ? authentication.getName()
+                : "usuario-anonimo";
 
         List<PedidoResponseDTO> pedidos = isAdmin
                 ? pedidoService.listarTodosResponse()
-                : pedidoService.listarPorGarcomResponse(authentication.getName());
+                : pedidoService.listarPorGarcomResponse(username);
 
         model.addAttribute("pedidos", pedidos);
         model.addAttribute("isAdmin", isAdmin);
@@ -98,7 +104,12 @@ public class PedidoWebController {
             return "pedidos/form";
         }
 
-        pedidoService.criar(dto, authentication.getName());
+        String username = authentication != null
+                ? authentication.getName()
+                : "usuario-anonimo";
+
+        pedidoService.criar(dto, username);
+
         return "redirect:/pedidos";
     }
 
