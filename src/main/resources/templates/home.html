@@ -19,10 +19,11 @@
         <div class="dashboard-user-block">
             <span class="welcome-text">Pedix API Java</span>
 
-            <h1>Serviço secundário de suporte e gestão</h1>
+            <h1>Central técnica de integração</h1>
 
             <p class="dashboard-subtitle">
-                API integrada ao ecossistema Pedix para consumo web, mobile e validação técnica.
+                Serviço REST do ecossistema Pedix responsável pela integração mobile,
+                exposição de endpoints e documentação técnica da plataforma.
             </p>
         </div>
 
@@ -31,9 +32,9 @@
 
 <main class="dashboard-container">
 
-    <!-- VISÃO GERAL -->
+    <!-- SOBRE A API -->
     <section class="dashboard-section">
-        <span class="section-label">Visão geral</span>
+        <span class="section-label">Sobre a API</span>
 
         <div class="hero-panel">
 
@@ -45,32 +46,33 @@
 
             <div class="hero-text">
 
-                <h2>API Java de suporte ao Pedix</h2>
+                <h2>Pedix REST API</h2>
 
                 <p>
-                    Esta API é consumida pelo aplicativo mobile Pedix e disponibiliza funcionalidades
-                    relacionadas a cardápio, categorias, avaliações, histórico de pedidos e relatórios administrativos.
+                    Serviço REST secundário do ecossistema Pedix, responsável por expor
+                    recursos de cardápio, categorias, avaliações, histórico e relatórios
+                    para consumo do aplicativo mobile.
                 </p>
 
                 <p>
-                    O fluxo principal de pedidos, comandas e pagamento fica centralizado na API C#.
-                    A API Java atua como camada complementar de suporte, gestão e consulta.
+                    O fluxo operacional principal de autenticação, comandas e pedidos
+                    encontra-se centralizado na API C#.
                 </p>
 
                 <div class="hero-tags">
                     <span class="hero-tag">Spring Boot</span>
                     <span class="hero-tag">API REST</span>
                     <span class="hero-tag">Mobile</span>
-                    <span class="hero-tag">Gestão</span>
+                    <span class="hero-tag">OpenAPI</span>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <!-- CONSUMO DA API -->
+    <!-- ENDPOINTS -->
     <section class="dashboard-section">
-        <span class="section-label">Consumo da API</span>
+        <span class="section-label">Endpoints públicos</span>
 
         <div class="shortcut-grid">
 
@@ -83,10 +85,11 @@
                 </div>
 
                 <div class="shortcut-content">
-                    <h2>Mobile</h2>
+                    <h2>Endpoints Mobile</h2>
+
                     <p>
-                        Consumir endpoints REST pelo padrão
-                        <strong>/api/...</strong>.
+                        Endpoints REST disponíveis para integração
+                        com o aplicativo mobile.
                     </p>
                 </div>
 
@@ -105,6 +108,7 @@
 
                 <div class="shortcut-content">
                     <h2>Health Check</h2>
+
                     <p>
                         Verificação rápida de disponibilidade da aplicação em nuvem.
                     </p>
@@ -118,9 +122,9 @@
         </div>
     </section>
 
-    <!-- ÁREA TÉCNICA -->
+    <!-- DOCUMENTAÇÃO -->
     <section class="dashboard-section">
-        <span class="section-label">Área técnica</span>
+        <span class="section-label">Documentação e monitoramento</span>
 
         <div class="admin-grid">
 
@@ -136,7 +140,7 @@
                     <h3>Swagger</h3>
 
                     <p>
-                        Para testar os endpoints, acesse a documentação interativa da API.
+                        Documentação interativa para validação e testes dos endpoints REST.
                     </p>
                 </div>
             </a>
@@ -153,7 +157,7 @@
                     <h3>OpenAPI JSON</h3>
 
                     <p>
-                        Acesso ao contrato técnico da API para validação e integração.
+                        Contrato técnico da API para integração e consumo externo.
                     </p>
                 </div>
             </a>
