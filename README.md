@@ -1,56 +1,74 @@
 ![Java](https://img.shields.io/badge/Java-17-orange)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3-green)
 ![Oracle](https://img.shields.io/badge/Oracle-DB-red)
-![Status](https://img.shields.io/badge/Sprint-3-success)
-# 📌 Descrição do Projeto
+![Azure](https://img.shields.io/badge/Azure-App_Service-blue)
+![CI/CD](https://img.shields.io/badge/GitHub_Actions-CI/CD-black)
+![Status](https://img.shields.io/badge/Sprint-4-success)
 
-O **Pedix API** é uma aplicação backend desenvolvida em **Java com Spring Boot** para gestão digital de operações em restaurantes, permitindo o gerenciamento de pedidos, itens de cardápio, comandas e fluxo operacional da cozinha.
+# 🍽️ Pedix API — Central Técnica de Integração
 
-A solução foi projetada com foco em:
+O **Pedix API** é uma aplicação backend desenvolvida em **Java com Spring Boot**, responsável pela camada de integração técnica e serviços auxiliares do ecossistema Pedix.
 
-* Arquitetura RESTful escalável
-* Persistência relacional em Oracle Database
-* Segurança e controle de acesso por perfil
-* Interface web administrativa integrada
-* Documentação automatizada via Swagger/OpenAPI
+A solução foi projetada para oferecer suporte operacional ao aplicativo mobile e aos módulos administrativos da plataforma, disponibilizando endpoints REST para gerenciamento de cardápio, categorias, avaliações, relatórios e histórico operacional.
 
-Seu objetivo é proporcionar uma **gestão digital eficiente de comandas**, centralizando processos operacionais e melhorando a experiência de atendimento.
+A arquitetura da aplicação foi construída com foco em:
 
----
+- Arquitetura RESTful escalável;
+- Integração com aplicativo mobile;
+- Persistência relacional utilizando Oracle Database;
+- Segurança e controle de acesso com Spring Security;
+- Versionamento de banco de dados com Flyway;
+- Deploy em nuvem utilizando Microsoft Azure;
+- Integração contínua e deploy automatizado com GitHub Actions;
+- Documentação automatizada via Swagger/OpenAPI;
+- Interface web administrativa integrada com Thymeleaf.
 
-# 🚀 Destaques da Sprint 3
+O fluxo operacional principal de autenticação, comandas e pedidos encontra-se centralizado na API .NET do ecossistema Pedix, enquanto a API Java atua como serviço secundário de suporte, gestão e integração.
 
-Nesta sprint, o projeto evoluiu de uma API puramente REST para uma solução mais completa, incorporando segurança, interface web e regras de negócio operacionais.
+A solução tem como objetivo proporcionar uma gestão digital eficiente para operações de restaurantes, reduzindo falhas operacionais, centralizando informações e melhorando a comunicação entre atendimento, cozinha e administração.
+
+# 🚀 Destaques da Sprint 4
+
+Nesta etapa final do projeto, o ecossistema Pedix evoluiu para uma solução integrada, distribuída e preparada para execução em ambiente de nuvem, consolidando conceitos avançados de backend, segurança, DevOps, integração entre APIs e documentação técnica.
+
+A Sprint 4 teve como foco principal transformar a aplicação em uma plataforma operacional mais próxima de um ambiente real de produção, incorporando deploy cloud, integração contínua, organização arquitetural e integração multidisciplinar entre as disciplinas do semestre.
 
 ### Principais Entregas
 
-* Implementação de autenticação e autorização com Spring Security
-* Controle de acesso baseado em perfis (ADMIN / GARÇOM)
-* Interface Web/MVC para gestão administrativa
-* Evolução do fluxo operacional de pedidos
-* Melhorias de UX/UI nas telas do sistema
-* Refatorações estruturais para melhor organização arquitetural
+- Deploy da aplicação Java em ambiente Microsoft Azure App Service
+- Integração contínua e deploy automatizado com GitHub Actions (CI/CD)
+- Implementação de arquitetura integrada entre Java, .NET, Mobile e MongoDB
+- Evolução da interface web administrativa com melhorias de UX/UI
+- Expansão das entidades operacionais do sistema
+- Implementação de endpoints auxiliares para integração mobile
+- Estruturação de documentação técnica da solução
+- Integração com Swagger/OpenAPI para documentação automatizada
+- Controle de acesso com Spring Security e perfis ADMIN/GARÇOM
+- Versionamento de banco de dados com Flyway
+- Organização do projeto seguindo arquitetura em camadas
+- Estruturação de evidências técnicas, testes e documentação da Sprint 4
 
 ---
 
 # 📈 Evolução do Projeto
 
-| Sprint   | Evolução                                                            |
-| -------- | ------------------------------------------------------------------- |
-| Sprint 1 | Estrutura inicial da API e persistência Oracle                      |
-| Sprint 2 | Implementação de HATEOAS, DTOs e tratamento global de exceções      |
-| Sprint 3 | Segurança, Interface Web, Controle de Perfis e Expansão Operacional |
+| Sprint | Evolução |
+|--------|-----------|
+| Sprint 1 | Estrutura inicial da API, persistência Oracle e CRUD base |
+| Sprint 2 | Implementação de DTOs, HATEOAS, tratamento global de exceções e padronização REST |
+| Sprint 3 | Spring Security, controle de perfis, interface Web/MVC e evolução operacional |
+| Sprint 4 | Deploy cloud, CI/CD, integração multidisciplinar, arquitetura distribuída e consolidação da solução |
 
+---
 
-## 🗓️ Cronograma Macro do Projeto
+# 🗓️ Cronograma Macro do Projeto
 
-| Sprint       | Período                 | Objetivos Principais                   | Entregáveis / Funcionalidades                                                                                                                                            | Status      |
-| ------------ |-------------------------| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
-| **Sprint 1** | 25/09/2025 → 12/10/2025 | Estrutura inicial do ecossistema Pedix | Criação das APIs base, persistência Oracle, CRUD inicial de ItemCardapio e Pedido, documentação Swagger                                                                  | ✅ Concluído |
-| **Sprint 2** | 13/10/2025 → 06/11/2025 | Elevação de maturidade técnica         | Implementação de HATEOAS, DTOs padronizados, validações globais, integração parcial entre APIs, testes versionados                                                       | ✅ Concluído |
-| **Sprint 3** | 2º Sem. 2026            | Expansão funcional e operacional       | Implementação de Spring Security, controle de acesso por perfil, dashboard administrativo, interface Web/MVC, novas entidades auxiliares e evolução do fluxo operacional | ✅ Concluído |
-| **Sprint 4** | Backlog                 | Escalabilidade e produção              | CI/CD, observabilidade, deploy cloud, monitoramento, autenticação avançada e hardening de segurança                                                                      | 🕓 Backlog  |
-
+| Sprint | Período | Objetivos Principais | Entregáveis / Funcionalidades | Status |
+|--------|----------|----------------------|--------------------------------|--------|
+| **Sprint 1** | 25/09/2025 → 12/10/2025 | Estrutura inicial da solução | Criação da API base, persistência Oracle, CRUD inicial de ItemCardapio e Pedido, documentação Swagger | ✅ Concluído |
+| **Sprint 2** | 25/09/2025 → 09/11/2025 | Evolução arquitetural e padronização REST | Implementação de HATEOAS, DTOs, tratamento global de exceções, padronização das respostas da API e melhorias estruturais | ✅ Concluído |
+| **Sprint 3** | 06/04/2026 → 12/04/2026 | Segurança e expansão operacional | Implementação de Spring Security, controle de acesso por perfil, interface Web/MVC, dashboard administrativo e evolução operacional do sistema | ✅ Concluído |
+| **Sprint 4** | 06/04/2026 → 24/05/2026 | Consolidação da solução e deploy em nuvem | Deploy Azure, GitHub Actions, CI/CD, integração multidisciplinar, documentação técnica, integração mobile, MongoDB e organização final da solução | 🚀 Em Entrega |
 
 ## 🖥️ Interfaces do Sistema Pedix
 
@@ -131,343 +149,488 @@ Já o perfil **Garçom** **não possui acesso** à Área Técnica, mantendo sua 
 
 ---
 
+# ☁️ Infraestrutura Cloud e Deploy Contínuo
+
+A aplicação Pedix API foi publicada em ambiente cloud utilizando Microsoft Azure App Service, permitindo execução online da solução e integração contínua com o repositório GitHub.
+
+A infraestrutura em nuvem foi configurada utilizando runtime Java 17, deploy automatizado via GitHub Actions e monitoramento operacional através dos recursos disponibilizados pela plataforma Azure.
+
+Essa abordagem permitiu aproximar o projeto de um cenário real de produção, consolidando conceitos de DevOps, deploy contínuo e arquitetura distribuída aplicados durante a Sprint 4.
+
+## Recursos Utilizados
+
+- Microsoft Azure App Service
+- Runtime Java 17
+- GitHub Actions (CI/CD)
+- Deploy automatizado
+- Ambiente Linux Cloud
+- Integração contínua com GitHub
+
+<p align="center">
+  <img src="docs/imagens/azure/azure-app-service.png" alt="Deploy Azure App Service" width="900">
+  <br>
+  <em>Aplicação Pedix API publicada em ambiente Microsoft Azure App Service</em>
+</p>
+
+<p align="center">
+  <img src="docs/imagens/azure/pedix-home-cloud.png" alt="Aplicação online Pedix" width="900">
+  <br>
+  <em>Execução online da aplicação Pedix API em ambiente cloud</em>
+</p>
+
+---
+
 ## 📅 Cronograma de Evolução e Entregas do Projeto
 
-| Data       | Atividade                                                       | Responsável          | Status        |
-| ---------- | --------------------------------------------------------------- | -------------------- | ------------- |
-| 20/09/2025 | Configuração inicial do projeto (Spring Boot + Oracle)          | **Alane Rocha**      | ✅ Concluído   |
-| 21/09/2025 | Implementação do CRUD de `ItemCardapio`                         | **Alane Rocha**      | ✅ Concluído   |
-| 23/09/2025 | Criação do `PedidoController` e integração com Oracle           | **Alane Rocha**      | ✅ Concluído   |
-| 25/09/2025 | Testes iniciais e documentação Swagger                          | **Alane Rocha**      | ✅ Concluído   |
-| 28/10/2025 | Implementação do HATEOAS e refatoração dos controllers          | **Alane Rocha**      | ✅ Concluído   |
-| 28/10/2025 | Atualização do README, coleção Postman e geração das evidências | **Alane Rocha**      | ✅ Concluído   |
-| 31/10/2025 | Geração dos diagramas e gravação do vídeo de apresentação       | **Alane Rocha**      | ✅ Concluído   |
-| 05/11/2025 | Testes finais e validação completa do sistema                   | **Equipe CodeGirls** | ✅ Concluído   |
-| 01/04/2026 | Implementação do painel web administrativo                      | **Alane Rocha**      | ✅ Concluído   |
-| 02/04/2026 | Implementação do painel operacional do Garçom                   | **Alane Rocha**      | ✅ Concluído   |
-| 03/04/2026 | Aplicação de segregação de acesso por perfil (Admin/Garçom)     | **Alane Rocha**      | ✅ Concluído   |
-| 04/04/2026 | Restrição de acesso à Área Técnica por perfil                   | **Alane Rocha**      | ✅ Concluído   |
-| 07/04/2026 | Refinamento visual e responsividade das interfaces web          | **Alane Rocha**      | ✅ Concluído   |
-| 08/04/2026 | Organização de assets e evidências no repositório              | **Alane Rocha**      | ✅ Concluído   |
-| 09/04/2026 | Atualização completa do README com novas interfaces             | **Alane Rocha**      | ✅ Concluído   |
-| 10/04/2026 | Revisão final da Sprint 3 e preparação para entrega             | **Equipe CodeGirls** | ✅ Concluído   |
+O desenvolvimento do ecossistema Pedix foi conduzido de forma incremental ao longo das sprints da disciplina, contemplando evolução arquitetural, implementação de funcionalidades, segurança, integração entre sistemas, deploy cloud e organização da documentação técnica.
 
+| Data | Atividade | Responsável | Status |
+|------|------------|--------------|---------|
+| 20/09/2025 | Configuração inicial do projeto utilizando Spring Boot e Oracle Database | **Alane Rocha** | ✅ Concluído |
+| 21/09/2025 | Implementação inicial do CRUD de `ItemCardapio` | **Alane Rocha** | ✅ Concluído |
+| 23/09/2025 | Criação do módulo de pedidos e integração com Oracle Database | **Alane Rocha** | ✅ Concluído |
+| 25/09/2025 | Estruturação da documentação Swagger/OpenAPI e primeiros testes da API | **Alane Rocha** | ✅ Concluído |
+| 28/10/2025 | Implementação de HATEOAS e refatoração estrutural dos controllers | **Alane Rocha** | ✅ Concluído |
+| 28/10/2025 | Atualização do README, organização da coleção Postman e geração das evidências técnicas | **Alane Rocha** | ✅ Concluído |
+| 31/10/2025 | Geração dos diagramas MER/UML e preparação inicial da apresentação do projeto | **Alane Rocha** | ✅ Concluído |
+| 05/11/2025 | Testes integrados e validação funcional da aplicação | **Equipe CodeGirls** | ✅ Concluído |
+| 01/04/2026 | Implementação do painel web administrativo utilizando Spring MVC + Thymeleaf | **Alane Rocha** | ✅ Concluído |
+| 02/04/2026 | Implementação do painel operacional do perfil Garçom | **Alane Rocha** | ✅ Concluído |
+| 03/04/2026 | Aplicação de segregação de acesso por perfil utilizando Spring Security | **Alane Rocha** | ✅ Concluído |
+| 04/04/2026 | Restrição de acesso à Área Técnica (Swagger/OpenAPI) por perfil de usuário | **Alane Rocha** | ✅ Concluído |
+| 07/04/2026 | Refinamento visual, melhorias de UX/UI e responsividade das interfaces web | **Alane Rocha** | ✅ Concluído |
+| 08/04/2026 | Organização das evidências técnicas, assets e documentação complementar no repositório | **Alane Rocha** | ✅ Concluído |
+| 09/04/2026 | Atualização completa do README com integração visual das novas funcionalidades | **Alane Rocha** | ✅ Concluído |
+| 15/05/2026 | Configuração do deploy cloud da aplicação utilizando Microsoft Azure App Service | **Alane Rocha** | ✅ Concluído |
+| 15/05/2026 | Implementação de pipeline CI/CD com GitHub Actions | **Alane Rocha** | ✅ Concluído |
+| 16/05/2026 | Integração da arquitetura distribuída entre Java, .NET, Mobile e MongoDB | **Equipe CodeGirls** | ✅ Concluído |
+| 17/05/2026 | Organização da documentação técnica da Sprint 4 e consolidação multidisciplinar | **Equipe CodeGirls** | ✅ Concluído |
+| 18/05/2026 | Validação final da aplicação em ambiente cloud e revisão operacional do sistema | **Equipe CodeGirls** | ✅ Concluído |
+| 19/05/2026 | Revisão final do projeto, evidências técnicas e preparação da entrega oficial | **Equipe CodeGirls** | 🚀 Em andamento |
 
 ## 🧩 Visão Geral e Arquitetura da Solução
 
-A **Pedix** adota princípios de **Clean Architecture**, **Domain-Driven Design (DDD)** e **segregação por camadas**, estruturando a aplicação em módulos distintos para interface web, API REST, regras de negócio e persistência.
+A solução **Pedix** foi estruturada utilizando princípios de **Clean Architecture**, **Domain-Driven Design (DDD)**, separação de responsabilidades e arquitetura distribuída baseada em múltiplos serviços integrados.
+
+A aplicação Java atua como núcleo técnico de integração do ecossistema Pedix, sendo responsável pela exposição de endpoints REST, documentação técnica, gerenciamento de cardápio, categorias, avaliações, relatórios e histórico operacional.
+
+O fluxo operacional principal de autenticação, comandas e pedidos encontra-se centralizado na API .NET, enquanto o aplicativo mobile consome de forma integrada os serviços disponibilizados pelas APIs do ecossistema.
+
+A arquitetura também contempla integração com MongoDB para persistência documental complementar, além de deploy cloud em Microsoft Azure e pipeline CI/CD automatizado com GitHub Actions.
 
 ```mermaid
 flowchart TD
 
-    subgraph Presentation_Camada_de_Apresentacao
-        A[Controllers REST - API]
+    subgraph Presentation["Camada de Apresentação"]
+        A[Controllers REST - API Java]
         W[Controllers Web - Thymeleaf MVC]
+        M[Aplicativo Mobile - React Native]
         S[Spring Security / RBAC]
     end
 
-    subgraph Application_Regras_de_Negocio
+    subgraph Application["Camada de Aplicação"]
         B[Services]
         G[DTOs / Validations]
     end
 
-    subgraph Domain_Modelo_de_Dominio
+    subgraph Domain["Camada de Domínio"]
         C[Entidades JPA]
         H[Enums / Regras de Domínio]
     end
 
-    subgraph Infrastructure
+    subgraph Infrastructure["Infraestrutura e Integrações"]
         D[Repositories - Spring Data JPA]
-        E[(Banco Oracle)]
-        F[API C# - Comandas e Clientes]
+        E[(Oracle Database)]
+        F[API .NET - Pedidos / Comandas]
+        J[(MongoDB)]
         O[Swagger / OpenAPI]
+        Z[Microsoft Azure App Service]
+        CI[GitHub Actions - CI/CD]
     end
 
     A --> B
     W --> B
-    S --> W
+    M --> A
+
     S --> A
+    S --> W
+
     B --> C
     B --> D
     B --> G
     B --> F
+    B --> J
+
     D --> E
+
     A --> O
+
+    CI --> Z
+    Z --> A
     
-```
+  ```  
 
+## 🔗 Implementação de HATEOAS
 
-## 🔗 Implementação do HATEOAS
+A camada REST da Pedix API utiliza o módulo **Spring HATEOAS** para enriquecimento dos recursos expostos pela aplicação, permitindo navegação contextual entre endpoints relacionados e maior desacoplamento entre cliente e servidor.
 
-A camada REST da Pedix API utiliza o módulo **Spring HATEOAS** para enriquecer os recursos retornados com links de navegação entre endpoints relacionados.
+Os recursos retornados pela API são encapsulados utilizando `EntityModel<>`, contendo links dinâmicos para operações relacionadas, facilitando descoberta de recursos e padronização da navegação RESTful.
 
-Cada entidade exposta pela API (como `ItemCardapio` e `Pedido`) é empacotada em um `EntityModel<>`, contendo links que permitem navegação contextual entre recursos e operações disponíveis.
+Essa abordagem contribui para maior flexibilidade de integração entre serviços, padronização arquitetural e evolução escalável da API.
 
-Exemplo de implementação:
+### Exemplo de implementação
 
-```
+```java
 EntityModel<ItemCardapio> model = EntityModel.of(item,
-    linkTo(methodOn(ItemCardapioController.class).buscarPorId(item.getId())).withSelfRel(),
-    linkTo(methodOn(ItemCardapioController.class).listar(null)).withRel("todos_itens")
+        linkTo(methodOn(ItemCardapioController.class)
+                .buscarPorId(item.getId())).withSelfRel(),
+
+        linkTo(methodOn(ItemCardapioController.class)
+                .listar(null)).withRel("todos_itens")
 );
-```
 
-* Com isso, o cliente pode navegar entre os recursos sem conhecer previamente as URIs.*
-
-
+  ```  
 
 ## 🏗️ Camadas e Responsabilidades
 
-A arquitetura da Pedix segue uma separação em camadas bem definidas, promovendo baixo acoplamento, alta coesão e segregação clara de responsabilidades entre interface, regras de negócio e persistência.
+A arquitetura da solução Pedix foi estruturada seguindo princípios de separação de responsabilidades, baixo acoplamento, alta coesão e organização em camadas, permitindo maior escalabilidade, manutenibilidade e integração entre os serviços do ecossistema.
+
+A aplicação foi organizada de forma modular, separando responsabilidades entre apresentação, regras de negócio, domínio, persistência, segurança, integração externa e infraestrutura cloud.
 
 | Camada | Pacote / Tecnologia | Responsabilidade |
 |--------|---------------------|------------------|
-| **Apresentação REST** | `com.pedix.api.controller.api` | Define os endpoints REST da aplicação, expondo recursos como `/api/item-cardapio` e `/api/pedidos`, responsáveis por receber requisições HTTP e delegar o processamento às camadas internas. |
-| **Apresentação Web** | `com.pedix.api.controller.web` | Controla as interfaces server-side renderizadas (Thymeleaf), responsáveis pelo painel administrativo e operacional dos perfis Admin e Garçom. |
-| **Aplicação / Negócio** | `com.pedix.api.service` | Implementa regras de negócio, validações funcionais, orquestra entidades e coordena o fluxo entre controladores e persistência. |
-| **Domínio** | `com.pedix.api.domain` | Contém entidades JPA e enums que representam o modelo de negócio, como `ItemCardapio`, `Pedido`, `PedidoItem`, `StatusPedido` e `CategoriaItem`. |
-| **Persistência / Infraestrutura** | `com.pedix.api.repository` | Gerencia a persistência dos dados utilizando Spring Data JPA e integração com banco Oracle. |
-| **Segurança** | `Spring Security` | Responsável pela autenticação, autorização e segregação de permissões entre os perfis Administrador e Garçom. |
-| **Integrações Externas** | `REST API em .NET` | Integração arquitetural com serviços complementares do ecossistema Pedix, como módulos de comandas, mesas e clientes. |
+| **Apresentação REST** | `com.pedix.api.controller.api` | Responsável pela exposição dos endpoints REST da aplicação, permitindo integração entre sistemas, consumo mobile e comunicação entre serviços do ecossistema Pedix. |
+| **Apresentação Web** | `com.pedix.api.controller.web` | Responsável pelas interfaces server-side renderizadas com Thymeleaf, utilizadas nos painéis administrativos e operacionais dos perfis Administrador e Garçom. |
+| **Aplicação / Negócio** | `com.pedix.api.service` | Implementa regras de negócio, validações funcionais, orquestração dos fluxos operacionais e comunicação entre controladores, domínio e persistência. |
+| **Domínio** | `com.pedix.api.domain` | Contém entidades JPA, enums e regras de domínio que representam o modelo operacional do sistema, como pedidos, cardápio, categorias, avaliações e histórico operacional. |
+| **Persistência / Infraestrutura** | `com.pedix.api.repository` | Responsável pela persistência dos dados utilizando Spring Data JPA e integração com Oracle Database. |
+| **Segurança** | `Spring Security` | Responsável pela autenticação, autorização, segregação de permissões e proteção das rotas da aplicação utilizando controle baseado em perfis (RBAC). |
+| **Documentação Técnica** | `Swagger / OpenAPI` | Responsável pela geração automatizada da documentação REST da aplicação e apoio técnico para integração entre serviços e validação de endpoints. |
+| **Integrações Externas** | `API .NET + Mobile` | Integração arquitetural com os serviços principais de comandas, autenticação, pedidos e aplicativo mobile do ecossistema Pedix. |
+| **DevOps / Cloud** | `Azure + GitHub Actions` | Responsável pelo deploy cloud da aplicação, integração contínua (CI/CD), automação de publicação e execução online da solução. |
+
+---
 
 ## ⚙️ Tecnologias Utilizadas
 
-| Categoria | Tecnologia            | Uso Principal |
-|----------|-----------------------|---------------|
-| Linguagem | 📦 Java 17             | Linguagem principal de desenvolvimento backend da aplicação. |
-| Framework Backend | 🌱 Spring Boot 3      | Framework principal para construção da aplicação e gerenciamento do ecossistema Spring. |
-| Persistência | 🗄️ JPA / Hibernate   | Mapeamento Objeto-Relacional (ORM) e gerenciamento de entidades persistentes. |
-| Banco de Dados | 💾 Oracle Database         | Armazenamento persistente e relacional dos dados da aplicação. |
-| Segurança | 🔐 Spring Security    | Controle de autenticação, autorização e segregação de acesso por perfil. |
-| Frontend Server-Side | 🖥️ Thymeleaf         | Renderização das interfaces web administrativas e operacionais no servidor. |
-| Documentação API | 📖 Swagger / OpenAPI  | Geração automática e navegação da documentação técnica da API REST. |
-| Utilitário | ✨ Lombok              | Redução de código boilerplate (getters, setters, builders, construtores). |
-| Build / Dependências | 🛠️ Maven             | Gerenciamento de dependências e ciclo de build do projeto. |
-| Testes Manuais | 📬 Postman / Insomnia | Validação funcional e testes exploratórios dos endpoints REST. |
+| Categoria | Tecnologia | Uso Principal |
+|-----------|-------------|----------------|
+| Linguagem Backend | ☕ Java 17 | Linguagem principal utilizada no desenvolvimento backend da aplicação. |
+| Framework Backend | 🌱 Spring Boot 3 | Framework principal para construção da API REST, gerenciamento de dependências e ecossistema Spring. |
+| Persistência ORM | 🗄️ JPA / Hibernate | Mapeamento objeto-relacional e gerenciamento das entidades persistentes da aplicação. |
+| Banco de Dados Relacional | 💾 Oracle Database | Persistência relacional das informações operacionais do sistema. |
+| Banco NoSQL | 🍃 MongoDB | Persistência documental complementar para estruturação NoSQL e integração multidisciplinar da Sprint 4. |
+| Segurança | 🔐 Spring Security | Implementação de autenticação, autorização e segregação de acesso por perfil. |
+| Frontend Server-Side | 🖥️ Thymeleaf | Renderização das interfaces web administrativas e operacionais no servidor. |
+| Documentação REST | 📖 Swagger / OpenAPI | Geração automatizada da documentação técnica da API REST. |
+| Versionamento de Banco | 🛫 Flyway | Controle de versionamento e evolução estruturada do banco de dados. |
+| Build e Dependências | 🛠️ Maven | Gerenciamento de dependências, empacotamento e ciclo de build do projeto. |
+| CI/CD | ⚙️ GitHub Actions | Integração contínua e deploy automatizado da aplicação. |
+| Cloud Computing | ☁️ Microsoft Azure App Service | Hospedagem cloud e execução online da aplicação Java. |
+| Testes de API | 📬 Postman / Insomnia | Validação funcional, testes exploratórios e evidências técnicas dos endpoints REST. |
+| Frontend Mobile | 📱 React Native / Expo | Aplicativo mobile integrado ao ecossistema Pedix. |
+| Controle de Versão | 🐙 Git + GitHub | Versionamento de código, colaboração e integração contínua do projeto. |
 
-## 📂 Estrutura do Projeto
+## 📁 Estrutura do Projeto
 
 ```text
 pedix-api/
-├── .idea/                              → Configurações do IntelliJ IDEA
-├── .mvn/                               → Arquivos de suporte do Maven Wrapper
+├── .github/
+│   └── workflows/
+│       └── pipeline de CI/CD com GitHub Actions
 │
-├── docs/                               → Documentação e evidências do projeto
+├── docs/
 │   ├── cronograma/
-│   │   └── Cronograma-java-advanced.pdf        → Cronograma macro do projeto
+│   │   └── Cronograma-java-advanced.pdf
 │   │
 │   ├── diagramas/
-│   │   ├── diagrama-classes-pedix.png          → Diagrama de classes UML
-│   │   └── diagrama-mer-pedix.png              → Modelo Entidade-Relacionamento (MER)
+│   │   ├── diagrama-classes-pedix.png
+│   │   └── diagrama-mer-pedix.png
 │   │
-│   └── imagens/
-│       ├── colecao-postman/                    → Evidências visuais dos testes da API REST
-│       │   ├── 1-GET-home.png
-│       │   ├── 2-GET-item-cardapio.png
-│       │   ├── 3-GET-item-cardapio-ID.png
-│       │   ├── 4-POST-item-cardapio.png
-│       │   ├── 5-PUT-item-cardapio-ID.png
-│       │   ├── 6-DELETE-item-cardapio-ID.png
-│       │   ├── 7-GET-listar-pedidos.png
-│       │   ├── 8-GET-Listar-pedidos-ID.png
-│       │   ├── 9-GET-listar-pedido-comandaID.png
-│       │   ├── 10-POST-cria-pedido-vinculado-comanda.png
-│       │   ├── 11-PUT-Atualiza-status-pedido.png
-│       │   ├── 12-DELETE-pedido-ID.png
-│       │   ├── 13-GET-teste-erro-404.png
-│       │   └── 14-POST-teste-erro-400.png
-│       │
-│       └── interface-web/                     → Evidências das interfaces web da aplicação
-│           ├── login_pedix.png
-│           ├── home_admin.png
-│           ├── home_garcon.png
-│           ├── cardapio_admin.png
-│           ├── cardapio_garcon.png
-│           ├── item_novo_admin.png
-│           ├── pedido_admin.png
-│           ├── pedido_garcon.png
-│           └── novo_pedido_admin_garcon.png
-│
-├── testes/                             → Coleções de teste/exportações Postman
-│   ├── pedix_api_postman._v1.json
-│   └── pedix_api_postman._v2.json
+│   ├── imagens/
+│   │   ├── colecao-postman/
+│   │   │   └── evidências dos testes realizados no Postman
+│   │   │
+│   │   └── interface-web/
+│   │       └── evidências visuais da interface web
+│   │
+│   ├── sprint4/
+│   │   ├── arquitetura-integrada.md
+│   │   ├── consultas-validacao.sql
+│   │   ├── endpoints-mobile.md
+│   │   └── pipeline-devops.md
+│   │
+│   └── testes/
+│       ├── pedix_api_postman_v1.json
+│       └── pedix_api_postman_v2.json
 │
 ├── src/
-│   ├── main/
-│   │   ├── java/com/pedix/api/
-│   │   │
-│   │   │   ├── config/                        → Configurações globais da aplicação
-│   │   │   │   ├── OpenAPIConfig.java
-│   │   │   │   └── SecurityConfig.java
-│   │   │   │
-│   │   │   ├── controller/
-│   │   │   │   ├── api/                       → Endpoints REST da aplicação
-│   │   │   │   │   ├── ApiHomeController.java
-│   │   │   │   │   ├── ItemCardapioController.java
-│   │   │   │   │   ├── PedidoController.java
-│   │   │   │   │   └── PedidoItemController.java
-│   │   │   │   │
-│   │   │   │   └── web/                       → Controllers MVC / Thymeleaf
-│   │   │   │       ├── AccessDeniedController.java
-│   │   │   │       ├── CardapioWebController.java
-│   │   │   │       ├── HomeController.java
-│   │   │   │       └── PedidoWebController.java
-│   │   │   │
-│   │   │   ├── domain/                        → Modelo de domínio / entidades JPA
-│   │   │   │   ├── enums/
-│   │   │   │   │   ├── CategoriaItem.java
-│   │   │   │   │   ├── PerfilUsuario.java
-│   │   │   │   │   └── StatusPedido.java
-│   │   │   │   ├── ItemCardapio.java
-│   │   │   │   ├── Pedido.java
-│   │   │   │   └── PedidoItem.java
-│   │   │   │
-│   │   │   ├── dto/                           → Objetos de transferência de dados
-│   │   │   │   ├── ItemCardapioDTO.java
-│   │   │   │   ├── MensagemResponse.java
-│   │   │   │   ├── PedidoDTO.java
-│   │   │   │   ├── PedidoItemDTO.java
-│   │   │   │   ├── PedidoItemRequestDTO.java
-│   │   │   │   ├── PedidoItemResponseDTO.java
-│   │   │   │   └── PedidoResponseDTO.java
-│   │   │   │
-│   │   │   ├── exception/                     → Tratamento global de exceções
-│   │   │   │   └── GlobalExceptionHandler.java
-│   │   │   │
-│   │   │   ├── repository/                    → Repositórios JPA
-│   │   │   │   ├── ItemCardapioRepository.java
-│   │   │   │   ├── PedidoItemRepository.java
-│   │   │   │   └── PedidoRepository.java
-│   │   │   │
-│   │   │   ├── security/                      → Serviços auxiliares de autenticação
-│   │   │   │   └── CustomUserDetailsService.java
-│   │   │   │
-│   │   │   ├── service/                       → Regras de negócio / orquestração
-│   │   │   │   ├── ItemCardapioService.java
-│   │   │   │   ├── PedidoItemService.java
-│   │   │   │   └── PedidoService.java
-│   │   │   │
-│   │   │   └── PedixApplication.java          → Classe principal do Spring Boot
-│   │   │
-│   │   └── resources/
-│   │       ├── db.migration/                  → Scripts versionados Flyway
-│   │       │   ├── V1__create_tables.sql
-│   │       │   └── V2__insert_data.sql
-│   │       │
-│   │       ├── static/
-│   │       │   ├── css/
-│   │       │   │   └── styles.css
-│   │       │   └── images/
-│   │       │       └── pedix-mascot.png
-│   │       │
-│   │       ├── templates/                     → Views Thymeleaf
-│   │       │   ├── cardapio/
-│   │       │   │   ├── form.html
-│   │       │   │   └── lista.html
-│   │       │   │
-│   │       │   ├── pedidos/
-│   │       │   │   ├── detalhe.html
-│   │       │   │   ├── form.html
-│   │       │   │   └── lista.html
-│   │       │   │
-│   │       │   ├── 403.html
-│   │       │   ├── home.html
-│   │       │   └── login.html
-│   │       │
-│   │       └── application.properties         → Configurações da aplicação
-│   │
-│   └── test/                                  → Testes automatizados
+│   └── main/
+│       ├── java/
+│       │   └── com.pedix.api/
+│       │       ├── config/
+│       │       │   ├── OpenAPIConfig.java
+│       │       │   └── SecurityConfig.java
+│       │       │
+│       │       ├── controller/
+│       │       │   ├── api/
+│       │       │   │   ├── ApiHomeController.java
+│       │       │   │   ├── AvaliacaoController.java
+│       │       │   │   ├── CategoriaCardapioController.java
+│       │       │   │   ├── HistoricoPedidoController.java
+│       │       │   │   ├── ItemCardapioController.java
+│       │       │   │   ├── PedidoController.java
+│       │       │   │   ├── PedidoItemController.java
+│       │       │   │   └── RelatorioController.java
+│       │       │   │
+│       │       │   └── web/
+│       │       │       ├── AccessDeniedController.java
+│       │       │       ├── CardapioWebController.java
+│       │       │       ├── HomeController.java
+│       │       │       └── PedidoWebController.java
+│       │       │
+│       │       ├── domain/
+│       │       │   ├── enums/
+│       │       │   │   └── StatusPedido.java
+│       │       │   ├── Avaliacao.java
+│       │       │   ├── CategoriaCardapio.java
+│       │       │   ├── HistoricoPedido.java
+│       │       │   ├── ItemCardapio.java
+│       │       │   ├── Pedido.java
+│       │       │   ├── PedidoItem.java
+│       │       │   └── Relatorio.java
+│       │       │
+│       │       ├── dto/
+│       │       │   ├── AvaliacaoDTO.java
+│       │       │   ├── AvaliacaoRequestDTO.java
+│       │       │   ├── CategoriaCardapioDTO.java
+│       │       │   ├── HistoricoPedidoDTO.java
+│       │       │   ├── ItemCardapioDTO.java
+│       │       │   ├── MensagemResponse.java
+│       │       │   ├── PedidoDTO.java
+│       │       │   ├── PedidoItemDTO.java
+│       │       │   ├── PedidoItemRequestDTO.java
+│       │       │   ├── PedidoItemResponseDTO.java
+│       │       │   ├── PedidoResponseDTO.java
+│       │       │   └── RelatorioDTO.java
+│       │       │
+│       │       ├── exception/
+│       │       │   └── GlobalExceptionHandler.java
+│       │       │
+│       │       ├── repository/
+│       │       │   ├── AvaliacaoRepository.java
+│       │       │   ├── CategoriaCardapioRepository.java
+│       │       │   ├── HistoricoPedidoRepository.java
+│       │       │   ├── ItemCardapioRepository.java
+│       │       │   ├── PedidoItemRepository.java
+│       │       │   ├── PedidoRepository.java
+│       │       │   └── RelatorioRepository.java
+│       │       │
+│       │       ├── service/
+│       │       │   ├── AvaliacaoService.java
+│       │       │   ├── CategoriaCardapioService.java
+│       │       │   ├── HistoricoPedidoService.java
+│       │       │   ├── ItemCardapioService.java
+│       │       │   ├── PedidoItemService.java
+│       │       │   ├── PedidoService.java
+│       │       │   └── RelatorioService.java
+│       │       │
+│       │       └── PedixApplication.java
+│       │
+│       └── resources/
+│           ├── db.migration/
+│           │   ├── V1__create_tables.sql
+│           │   └── V2__insert_data.sql
+│           │
+│           ├── static/
+│           │   ├── css/
+│           │   │   └── styles.css
+│           │   └── images/
+│           │       └── pedix-mascot.png
+│           │
+│           ├── templates/
+│           │   ├── cardapio/
+│           │   │   ├── form.html
+│           │   │   └── lista.html
+│           │   │
+│           │   ├── pedidos/
+│           │   │   ├── detalhe.html
+│           │   │   ├── form.html
+│           │   │   └── lista.html
+│           │   │
+│           │   ├── 403.html
+│           │   ├── home.html
+│           │   └── login.html
+│           │
+│           ├── application.properties
+│           └── application-prod.properties
 │
-├── target/                            → Artefatos gerados no build Maven
-├── pom.xml                            → Dependências e configuração do projeto
-├── README.md                          → Documentação principal do repositório
-├── .gitignore                         → Arquivos ignorados pelo Git
-└── .gitattributes                     → Configuração de atributos Git
+├── test/
+├── target/
+├── .gitattributes
+├── .gitignore
+├── azure-pipelines.yml
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+└── README.md
 ```
 
+A organização do projeto segue uma arquitetura em camadas, separando responsabilidades entre controllers, services, repositories, DTOs, entidades de domínio, configurações de segurança, documentação técnica e evidências da Sprint 4. Essa estrutura facilita manutenção, escalabilidade, testes, integração com o aplicativo mobile e demonstração técnica da solução.
 
-## 🛠 Funcionalidades
 
-A aplicação **Pedix** oferece as seguintes funcionalidades principais:
+## 🛠️ Funcionalidades da Solução
+
+A aplicação **Pedix API** disponibiliza funcionalidades administrativas, operacionais e técnicas voltadas ao gerenciamento digital do ecossistema Pedix, oferecendo suporte à integração entre interfaces web, APIs REST e aplicativo mobile.
+
+A API Java atua como serviço secundário de apoio operacional e integração, sendo responsável principalmente pelos módulos de cardápio, categorias, avaliações, relatórios, histórico operacional e documentação técnica da solução.
+
+### Funcionalidades Implementadas
 
 - 🍽️ **Gestão de Cardápio** — cadastro, listagem, edição e exclusão de itens do cardápio pelo perfil Administrador.
-- 👀 **Visualização Operacional do Cardápio** — consulta dos itens disponíveis pelo perfil Garçom, sem permissão de manutenção.
-- 🧾 **Gestão de Pedidos** — criação, consulta detalhada e acompanhamento de pedidos vinculados ao fluxo operacional do restaurante.
-- 🔄 **Atualização de Status de Pedidos** — alteração do status operacional dos pedidos (`EM_PREPARO`, `PRONTO`, `ENTREGUE`, `CANCELADO`).
-- ❌ **Cancelamento Controlado de Pedidos** — funcionalidade restrita ao perfil Administrador.
-- 🔐 **Controle de Acesso por Perfil** — segregação de permissões entre usuários Administrador e Garçom via Spring Security.
-- 🖥️ **Painel Web Administrativo e Operacional** — interface web server-side renderizada com Thymeleaf para operação do sistema.
-- 📖 **Documentação Técnica da API** — Swagger UI e OpenAPI Docs disponíveis em área técnica restrita ao Administrador.
-- 🔗 **API REST com HATEOAS** — respostas enriquecidas com hipermídia para navegação entre recursos relacionados.
-- 🧱 **Persistência em Banco Oracle** — armazenamento relacional seguro e consistente dos dados da aplicação.
-- 🛫 **Versionamento de Banco com Flyway** — controle versionado e automatizado das migrações estruturais da base de dados.
+- 📂 **Gerenciamento de Categorias** — organização estrutural dos itens do cardápio através de categorias operacionais.
+- 👀 **Visualização Operacional do Cardápio** — consulta dos itens disponíveis pelo perfil Garçom sem permissões administrativas.
+- ⭐ **Avaliação de Itens e Pedidos** — registro de avaliações operacionais vinculadas ao fluxo do restaurante.
+- 📊 **Relatórios Operacionais** — estrutura de endpoints destinados à geração de informações administrativas e acompanhamento operacional.
+- 🕓 **Histórico Operacional** — rastreabilidade de eventos e alterações relacionadas aos fluxos do sistema.
+- 🔐 **Controle de Acesso por Perfil** — segregação de permissões entre usuários Administrador e Garçom utilizando Spring Security.
+- 🖥️ **Painel Web Administrativo e Operacional** — interface web server-side renderizada com Thymeleaf para gerenciamento do sistema.
+- 📖 **Documentação Técnica da API** — Swagger UI e OpenAPI Docs disponíveis em área técnica restrita ao perfil Administrador.
+- 🔗 **API REST com HATEOAS** — respostas enriquecidas com hipermídia para navegação contextual entre recursos relacionados.
+- ☁️ **Deploy Cloud em Microsoft Azure** — execução online da aplicação em ambiente cloud.
+- ⚙️ **Pipeline CI/CD Automatizada** — integração contínua e deploy automatizado utilizando GitHub Actions.
+- 🧱 **Persistência Relacional em Oracle Database** — armazenamento seguro e consistente das informações operacionais da aplicação.
+- 🛫 **Versionamento de Banco com Flyway** — controle automatizado e versionado das migrações estruturais do banco de dados.
+- 📱 **Integração com Aplicativo Mobile** — disponibilização de endpoints REST utilizados pelo aplicativo React Native do ecossistema Pedix.
+- 🍃 **Integração Complementar com MongoDB** — suporte à camada documental NoSQL implementada durante a Sprint 4.
+
+> O fluxo principal de autenticação, comandas e pedidos operacionais encontra-se centralizado na API .NET integrada ao ecossistema Pedix.
 
 ## 🌐 URLs Principais da Aplicação
 
-Antes de utilizar os recursos da plataforma, é possível acessar os principais endpoints técnicos e funcionais do sistema:
+A aplicação Pedix API encontra-se publicada em ambiente cloud Microsoft Azure, disponibilizando recursos técnicos, operacionais e endpoints REST utilizados pela interface web e integração mobile do ecossistema Pedix.
 
 | Finalidade | URL | Descrição |
-|-----------|-----|-----------|
-| **🏠 Home da Aplicação** | `http://localhost:8080/home` | Página inicial autenticada da aplicação, utilizada como painel principal conforme perfil do usuário. |
-| **📖 Swagger UI** | `http://localhost:8080/swagger-ui/index.html` | Documentação técnica interativa da API REST, disponível apenas para usuários com perfil Administrador. |
-| **📄 API Docs OpenAPI** | `http://localhost:8080/v3/api-docs` | Especificação OpenAPI em JSON para integração e inspeção técnica dos endpoints. |
+|-----------|------|-----------|
+| **🏠 Home da Aplicação** | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/home` | Página inicial autenticada da aplicação contendo acesso aos módulos operacionais, integrações e área técnica da solução. |
+| **📱 Endpoint Mobile — Cardápio** | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/api/item-cardapio` | Endpoint REST responsável pela disponibilização dos itens do cardápio consumidos pelo aplicativo mobile do ecossistema Pedix. |
+| **❤️ Health Check** | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/api/health` | Endpoint técnico utilizado para validação operacional da aplicação em ambiente cloud. |
+| **📖 Swagger UI** | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/swagger-ui/index.html` | Interface interativa da documentação técnica da API REST disponível para validação e integração dos endpoints. |
+| **📄 OpenAPI Docs** | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/v3/api-docs` | Especificação OpenAPI em formato JSON utilizada para integração técnica e inspeção estrutural da API. |
 
-###  🚀  Endpoints da API Pedix
+---
 
-## 🧭 Endpoint HATEOAS – /home
+# 🚀 Navegação Técnica da API
 
-📍 URL: http://localhost:8080/home
+## 🧭 Endpoint HATEOAS — `/home`
 
+📍 URL:
+
+```
+https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/home
+```
 🔍 Exemplo de Resposta JSON
 
 ```
 {
   "mensagem": "API Pedix está rodando! Acesse o Swagger UI ou as rotas principais.",
   "_links": {
-    "self": { "href": "http://localhost:8080/home" },
-    "pedidos": { "href": "http://localhost:8080/api/pedido" },
+    "self": {
+      "href": "https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/home"
+    },
     "cardapio": {
-      "href": "http://localhost:8080/api/item-cardapio{?categoria}",
+      "href": "https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/api/item-cardapio{?categoria}",
       "templated": true
     },
-    "swagger-ui": { "href": "/swagger-ui/index.html" }
+    "swagger-ui": {
+      "href": "/swagger-ui/index.html"
+    }
   }
 }
 
 ```
-> O endpoint /home serve como ponto de entrada da API, retornando mensagem de status e links navegáveis para os principais recursos.
+> O endpoint /home atua como ponto central de navegação da API, disponibilizando links dinâmicos para os principais recursos técnicos e operacionais da aplicação através da implementação de HATEOAS.
 
-## 📦 Cardápio — ItemCardápio
-| Método   | Endpoint                             | Descrição                                                    | Exemplo de uso                                                                                                     |
-| :------- | :----------------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
-| `GET`    | `/api/item-cardapio`                 | Lista todos os itens disponíveis no cardápio.                | [http://localhost:8080/api/item-cardapio](http://localhost:8080/api/item-cardapio)                                 |
-| `GET`    | `/api/item-cardapio?categoria=PRATO` | Filtra itens por categoria (`PRATO`, `BEBIDA`, `SOBREMESA`). | [http://localhost:8080/api/item-cardapio?categoria=PRATO](http://localhost:8080/api/item-cardapio?categoria=PRATO) |
-| `GET`    | `/api/item-cardapio/{id}`            | Busca um item específico pelo ID.                            | [http://localhost:8080/api/item-cardapio/1](http://localhost:8080/api/item-cardapio/1)                             |
-| `POST`   | `/api/item-cardapio`                 | Cria um novo item do cardápio.                               | —                                                                                                                  |
-| `PUT`    | `/api/item-cardapio/{id}`            | Atualiza os dados de um item existente.                      | —                                                                                                                  |
-| `DELETE` | `/api/item-cardapio/{id}`            | Exclui um item do cardápio.                                  | —                                                                                                                  |
+## 📦 Endpoints da API Java
 
+A API Java do ecossistema Pedix atua como serviço secundário de suporte, gestão e integração, concentrando recursos relacionados a cardápio, categorias, avaliações, relatórios, histórico operacional, documentação técnica e validação de status da aplicação.
 
-## 🛒 Pedido
-| Método   | Endpoint                                | Descrição                                        | Exemplo de uso                                                                                 |
-| :------- | :-------------------------------------- | :----------------------------------------------- |:-----------------------------------------------------------------------------------------------|
-| `GET`    | `/api/pedido`                           | Lista **todos os pedidos** cadastrados.          | [http://localhost:8080/api/pedido](http://localhost:8080/api/pedido)                           |
-| `GET`    | `/api/pedido/{id}`                      | Busca um pedido específico pelo ID.              | [http://localhost:8080/api/pedido/1](http://localhost:8080/api/pedido/1)                       |
-| `GET`    | `/api/pedido/comanda/{comandaId}`       | Lista todos os pedidos vinculados a uma comanda. | [http://localhost:8080/api/pedido/comanda/1001](http://localhost:8080/api/pedido/comanda/1001) |
-| `POST`   | `/api/pedido/comanda/{comandaId}`       | Cria um novo pedido vinculado a uma comanda.     | —                                                                                              |
-| `PUT`    | `/api/pedido/{id}/status?status=PRONTO` | Atualiza o status de um pedido existente.        | —                                                                                              |
-| `DELETE` | `/api/pedido/{id}`                      | Remove um pedido existente pelo ID.              | [http://localhost:8080/api/pedido/3](http://localhost:8080/api/pedido/3)                       |
+---
 
+## 🍽️ Cardápio — ItemCardapio
 
-## 🧾 Item de Pedido — PedidoItem
+| Método | Endpoint | Descrição | Exemplo de uso |
+|--------|----------|-----------|----------------|
+| `GET` | `/api/item-cardapio` | Lista todos os itens disponíveis no cardápio. | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/api/item-cardapio` |
+| `GET` | `/api/item-cardapio/{id}` | Busca um item específico pelo ID. | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/api/item-cardapio/1` |
+| `GET` | `/api/item-cardapio?categoriaId={id}` | Filtra itens por categoria. | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/api/item-cardapio?categoriaId=1` |
+| `GET` | `/api/item-cardapio?busca={termo}` | Busca itens pelo nome ou descrição. | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/api/item-cardapio?busca=pizza` |
+| `POST` | `/api/item-cardapio` | Cria um novo item do cardápio. | Uso via Swagger/Postman |
+| `PUT` | `/api/item-cardapio/{id}` | Atualiza os dados de um item existente. | Uso via Swagger/Postman |
+| `DELETE` | `/api/item-cardapio/{id}` | Remove um item do cardápio. | Uso via Swagger/Postman |
 
-| Método   | Endpoint                | Descrição                                | Exemplo                                                                            |
-| -------- | ----------------------- | ---------------------------------------- | ---------------------------------------------------------------------------------- |
-| `GET`    | `/api/pedido-item`      | Lista todos os itens de pedido.          | [http://localhost:8080/api/pedido-item](http://localhost:8080/api/pedido-item)     |
-| `GET`    | `/api/pedido-item/{id}` | Busca um item de pedido pelo ID.         | [http://localhost:8080/api/pedido-item/1](http://localhost:8080/api/pedido-item/1) |
-| `POST`   | `/api/pedido-item`      | Cria um novo item vinculado a um pedido. | —                                                                                  |
-| `PUT`    | `/api/pedido-item/{id}` | Atualiza um item de pedido existente.    | —                                                                                  |
-| `DELETE` | `/api/pedido-item/{id}` | Remove um item de pedido.                | —                                                                                  |
+---
+
+## 📂 Categorias do Cardápio
+
+| Método | Endpoint | Descrição | Exemplo de uso |
+|--------|----------|-----------|----------------|
+| `GET` | `/api/categorias-cardapio` | Lista todas as categorias cadastradas. | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/api/categorias-cardapio` |
+| `GET` | `/api/categorias-cardapio/{id}` | Busca uma categoria pelo ID. | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/api/categorias-cardapio/1` |
+| `POST` | `/api/categorias-cardapio` | Cria uma nova categoria. | Uso via Swagger/Postman |
+| `PUT` | `/api/categorias-cardapio/{id}` | Atualiza uma categoria existente. | Uso via Swagger/Postman |
+| `DELETE` | `/api/categorias-cardapio/{id}` | Remove uma categoria. | Uso via Swagger/Postman |
+
+---
+
+## ⭐ Avaliações
+
+| Método | Endpoint | Descrição | Exemplo de uso |
+|--------|----------|-----------|----------------|
+| `GET` | `/api/avaliacoes` | Lista todas as avaliações cadastradas. | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/api/avaliacoes` |
+| `GET` | `/api/avaliacoes/{id}` | Busca uma avaliação pelo ID. | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/api/avaliacoes/1` |
+| `POST` | `/api/avaliacoes` | Cria uma nova avaliação. | Uso via Swagger/Postman |
+| `DELETE` | `/api/avaliacoes/{id}` | Remove uma avaliação. | Uso via Swagger/Postman |
+
+---
+
+## 🕓 Histórico Operacional
+
+| Método | Endpoint | Descrição | Exemplo de uso |
+|--------|----------|-----------|----------------|
+| `GET` | `/api/historicos-pedidos` | Lista os registros de histórico operacional. | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/api/historicos-pedidos` |
+| `GET` | `/api/historicos-pedidos/{id}` | Busca um histórico pelo ID. | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/api/historicos-pedidos/1` |
+| `GET` | `/api/historicos-pedidos/pedido/{pedidoId}` | Lista históricos vinculados a um pedido de referência. | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/api/historicos-pedidos/pedido/1` |
+| `POST` | `/api/historicos-pedidos` | Cria um novo registro de histórico. | Uso via Swagger/Postman |
+
+---
+
+## 📊 Relatórios
+
+| Método | Endpoint | Descrição | Exemplo de uso |
+|--------|----------|-----------|----------------|
+| `GET` | `/api/relatorios` | Lista todos os relatórios cadastrados. | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/api/relatorios` |
+| `GET` | `/api/relatorios/{id}` | Busca um relatório pelo ID. | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/api/relatorios/1` |
+| `GET` | `/api/relatorios/tipo/{tipo}` | Filtra relatórios por tipo. | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/api/relatorios/tipo/VENDAS` |
+| `POST` | `/api/relatorios` | Cria um novo relatório. | Uso via Swagger/Postman |
+| `DELETE` | `/api/relatorios/{id}` | Remove um relatório. | Uso via Swagger/Postman |
+
+---
+
+## ❤️ Health Check
+
+| Método | Endpoint | Descrição | Exemplo de uso |
+|--------|----------|-----------|----------------|
+| `GET` | `/api/health` | Valida se a aplicação está online e operacional. | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/api/health` |
+
+---
+
+## 📖 Documentação Técnica
+
+| Recurso | Endpoint | Descrição |
+|---------|----------|-----------|
+| Swagger UI | `/swagger-ui/index.html` | Interface interativa para consulta e teste dos endpoints REST. |
+| OpenAPI Docs | `/v3/api-docs` | Especificação OpenAPI em formato JSON. |
 
 
 ## 🧪 Testes e Exemplos de Consumo da API
@@ -480,10 +643,13 @@ A aplicação disponibiliza coleções **Postman versionadas** com exemplos comp
 
 ### ✅ Cobertura dos Testes
 - 🍽️ CRUD de Itens do Cardápio
-- 🧾 CRUD de Pedidos
-- 🛒 CRUD de Itens de Pedido
+- 📂 CRUD de Categorias
+- ⭐ Operações de Avaliação
+- 📊 Endpoints de Relatórios
+- 🕓 Histórico Operacional
 - ⚠️ Testes de validação e tratamento de erros
 - 🔗 Exemplos de respostas com HATEOAS
+- ❤️ Validação do Health Check
 
 ### 🖼️ Evidências Visuais
 Além das coleções Postman, os prints das execuções e evidências dos testes encontram-se em:
@@ -493,41 +659,86 @@ Além das coleções Postman, os prints das execuções e evidências dos testes
 
 ## 🛡️ Validação Funcional
 
-A aplicação utiliza **Jakarta Bean Validation** para garantir integridade e consistência dos dados recebidos nos endpoints REST e formulários web.
+A aplicação Pedix API utiliza **Jakarta Bean Validation** para garantir integridade, consistência e confiabilidade dos dados recebidos pelos endpoints REST e formulários web da solução.
+
+As validações são aplicadas tanto na camada de entrada das requisições quanto nos fluxos operacionais internos da aplicação, reduzindo inconsistências e fortalecendo a segurança funcional da plataforma.
 
 ### ✅ Principais Anotações Utilizadas
-- `@NotNull` — garante preenchimento de campos obrigatórios
-- `@NotBlank` — impede strings vazias ou compostas apenas por espaços
-- `@Positive` — valida valores numéricos positivos
-- `@Size` — restringe tamanho mínimo e máximo de campos textuais
+
+- `@NotNull` — garante preenchimento obrigatório de atributos essenciais;
+- `@NotBlank` — impede valores vazios ou compostos apenas por espaços;
+- `@Positive` — valida valores numéricos positivos;
+- `@Size` — restringe tamanhos mínimos e máximos de campos textuais;
+- `@Valid` — realiza validação encadeada de DTOs e objetos compostos.
+
+---
+
+## ⚠️ Tratamento Global de Exceções
+
+A aplicação também implementa tratamento centralizado de erros através de um `GlobalExceptionHandler`, permitindo padronização das respostas HTTP retornadas pela API.
+
+Essa abordagem contribui para:
+
+- padronização das mensagens de erro;
+- maior previsibilidade para integração entre serviços;
+- rastreabilidade operacional;
+- redução de inconsistências durante validações funcionais;
+- melhoria da experiência de consumo da API.
+
+---
 
 ## 🗃️ Migrações e Inicialização do Banco de Dados
 
-A aplicação utiliza **Flyway** para versionamento e gerenciamento automatizado da estrutura do banco Oracle.
+A aplicação utiliza **Flyway** para versionamento, rastreabilidade e gerenciamento automatizado da estrutura do banco Oracle.
 
-As migrações são executadas automaticamente na inicialização da aplicação, garantindo consistência estrutural entre ambientes.
+As migrações são executadas automaticamente durante a inicialização da aplicação, garantindo consistência estrutural entre ambientes de desenvolvimento, homologação e execução cloud.
 
 ### 📂 Scripts de Migração
-- `V1__create_tables.sql` — criação das tabelas, sequences e triggers da aplicação
-- `V2__insert_data.sql` — carga inicial de dados para testes e homologação
 
-### 📌 Estruturas Persistidas
+- `V1__create_tables.sql` — criação das tabelas, constraints, relacionamentos e estruturas iniciais da aplicação;
+- `V2__insert_data.sql` — inserção de dados iniciais utilizados para desenvolvimento, testes e homologação.
+
+---
+
+## 📌 Estruturas Persistidas
+
+A camada relacional da aplicação contempla entidades voltadas à gestão operacional e suporte técnico do ecossistema Pedix:
+
 - `ITEM_CARDAPIO`
-- `PEDIDO`
-- `PEDIDO_ITEM`
+- `CATEGORIA_CARDAPIO`
+- `AVALIACAO`
+- `HISTORICO_PEDIDO`
+- `RELATORIO`
 
-### ⚙️ Recursos de Banco Implementados
-- Sequences para geração de identificadores
-- Triggers de auto incremento no Oracle
-- Relacionamentos e constraints de integridade referencial
-- Dados seed iniciais para ambiente de desenvolvimento/testes
+--- 
+## ⚙️ Recursos de Banco Implementados
 
-## 📋 Resumo Estrutural
-| Tabela          | Descrição                                        | Chave Primária | Relações                                                               |
-| :-------------- | :----------------------------------------------- | :------------- | :--------------------------------------------------------------------- |
-| `ITEM_CARDAPIO` | Itens do cardápio (pratos, bebidas, sobremesas). | `id`           | —                                                                      |
-| `PEDIDO`        | Pedido de uma comanda, com data e total.         | `id`           | 1:N → `PEDIDO_ITEM`                                                    |
-| `PEDIDO_ITEM`   | Itens que pertencem a um pedido específico.      | `id`           | FK `pedido_id` → `PEDIDO` <br> FK `item_cardapio_id` → `ITEM_CARDAPIO` |
+- Persistência relacional utilizando Oracle Database;
+- Constraints de integridade referencial;
+- Relacionamentos estruturados entre entidades;
+- Sequences para geração automatizada de identificadores;
+- Estrutura preparada para versionamento incremental com Flyway;
+- Migrações automatizadas executadas durante a inicialização da aplicação;
+- Dados iniciais para ambientes de desenvolvimento e homologação;
+- Integração automatizada entre Spring Boot, Flyway e Oracle Database;
+- Estrutura preparada para integração entre APIs e serviços externos;
+- Compatibilidade com deploy cloud em Microsoft Azure;
+- Compatibilidade com pipelines CI/CD automatizadas;
+- Organização modular da camada de persistência;
+- Estrutura preparada para evolução arquitetural escalável do ecossistema Pedix.
+
+## 📋 Resumo Estrutural da Base Relacional
+
+| Tabela | Descrição | Chave Primária | Relações |
+| :--- | :--- | :--- | :--- |
+| `ITEM_CARDAPIO` | Armazena os itens disponíveis no cardápio da aplicação. | `id` | FK `categoria_id` → `CATEGORIA_CARDAPIO` |
+| `CATEGORIA_CARDAPIO` | Responsável pela categorização estrutural dos itens do cardápio. | `id` | 1:N → `ITEM_CARDAPIO` |
+| `AVALIACAO` | Registra avaliações operacionais vinculadas aos itens do sistema. | `id` | FK `item_cardapio_id` → `ITEM_CARDAPIO` |
+| `HISTORICO_PEDIDO` | Armazena registros históricos e rastreabilidade operacional do sistema. | `id` | Referência operacional integrada aos fluxos da API principal |
+| `RELATORIO` | Estrutura destinada ao armazenamento de relatórios administrativos e operacionais. | `id` | — |
+
+> As entidades relacionadas ao fluxo operacional principal de comandas e pedidos encontram-se centralizadas na API .NET do ecossistema Pedix.
+
 
 
 ## 🚀 Como Rodar a Aplicação
@@ -568,26 +779,36 @@ mvn spring-boot:run
 
 ### 4️⃣ Acessar a Aplicação
 
+A aplicação encontra-se publicada em ambiente cloud Microsoft Azure, permitindo acesso aos recursos técnicos e operacionais da solução.
+
 | Recurso | URL |
 |--------|-----|
-| 🏠 Aplicação Web | `http://localhost:8080/home` |
-| 📖 Swagger UI | `http://localhost:8080/swagger-ui/index.html` |
-| 📄 OpenAPI Docs | `http://localhost:8080/v3/api-docs` |
+| 🏠 Home da Aplicação | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/home` |
+| 📖 Swagger UI | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/swagger-ui/index.html` |
+| 📄 OpenAPI Docs | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/v3/api-docs` |
+| ❤️ Health Check | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/api/health` |
+| 📱 Endpoint Mobile — Cardápio | `https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/api/item-cardapio` |
 
 ---
 
 ### 5️⃣ Credenciais de Acesso
 
-A aplicação possui autenticação baseada em perfil de usuário.
+A aplicação utiliza autenticação baseada em perfil de usuário através do Spring Security, permitindo segregação de permissões entre os módulos administrativos e operacionais do ecossistema Pedix.
 
-#### 👑 Administrador
-```text
+As credenciais abaixo também são utilizadas para autenticação e validação operacional no aplicativo mobile integrado à solução.
+
+---
+
+#### 👑 Perfil Administrador
+
+```
 Usuário: admin
 Senha: admin123
 ```
 
-#### 🍽️ Garçom
-```text
+#### 🍽️ Perfil Garçom
+
+```
 Usuário: garcom
 Senha: garcom123
 ```
@@ -595,42 +816,124 @@ Senha: garcom123
 > O acesso à documentação técnica (Swagger / API Docs) é restrito ao perfil **Administrador**.
 
 
-## 📊 Diagramas
+## 📊 Diagramas e Arquitetura da Solução
 
 ### 🌐 Diagrama de Contexto Arquitetural
 
-Representa a visão macro do ecossistema Pedix, evidenciando a separação de responsabilidades entre os módulos da solução e o compartilhamento do banco Oracle centralizado.
+O ecossistema Pedix foi estruturado utilizando arquitetura distribuída baseada em múltiplos serviços integrados, promovendo separação de responsabilidades entre módulos operacionais, APIs auxiliares, aplicação mobile e persistência de dados.
+
+A API .NET concentra o fluxo operacional principal da solução, enquanto a API Java atua como serviço secundário de suporte, integração e gestão administrativa do ecossistema.
+
+A arquitetura também contempla integração com MongoDB para persistência documental complementar, além de deploy cloud em Microsoft Azure e pipeline CI/CD automatizada com GitHub Actions.
 
 ```text
-          ┌────────────────────────────┐
-          │        Banco Oracle        │
-          │  (Modelo de Dados Único)   │
-          └────────────┬───────────────┘
-                       │
-     ┌─────────────────┴───────────────────┐
-     │                                     │
-┌───────────────┐                 ┌─────────────────┐
-│ API Principal │                 │ API Pedix Java  │
-│   (C#/.NET)   │                 │ (Spring Boot)   │
-│---------------│                 │-----------------│
-│ Cliente       │                 │ ItemCardapio    │
-│ Garçom        │                 │ Pedido          │
-│ Mesa          │                 │ PedidoItem      │
-│ Comanda       │                 │                 │
-└───────────────┘                 └─────────────────┘
+                              ┌────────────────────────────┐
+                              │     Microsoft Azure        │
+                              │   App Service + CI/CD      │
+                              └────────────┬───────────────┘
+                                           │
+                         ┌─────────────────┴─────────────────┐
+                         │                                   │
+              ┌──────────────────────┐          ┌──────────────────────┐
+              │   API Principal      │          │    API Pedix Java    │
+              │      (.NET)          │          │    (Spring Boot)     │
+              │----------------------│          │-----------------------│
+              │ Autenticação         │          │ ItemCardapio          │
+              │ Cliente              │          │ CategoriaCardapio     │
+              │ Garçom               │          │ Avaliacao             │
+              │ Mesa                 │          │ Relatorio             │
+              │ Comanda              │          │ HistoricoPedido       │
+              │ Pedido               │          │ Swagger / OpenAPI     │
+              └──────────┬───────────┘          └──────────┬────────────┘
+                         │                                 │
+                         └──────────────┬──────────────────┘
+                                        │
+                          ┌─────────────┴─────────────┐
+                          │      Oracle Database       │
+                          │ Persistência Relacional    │
+                          └─────────────┬─────────────┘
+                                        │
+                          ┌─────────────┴─────────────┐
+                          │         MongoDB            │
+                          │ Persistência Documental    │
+                          └─────────────┬─────────────┘
+                                        │
+                          ┌─────────────┴─────────────┐
+                          │     Aplicativo Mobile      │
+                          │   React Native / Expo      │
+                          └────────────────────────────┘
 ```
-### ⚙️ Distribuição de Responsabilidades
-* 🖥️ API Principal (C#/.NET): responsável pela gestão operacional do restaurante, incluindo Clientes, Garçons, Mesas e Comandas.
-* ☕ API Complementar (Java/Spring Boot): responsável pela gestão de Cardápio e Pedidos, integrando-se ao ecossistema via banco Oracle compartilhado.
-    
-## 💡 Observação:
+### ⚙️ Distribuição de Responsabilidades Arquiteturais
 
-A API Java implementa e manipula as entidades: ITEM_CARDAPIO, PEDIDO e PEDIDO_ITEM.
+O ecossistema Pedix foi estruturado utilizando separação modular de responsabilidades entre APIs, permitindo melhor organização operacional, escalabilidade da solução e integração entre serviços especializados.
 
-As demais entidades (CLIENTE, GARCOM, MESA, COMANDA) pertencem à API principal em C#.
+### 🖥️ API Principal — C# / .NET
 
-O diagrama abaixo representa o modelo conceitual completo do banco de dados **Oracle** utilizado pela aplicação **Pedix**.  
-Ele demonstra as entidades, atributos e relacionamentos que sustentam o funcionamento das APIs Java e C#
+Responsável pelo fluxo operacional principal da solução, contemplando:
+
+- autenticação;
+- clientes;
+- garçons;
+- mesas;
+- comandas;
+- pedidos operacionais;
+- gerenciamento central do atendimento.
+
+Essa API concentra os principais fluxos transacionais do restaurante e atua como núcleo operacional do ecossistema Pedix.
+
+---
+
+### ☕ API Complementar — Java / Spring Boot
+
+Responsável pelos módulos auxiliares de gestão, integração e suporte técnico da plataforma, contemplando:
+
+- gestão de cardápio;
+- categorias operacionais;
+- avaliações;
+- relatórios;
+- histórico operacional;
+- documentação Swagger/OpenAPI;
+- integração com aplicativo mobile;
+- serviços auxiliares do ecossistema.
+
+A API Java atua como serviço secundário de apoio administrativo e integração arquitetural da solução.
+
+---
+
+## 💡 Observação Arquitetural
+
+A API Java implementa e manipula principalmente as seguintes entidades:
+
+- `ITEM_CARDAPIO`
+- `CATEGORIA_CARDAPIO`
+- `AVALIACAO`
+- `RELATORIO`
+- `HISTORICO_PEDIDO`
+
+As entidades relacionadas ao fluxo operacional principal do restaurante pertencem à API .NET:
+
+- `CLIENTE`
+- `GARCOM`
+- `MESA`
+- `COMANDA`
+- `PEDIDO`
+
+---
+
+## 🗃️ Modelo Conceitual do Banco Oracle
+
+O diagrama abaixo representa o modelo conceitual do banco de dados Oracle utilizado pelo ecossistema Pedix.
+
+A modelagem contempla as entidades, relacionamentos e estruturas persistidas que sustentam a comunicação entre as APIs, aplicação mobile e módulos administrativos da solução.
+
+A estrutura foi organizada visando:
+
+- integridade referencial;
+- separação de responsabilidades;
+- integração entre serviços;
+- rastreabilidade operacional;
+- escalabilidade arquitetural;
+- persistência relacional centralizada.
 
 ![DER completo](docs/diagramas/diagrama-mer-pedix.png)
 
@@ -641,20 +944,6 @@ Mostra as classes principais da aplicação Java, seus atributos e relacionament
 ![Diagrama de Classes Pedix](docs/diagramas/diagrama-classes-pedix.png)
 
 ---
-
-## 🧪 Testes no Postman
-
-A coleção completa de testes da API está disponível para importação no **Postman**.  
-O arquivo inclui todos os endpoints (`GET`, `POST`, `PUT`, `DELETE`) com exemplos de requisição e resposta, além de cenários de erro e exceções tratadas globalmente (`404`, `400`).
-
-## Coleções Postman por Sprint
-
-📌 **Sprint 1 – Testes dos Endpoints Básicos (CRUD + REST Nível 1)**  
-📄 **[Baixar coleção Sprint 1](docs/testes/pedix_api_postman._v1.json)**
-
-📌 **Sprint 2 – Testes da Evolução (HATEOAS + maturidade nível 3 + refatorações)**  
-📄 **[Baixar coleção Sprint 2](docs/testes/pedix_api_postman._v2.json)**
-
 
 ## 📸 Evidências de Testes da API
 
@@ -676,18 +965,44 @@ A API foi validada por meio de uma coleção completa de testes no Postman, cont
 
 ## 🎬 Vídeo de Apresentação
 
-O vídeo de apresentação demonstra o funcionamento completo da solução **Pedix**, contemplando a evolução implementada na Sprint 3, incluindo autenticação, controle de acesso por perfil, interface web administrativa e operacional, documentação técnica da API e integração com banco Oracle.
+O vídeo de apresentação demonstra o funcionamento completo do ecossistema **Pedix**, contemplando a evolução arquitetural e operacional implementada ao longo da Sprint 4.
 
-📺 **Assista aqui:** [Vídeo Demonstração Sprint 3 - Pedix API/Web](https://www.youtube.com/watch?v=ean9UeOliyA)
+A apresentação evidencia a integração entre APIs, deploy cloud em Microsoft Azure, autenticação por perfil, interface web administrativa, documentação técnica da API, integração mobile e validações operacionais da solução.
 
-🧾 O vídeo apresenta:
-- Fluxo de autenticação com perfis **Administrador** e **Garçom**
-- Navegação pelas interfaces web e segregação de permissões
-- Operações de gestão de cardápio e pedidos
-- Acesso restrito à área técnica (Swagger / API Docs)
-- Execução dos endpoints REST e responses HATEOAS
-- Integração persistente com banco Oracle via Flyway
---- 
+📺 **Assista aqui:**  
+[Vídeo Demonstração Sprint 4 — Pedix Ecosystem](LINK_VIDEO_AQUI)
+
+---
+
+## 🧾 Conteúdos Demonstrados no Vídeo
+
+- ☁️ Deploy da aplicação em Microsoft Azure App Service;
+- ⚙️ Pipeline CI/CD utilizando GitHub Actions;
+- 🔐 Fluxo de autenticação com perfis Administrador e Garçom;
+- 🖥️ Navegação pelas interfaces web administrativas e operacionais;
+- 🍽️ Gestão de cardápio e categorias operacionais;
+- 📊 Endpoints auxiliares de relatórios e histórico operacional;
+- 📖 Acesso à documentação Swagger/OpenAPI;
+- 🔗 Navegação REST utilizando HATEOAS;
+- ❤️ Validação do endpoint de Health Check;
+- 🧱 Persistência relacional utilizando Oracle Database;
+- 🛫 Versionamento de banco com Flyway;
+- 🍃 Integração complementar com MongoDB;
+- 📱 Integração arquitetural com aplicativo mobile React Native;
+- 🧩 Organização modular da arquitetura distribuída do ecossistema Pedix.
+
+---
+
+## 🚀 Objetivo da Demonstração
+
+O vídeo foi estruturado para demonstrar:
+
+- funcionamento operacional da solução;
+- integração multidisciplinar entre as disciplinas do semestre;
+- aplicação prática dos conceitos de backend, cloud e DevOps;
+- separação arquitetural entre APIs;
+- integração entre web, mobile e banco de dados;
+- maturidade técnica e organizacional do projeto.
 
 ## 👩‍💻 Integrantes e Responsabilidades
 
@@ -698,5 +1013,5 @@ O vídeo de apresentação demonstra o funcionamento completo da solução **Ped
 | **Maria Eduarda Araujo Penas** | RM560944 | Desenvolvimento da API principal em C#, integração entre módulos e DevOps | [@DudaAraujo14](https://github.com/DudaAraujo14) |
 
 <p align="center">
-  Desenvolvido com 💜 pela equipe <strong>CodeGirls</strong> — FIAP 2025.
+  Desenvolvido com 💜 pela equipe <strong>CodeGirls</strong> — FIAP 2026.
 </p>
