@@ -28,20 +28,15 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
-                        // LANDING / HOME PÚBLICA
                         .requestMatchers("/", "/home", "/403").permitAll()
-
-                        //  HEALTH CHECK
                         .requestMatchers("/api/health").permitAll()
 
-                        //  SWAGGER / OPENAPI
                         .requestMatchers(
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
 
-                        //  API MOBILE - CONSULTAS PÚBLICAS
                         .requestMatchers(HttpMethod.GET,
                                 "/api",
                                 "/api/home",
@@ -52,15 +47,17 @@ public class SecurityConfig {
                                 "/api/relatorios/**"
                         ).permitAll()
 
-                        // API MOBILE - ENVIO DE AVALIAÇÃO
                         .requestMatchers(HttpMethod.POST, "/api/avaliacoes").permitAll()
 
-                        // API ADMIN - ALTERAÇÕES
+                        // LIBERADO PARA O MOBILE - CRUD CARDÁPIO
+                        .requestMatchers("/api/item-cardapio/**").permitAll()
+                        .requestMatchers("/api/categorias-cardapio/**").permitAll()
+
+                        // RESTANTE DA API CONTINUA PROTEGIDA
                         .requestMatchers(HttpMethod.POST, "/api/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")
 
-                        // STATIC / LOGIN
                         .requestMatchers(
                                 "/login",
                                 "/css/**",
@@ -69,7 +66,6 @@ public class SecurityConfig {
                                 "/favicon.ico"
                         ).permitAll()
 
-                        // WEB OPERACIONAL
                         .requestMatchers(HttpMethod.GET, "/cardapio", "/cardapio/**")
                         .hasAnyRole("ADMIN", "GARCOM")
 
