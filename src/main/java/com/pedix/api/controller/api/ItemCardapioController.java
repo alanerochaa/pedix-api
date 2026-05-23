@@ -26,20 +26,13 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RequiredArgsConstructor
 @Tag(
         name = "Cardápio",
-        description = """
-                Controla os itens do cardápio do restaurante.
-                Permite criar, listar, buscar, atualizar e remover pratos,
-                bebidas e sobremesas, vinculando cada item a uma categoria.
-                """
+        description = "Controla os itens do cardápio do restaurante. Permite criar, listar, buscar, atualizar e remover itens vinculando cada item a uma categoria."
 )
 public class ItemCardapioController {
 
     private final ItemCardapioService service;
 
-    @Operation(
-            summary = "Listar itens do cardápio",
-            description = "Retorna todos os itens disponíveis no cardápio, permitindo filtros por categoria ou busca textual."
-    )
+    @Operation(summary = "Listar itens do cardápio", description = "Retorna todos os itens disponíveis, com filtros opcionais por categoria ou texto.")
     @GetMapping
     public ResponseEntity<List<EntityModel<ItemCardapioDTO>>> listar(
             @RequestParam(required = false) Long categoriaId,
@@ -47,7 +40,7 @@ public class ItemCardapioController {
     ) {
         List<ItemCardapio> itens;
 
-        if (busca != null && !busca.trim().isEmpty()) {
+        if (busca != null && !busca.isBlank()) {
             itens = service.buscarDisponiveisPorNome(busca);
         } else if (categoriaId != null) {
             itens = service.listarPorCategoria(categoriaId);
@@ -58,102 +51,65 @@ public class ItemCardapioController {
         List<EntityModel<ItemCardapioDTO>> resposta = itens.stream()
                 .map(item -> EntityModel.of(
                         ItemCardapioDTO.fromEntity(item),
-                        linkTo(methodOn(ItemCardapioController.class)
-                                .buscarPorId(item.getId()))
-                                .withSelfRel(),
-                        linkTo(methodOn(ItemCardapioController.class)
-                                .listar(null, null))
-                                .withRel("todos_itens")
+                        linkTo(methodOn(ItemCardapioController.class).buscarPorId(item.getId())).withSelfRel(),
+                        linkTo(methodOn(ItemCardapioController.class).listar(null, null)).withRel("todos_itens")
                 ))
                 .toList();
 
         return ResponseEntity.ok(resposta);
     }
 
-    @Operation(
-            summary = "Buscar item por ID",
-            description = "Consulta um item específico do cardápio utilizando seu identificador único."
-    )
+    @Operation(summary = "Buscar item por ID", description = "Consulta um item específico pelo ID.")
     @GetMapping("/{id}")
     public ResponseEntity<EntityModel<ItemCardapioDTO>> buscarPorId(@PathVariable Long id) {
         ItemCardapio item = service.buscarPorId(id);
 
         EntityModel<ItemCardapioDTO> model = EntityModel.of(
                 ItemCardapioDTO.fromEntity(item),
-                linkTo(methodOn(ItemCardapioController.class)
-                        .buscarPorId(id))
-                        .withSelfRel(),
-                linkTo(methodOn(ItemCardapioController.class)
-                        .listar(null, null))
-                        .withRel("todos_itens")
+                linkTo(methodOn(ItemCardapioController.class).buscarPorId(id)).withSelfRel(),
+                linkTo(methodOn(ItemCardapioController.class).listar(null, null)).withRel("todos_itens")
         );
 
         return ResponseEntity.ok(model);
     }
 
-    @Operation(
-            summary = "Criar novo item no cardápio",
-            description = "Cadastra um novo item no cardápio do restaurante, vinculando-o a uma categoria."
-    )
+    @Operation(summary = "Criar novo item", description = "Cadastra um novo item do cardápio.")
     @PostMapping
-    public ResponseEntity<Map<String, Object>> criar(
-            @Valid @RequestBody ItemCardapioDTO dto,
-            UriComponentsBuilder uriBuilder
-    ) {
+    public ResponseEntity<Map<String, Object>> criar(@Valid @RequestBody ItemCardapioDTO dto, UriComponentsBuilder uriBuilder) {
         ItemCardapio salvo = service.criar(dto);
 
-        URI location = uriBuilder
-                .path("/api/item-cardapio/{id}")
-                .buildAndExpand(salvo.getId())
-                .toUri();
+        URI location = uriBuilder.path("/api/item-cardapio/{id}").buildAndExpand(salvo.getId()).toUri();
 
         Map<String, Object> body = Map.of(
                 "mensagem", "Item do cardápio criado com sucesso!",
                 "item", ItemCardapioDTO.fromEntity(salvo),
                 "_links", Map.of(
-                        "self", linkTo(methodOn(ItemCardapioController.class)
-                                .buscarPorId(salvo.getId()))
-                                .toUri(),
-                        "todos_itens", linkTo(methodOn(ItemCardapioController.class)
-                                .listar(null, null))
-                                .toUri()
+                        "self", linkTo(methodOn(ItemCardapioController.class).buscarPorId(salvo.getId())).toUri(),
+                        "todos_itens", linkTo(methodOn(ItemCardapioController.class).listar(null, null)).toUri()
                 )
         );
 
         return ResponseEntity.created(location).body(body);
     }
 
-    @Operation(
-            summary = "Atualizar item existente",
-            description = "Atualiza as informações de um item do cardápio já cadastrado."
-    )
+    @Operation(summary = "Atualizar item", description = "Atualiza as informações de um item existente.")
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> atualizar(
-            @PathVariable Long id,
-            @Valid @RequestBody ItemCardapioDTO dto
-    ) {
+    public ResponseEntity<Map<String, Object>> atualizar(@PathVariable Long id, @Valid @RequestBody ItemCardapioDTO dto) {
         ItemCardapio atualizado = service.atualizar(id, dto);
 
         Map<String, Object> body = Map.of(
                 "mensagem", "Item do cardápio atualizado com sucesso!",
                 "item", ItemCardapioDTO.fromEntity(atualizado),
                 "_links", Map.of(
-                        "self", linkTo(methodOn(ItemCardapioController.class)
-                                .buscarPorId(atualizado.getId()))
-                                .toUri(),
-                        "todos_itens", linkTo(methodOn(ItemCardapioController.class)
-                                .listar(null, null))
-                                .toUri()
+                        "self", linkTo(methodOn(ItemCardapioController.class).buscarPorId(atualizado.getId())).toUri(),
+                        "todos_itens", linkTo(methodOn(ItemCardapioController.class).listar(null, null)).toUri()
                 )
         );
 
         return ResponseEntity.ok(body);
     }
 
-    @Operation(
-            summary = "Remover item do cardápio",
-            description = "Remove um item do cardápio a partir do identificador informado."
-    )
+    @Operation(summary = "Remover item", description = "Remove um item do cardápio pelo ID.")
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> excluir(@PathVariable Long id) {
         service.excluir(id);

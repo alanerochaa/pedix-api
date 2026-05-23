@@ -956,11 +956,16 @@ A API foi validada por meio de uma coleção completa de testes no Postman, cont
 - 🧾 Fluxos completos de Cardápio, Pedido e Item de Pedido
 
 ### Artefatos Disponíveis
+
 - 📬 Coleções Postman: `/testes`
-- 🖼️ Evidências Visuais: `/docs/imagens/colecao-postman`
 
-✅ **Todos os endpoints foram testados com sucesso**, com respostas esperadas e tratamento global de exceções ativo.
+- ☁️ APIs Publicadas em Nuvem:
+    - API Java (Azure): https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net
+    - Swagger Java: https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/swagger-ui.html
+    - API .NET (Azure): https://pedix-api-dotnet-bge2dyd6gudpapem.brazilsouth-01.azurewebsites.net
+    - Swagger .NET: https://pedix-api-dotnet-bge2dyd6gudpapem.brazilsouth-01.azurewebsites.net/swagger
 
+✅ Todos os endpoints das APIs Java e .NET foram testados com sucesso em ambiente cloud, utilizando coleções Postman, validação HTTP e documentação Swagger/OpenAPI.
 ---
 
 ## 🎬 Vídeo de Apresentação

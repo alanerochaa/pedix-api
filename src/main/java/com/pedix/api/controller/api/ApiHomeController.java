@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -30,7 +31,9 @@ public class ApiHomeController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public EntityModel<MensagemResponse> apiRoot() {
 
-        MensagemResponse mensagem = new MensagemResponse(
+        MensagemResponse mensagem = new MensagemResponse();
+
+        mensagem.setMensagem(
                 "Bem-vinda à API Java do Pedix. Este serviço atua como camada secundária de suporte e gestão, sendo consumido pelo aplicativo mobile e integrado ao ecossistema Pedix."
         );
 
@@ -43,14 +46,29 @@ public class ApiHomeController {
                 linkTo(methodOn(ApiHomeController.class).health()).withRel("health"),
 
                 linkTo(methodOn(PedidoController.class).listarTodos()).withRel("pedidos-apoio"),
-                linkTo(methodOn(ItemCardapioController.class).listar(null, null)).withRel("cardapio"),
-                linkTo(methodOn(PedidoItemController.class).listarTodos()).withRel("itens-pedido-apoio"),
 
-                Link.of("/api/categorias-cardapio").withRel("categorias-cardapio"),
-                Link.of("/api/avaliacoes").withRel("avaliacoes"),
-                Link.of("/api/historicos-pedidos").withRel("historicos-pedidos"),
-                Link.of("/api/relatorios").withRel("relatorios"),
-                Link.of("/swagger-ui.html").withRel("swagger-ui")
+                linkTo(
+                        methodOn(ItemCardapioController.class)
+                                .listar(null, null)
+                ).withRel("cardapio"),
+
+                linkTo(methodOn(PedidoItemController.class).listarTodos())
+                        .withRel("itens-pedido-apoio"),
+
+                Link.of("/api/categorias-cardapio")
+                        .withRel("categorias-cardapio"),
+
+                Link.of("/api/avaliacoes")
+                        .withRel("avaliacoes"),
+
+                Link.of("/api/historicos-pedidos")
+                        .withRel("historicos-pedidos"),
+
+                Link.of("/api/relatorios")
+                        .withRel("relatorios"),
+
+                Link.of("/swagger-ui.html")
+                        .withRel("swagger-ui")
         );
     }
 
@@ -61,27 +79,46 @@ public class ApiHomeController {
     @GetMapping(value = "/home", produces = MediaType.APPLICATION_JSON_VALUE)
     public EntityModel<MensagemResponse> home() {
 
-        MensagemResponse mensagem = new MensagemResponse(
+        MensagemResponse mensagem = new MensagemResponse();
+
+        mensagem.setMensagem(
                 "API Java do Pedix operacional. Serviço secundário de suporte e gestão para cardápio, avaliações, histórico, relatórios e integração mobile."
         );
 
         return EntityModel.of(
                 mensagem,
 
-                linkTo(methodOn(ApiHomeController.class).home()).withSelfRel(),
+                linkTo(methodOn(ApiHomeController.class).home())
+                        .withSelfRel(),
 
-                linkTo(methodOn(ItemCardapioController.class).listar(null, null)).withRel("cardapio"),
-                Link.of("/api/categorias-cardapio").withRel("categorias-cardapio"),
-                Link.of("/api/avaliacoes").withRel("avaliacoes"),
-                Link.of("/api/historicos-pedidos").withRel("historicos-pedidos"),
-                Link.of("/api/relatorios").withRel("relatorios"),
+                linkTo(
+                        methodOn(ItemCardapioController.class)
+                                .listar(null, null)
+                ).withRel("cardapio"),
 
-                linkTo(methodOn(PedidoController.class).listarTodos()).withRel("pedidos-apoio"),
-                linkTo(methodOn(PedidoItemController.class).listarTodos()).withRel("itens-pedido-apoio"),
+                Link.of("/api/categorias-cardapio")
+                        .withRel("categorias-cardapio"),
 
-                linkTo(methodOn(ApiHomeController.class).health()).withRel("health"),
+                Link.of("/api/avaliacoes")
+                        .withRel("avaliacoes"),
 
-                Link.of("/swagger-ui.html").withRel("swagger-ui")
+                Link.of("/api/historicos-pedidos")
+                        .withRel("historicos-pedidos"),
+
+                Link.of("/api/relatorios")
+                        .withRel("relatorios"),
+
+                linkTo(methodOn(PedidoController.class).listarTodos())
+                        .withRel("pedidos-apoio"),
+
+                linkTo(methodOn(PedidoItemController.class).listarTodos())
+                        .withRel("itens-pedido-apoio"),
+
+                linkTo(methodOn(ApiHomeController.class).health())
+                        .withRel("health"),
+
+                Link.of("/swagger-ui.html")
+                        .withRel("swagger-ui")
         );
     }
 

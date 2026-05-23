@@ -1,0 +1,1780 @@
+{
+  "info": {
+    "_postman_id": "53943206-e006-40e6-a3b1-2cc73326423f",
+    "name": "Pedix API - QA",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "44858356",
+    "_collection_link": "https://go.postman.co/collection/44858356-53943206-e006-40e6-a3b1-2cc73326423f?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "01 - Health",
+      "item": [
+        {
+          "name": "GET - Health - JAVA",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"API online\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{javaBaseUrl}}/api/health",
+              "host": [
+                "{{javaBaseUrl}}"
+              ],
+              "path": [
+                "api",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Health - C#",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"API online\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{dotnetBaseUrl}}/api/health",
+              "host": [
+                "{{dotnetBaseUrl}}"
+              ],
+              "path": [
+                "api",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "02 - C# | API Primária - Fluxo Operacional",
+      "item": [
+        {
+          "name": "📁 Auth",
+          "item": [
+            {
+              "name": "POST - Register Cliente",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Alane Rocha\",\r\n  \"email\": \"alane.rocha@pedix.com\",\r\n  \"senha\": \"Senha@123\",\r\n  \"telefone\": \"11999990001\",\r\n  \"dataNascimento\": \"2000-01-01T00:00:00\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/auth/register-cliente",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "register-cliente"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "POST - Register Garçom",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Garcom Teste\",\r\n  \"email\": \"garcom2.swagger@pedix.com\",\r\n  \"senha\": \"Senha@123\",\r\n  \"telefone\": \"11999990002\",\r\n  \"dataNascimento\": \"1998-01-01T00:00:00\",\r\n  \"cpf\": \"12345677701\",\r\n  \"matricula\": \"GARCOM-SWAGGER-001\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/auth/register-garcom",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "register-garcom"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "POST - Register Admin",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Admin Pedix\",\r\n  \"email\": \"admin1@pedix.com\",\r\n  \"senha\": \"Senha@123\",\r\n  \"telefone\": \"11999990003\",\r\n  \"dataNascimento\": \"1995-01-01T00:00:00\",\r\n  \"adminKey\": \"FIAP_ADMIN_MASTER_2026\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/auth/register-admin",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "register-admin"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "POST - Login",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Login realizado com sucesso\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Token JWT retornado\", function () {\r",
+                      "    let jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.token).to.exist;\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Token não está vazio\", function () {\r",
+                      "    let jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.token).to.not.be.empty;\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"admin@pedix.com\",\r\n  \"senha\": \"Senha@123\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/auth/login",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "POST - Solicitar Reset Senha",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"identificador\": \"cliente.swagger@pedix.com\",\r\n  \"canal\": \"EMAIL\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/auth/solicitar-reset-senha",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "solicitar-reset-senha"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "📁 Clientes",
+          "item": [
+            {
+              "name": "GET - Listar Clientes",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Listagem de clientes com sucesso\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Resposta retornou clientes\", function () {\r",
+                      "    let jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.data).to.be.an('array');\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Existe pelo menos um cliente\", function () {\r",
+                      "    let jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.data.length).to.be.greaterThan(0);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjQzZWFiZWNiLTg3ZGEtNDI0YS05ZGE4LTI0M2RkODhmNWIxOCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJBZG1pbiBQZWRpeCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWluQHBlZGl4LmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwidXN1YXJpb19pZCI6IjQzZWFiZWNiLTg3ZGEtNDI0YS05ZGE4LTI0M2RkODhmNWIxOCIsIm5vbWUiOiJBZG1pbiBQZWRpeCIsImVtYWlsIjoiYWRtaW5AcGVkaXguY29tIiwicm9sZSI6IkFkbWluIiwidGlwb191c3VhcmlvIjoiQWRtaW4iLCJhdGl2byI6InRydWUiLCJ0ZWxlZm9uZSI6IjExOTk5OTkwMDAzIiwiYWRtaW5fa2V5IjoidHJ1ZSIsImV4cCI6MTc3OTU3MjgyMCwiaXNzIjoiQXRlbmRpbWVudG9zLkFwaSIsImF1ZCI6IkF0ZW5kaW1lbnRvcy5DbGllbnQifQ.nR5eOpc5GE5preQDJh3BYfMebplnpE1xRVQynrX5qzU",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/clientes",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "clientes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "POST - Criar Cliente",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjQzZWFiZWNiLTg3ZGEtNDI0YS05ZGE4LTI0M2RkODhmNWIxOCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJBZG1pbiBQZWRpeCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWluQHBlZGl4LmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwidXN1YXJpb19pZCI6IjQzZWFiZWNiLTg3ZGEtNDI0YS05ZGE4LTI0M2RkODhmNWIxOCIsIm5vbWUiOiJBZG1pbiBQZWRpeCIsImVtYWlsIjoiYWRtaW5AcGVkaXguY29tIiwicm9sZSI6IkFkbWluIiwidGlwb191c3VhcmlvIjoiQWRtaW4iLCJhdGl2byI6InRydWUiLCJ0ZWxlZm9uZSI6IjExOTk5OTkwMDAzIiwiYWRtaW5fa2V5IjoidHJ1ZSIsImV4cCI6MTc3OTU3MjgyMCwiaXNzIjoiQXRlbmRpbWVudG9zLkFwaSIsImF1ZCI6IkF0ZW5kaW1lbnRvcy5DbGllbnQifQ.nR5eOpc5GE5preQDJh3BYfMebplnpE1xRVQynrX5qzU",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Joao Silva\",\r\n  \"telefone\": \"1198986523\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/clientes",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "clientes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET - Buscar Cliente por ID",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjQzZWFiZWNiLTg3ZGEtNDI0YS05ZGE4LTI0M2RkODhmNWIxOCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJBZG1pbiBQZWRpeCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWluQHBlZGl4LmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwidXN1YXJpb19pZCI6IjQzZWFiZWNiLTg3ZGEtNDI0YS05ZGE4LTI0M2RkODhmNWIxOCIsIm5vbWUiOiJBZG1pbiBQZWRpeCIsImVtYWlsIjoiYWRtaW5AcGVkaXguY29tIiwicm9sZSI6IkFkbWluIiwidGlwb191c3VhcmlvIjoiQWRtaW4iLCJhdGl2byI6InRydWUiLCJ0ZWxlZm9uZSI6IjExOTk5OTkwMDAzIiwiYWRtaW5fa2V5IjoidHJ1ZSIsImV4cCI6MTc3OTU3MjgyMCwiaXNzIjoiQXRlbmRpbWVudG9zLkFwaSIsImF1ZCI6IkF0ZW5kaW1lbnRvcy5DbGllbnQifQ.nR5eOpc5GE5preQDJh3BYfMebplnpE1xRVQynrX5qzU",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/clientes/51a59091-03cb-4ef7-a2f3-542bff9c35bd",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "clientes",
+                    "51a59091-03cb-4ef7-a2f3-542bff9c35bd"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DELETE - Remover Cliente",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjQzZWFiZWNiLTg3ZGEtNDI0YS05ZGE4LTI0M2RkODhmNWIxOCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJBZG1pbiBQZWRpeCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWluQHBlZGl4LmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwidXN1YXJpb19pZCI6IjQzZWFiZWNiLTg3ZGEtNDI0YS05ZGE4LTI0M2RkODhmNWIxOCIsIm5vbWUiOiJBZG1pbiBQZWRpeCIsImVtYWlsIjoiYWRtaW5AcGVkaXguY29tIiwicm9sZSI6IkFkbWluIiwidGlwb191c3VhcmlvIjoiQWRtaW4iLCJhdGl2byI6InRydWUiLCJ0ZWxlZm9uZSI6IjExOTk5OTkwMDAzIiwiYWRtaW5fa2V5IjoidHJ1ZSIsImV4cCI6MTc3OTU3MjgyMCwiaXNzIjoiQXRlbmRpbWVudG9zLkFwaSIsImF1ZCI6IkF0ZW5kaW1lbnRvcy5DbGllbnQifQ.nR5eOpc5GE5preQDJh3BYfMebplnpE1xRVQynrX5qzU",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/clientes/344ee8a1-c4e4-4e2c-8d9e-d5efc7d163a5",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "clientes",
+                    "344ee8a1-c4e4-4e2c-8d9e-d5efc7d163a5"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "📁 Mesas",
+          "item": [
+            {
+              "name": "GET - Listar Mesas",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code é 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Tempo de resposta menor que 2 segundos\", function () {\r",
+                      "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Resposta contém paginação\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(jsonData).to.have.property(\"page\");\r",
+                      "    pm.expect(jsonData).to.have.property(\"pageSize\");\r",
+                      "    pm.expect(jsonData).to.have.property(\"totalItems\");\r",
+                      "    pm.expect(jsonData).to.have.property(\"data\");\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Lista de mesas retornada corretamente\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(jsonData.data).to.be.an(\"array\");\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Mesa possui campos obrigatórios\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "\r",
+                      "    if (jsonData.data.length > 0) {\r",
+                      "        pm.expect(jsonData.data[0]).to.have.property(\"id\");\r",
+                      "        pm.expect(jsonData.data[0]).to.have.property(\"numero\");\r",
+                      "        pm.expect(jsonData.data[0]).to.have.property(\"status\");\r",
+                      "    }\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/Mesas",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Mesas"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "POST - Criar Mesa",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"numero\": 105,\r\n  \"capacidade\": 5,\r\n  \"localizacao\": \"Salao Principal\",\r\n  \"qrCode\": \"MESA-102-QR\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/Mesas",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Mesas"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET - Buscar Mesas",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/Mesas/search?status=LIVRE&page=1&pageSize=5&sortBy=id&dir=ASC",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Mesas",
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "LIVRE"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "5"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "id"
+                    },
+                    {
+                      "key": "dir",
+                      "value": "ASC"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET - Buscar Mesa por ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/Mesas/8411c0fb-5c07-4648-a736-0e6fcc8a63ca",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Mesas",
+                    "8411c0fb-5c07-4648-a736-0e6fcc8a63ca"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "PUT - Atualizar Mesa",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"capacidade\": 6,\r\n  \"localizacao\": \"Área externa\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/Mesas/8411c0fb-5c07-4648-a736-0e6fcc8a63ca",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Mesas",
+                    "8411c0fb-5c07-4648-a736-0e6fcc8a63ca"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DELETE - Remover Mesa",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/Mesas/b31a433a-4d64-4072-9fdd-778c1869c81b",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Mesas",
+                    "b31a433a-4d64-4072-9fdd-778c1869c81b"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "📁 Comandas",
+          "item": [
+            {
+              "name": "GET - Listar Comandas",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code é 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Tempo de resposta menor que 2 segundos\", function () {\r",
+                      "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Resposta contém paginação\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(jsonData).to.have.property(\"page\");\r",
+                      "    pm.expect(jsonData).to.have.property(\"pageSize\");\r",
+                      "    pm.expect(jsonData).to.have.property(\"totalItems\");\r",
+                      "    pm.expect(jsonData).to.have.property(\"data\");\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Lista de comandas retornada corretamente\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(jsonData.data).to.be.an(\"array\");\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Comanda possui campos obrigatórios\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "\r",
+                      "    if (jsonData.data.length > 0) {\r",
+                      "        pm.expect(jsonData.data[0]).to.have.property(\"id\");\r",
+                      "        pm.expect(jsonData.data[0]).to.have.property(\"mesaId\");\r",
+                      "        pm.expect(jsonData.data[0]).to.have.property(\"garcomId\");\r",
+                      "        pm.expect(jsonData.data[0]).to.have.property(\"status\");\r",
+                      "    }\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/Comandas",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Comandas"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET - Buscar Comanda por ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/Comandas/fdb33b76-843b-47ad-8d2e-a4e59adad23f",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Comandas",
+                    "fdb33b76-843b-47ad-8d2e-a4e59adad23f"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "POST - Abrir/Criar Comanda",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/Comandas?mesaId=1fdfa169-daba-4f38-b845-8abf4d41bf95&garcomId=81718baf-0c69-48d1-9e01-cc009ee0c44e",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Comandas"
+                  ],
+                  "query": [
+                    {
+                      "key": "mesaId",
+                      "value": "1fdfa169-daba-4f38-b845-8abf4d41bf95"
+                    },
+                    {
+                      "key": "garcomId",
+                      "value": "81718baf-0c69-48d1-9e01-cc009ee0c44e"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "PUT - Fechar Comanda",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/Comandas/d33335dc-c117-4e65-8c4e-8ace5d2d7ba4/fechar",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Comandas",
+                    "d33335dc-c117-4e65-8c4e-8ace5d2d7ba4",
+                    "fechar"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DELETE - Remover Comanda",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/Comandas/558a2037-f70f-4c65-86f0-1fd478cf7c97",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "Comandas",
+                    "558a2037-f70f-4c65-86f0-1fd478cf7c97"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "📁 Pedidos",
+          "item": [
+            {
+              "name": "GET - Listar Pedidos",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code é 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Tempo de resposta menor que 2 segundos\", function () {\r",
+                      "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Resposta contém paginação\", function () {\r",
+                      "    const jsonData = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(jsonData).to.have.property(\"page\");\r",
+                      "    pm.expect(jsonData).to.have.property(\"pageSize\");\r",
+                      "    pm.expect(jsonData).to.have.property(\"totalItems\");\r",
+                      "    pm.expect(jsonData).to.have.property(\"data\");\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Lista de pedidos retornada corretamente\", function () {\r",
+                      "    const jsonData = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(jsonData.data).to.be.an(\"array\");\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Pedido possui campos obrigatórios\", function () {\r",
+                      "    const jsonData = pm.response.json();\r",
+                      "\r",
+                      "    if (jsonData.data.length > 0) {\r",
+                      "        pm.expect(jsonData.data[0]).to.have.property(\"id\");\r",
+                      "        pm.expect(jsonData.data[0]).to.have.property(\"clienteId\");\r",
+                      "        pm.expect(jsonData.data[0]).to.have.property(\"garcomId\");\r",
+                      "        pm.expect(jsonData.data[0]).to.have.property(\"mesaId\");\r",
+                      "        pm.expect(jsonData.data[0]).to.have.property(\"status\");\r",
+                      "    }\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/pedidos",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "pedidos"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET - Buscar Pedido por ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/pedidos/03b052c4-8868-477d-94f1-8868dc6816e2",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "pedidos",
+                    "03b052c4-8868-477d-94f1-8868dc6816e2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "POST - Criar Pedido",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/pedidos?clienteId=51a59091-03cb-4ef7-a2f3-542bff9c35bd&garcomId=81718baf-0c69-48d1-9e01-cc009ee0c44e&mesaId=1fdfa169-daba-4f38-b845-8abf4d41bf95",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "pedidos"
+                  ],
+                  "query": [
+                    {
+                      "key": "clienteId",
+                      "value": "51a59091-03cb-4ef7-a2f3-542bff9c35bd"
+                    },
+                    {
+                      "key": "garcomId",
+                      "value": "81718baf-0c69-48d1-9e01-cc009ee0c44e"
+                    },
+                    {
+                      "key": "mesaId",
+                      "value": "1fdfa169-daba-4f38-b845-8abf4d41bf95"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "PUT - Atualizar Status do Pedido",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"status\": \"PRONTO\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/pedidos/424e1385-b1eb-47f1-b75f-66a6583574a7/status",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "pedidos",
+                    "424e1385-b1eb-47f1-b75f-66a6583574a7",
+                    "status"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "📁 Pedido Itens",
+          "item": [
+            {
+              "name": "GET - Listar Pedido Itens",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/pedido-itens",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "pedido-itens"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET - Buscar Itens por Pedido",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/pedido-itens/pedido/03b052c4-8868-477d-94f1-8868dc6816e2",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "pedido-itens",
+                    "pedido",
+                    "03b052c4-8868-477d-94f1-8868dc6816e2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "POST - Adicionar Item ao Pedido",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/pedido-itens?pedidoId=03b052c4-8868-477d-94f1-8868dc6816e2&itemCardapioId=3&quantidade=1&precoMomento=50",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "pedido-itens"
+                  ],
+                  "query": [
+                    {
+                      "key": "pedidoId",
+                      "value": "03b052c4-8868-477d-94f1-8868dc6816e2"
+                    },
+                    {
+                      "key": "itemCardapioId",
+                      "value": "3"
+                    },
+                    {
+                      "key": "quantidade",
+                      "value": "1"
+                    },
+                    {
+                      "key": "precoMomento",
+                      "value": "50"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "📁 Pagamentos",
+          "item": [
+            {
+              "name": "GET - Listar Pagamentos",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code é 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Tempo de resposta menor que 2 segundos\", function () {\r",
+                      "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Resposta contém paginação\", function () {\r",
+                      "    const jsonData = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(jsonData).to.have.property(\"page\");\r",
+                      "    pm.expect(jsonData).to.have.property(\"pageSize\");\r",
+                      "    pm.expect(jsonData).to.have.property(\"totalItems\");\r",
+                      "    pm.expect(jsonData).to.have.property(\"data\");\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Lista de pagamentos retornada corretamente\", function () {\r",
+                      "    const jsonData = pm.response.json();\r",
+                      "\r",
+                      "    pm.expect(jsonData.data).to.be.an(\"array\");\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Pagamento possui campos obrigatórios\", function () {\r",
+                      "    const jsonData = pm.response.json();\r",
+                      "\r",
+                      "    if (jsonData.data.length > 0) {\r",
+                      "        pm.expect(jsonData.data[0]).to.have.property(\"id\");\r",
+                      "        pm.expect(jsonData.data[0]).to.have.property(\"pedidoId\");\r",
+                      "        pm.expect(jsonData.data[0]).to.have.property(\"valor\");\r",
+                      "        pm.expect(jsonData.data[0]).to.have.property(\"status\");\r",
+                      "    }\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/pagamentos?page=1&pageSize=10&sortBy=dataPagamento&order=asc",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "pagamentos"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "dataPagamento"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET - Buscar Pagamento por Pedido",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/pagamentos/pedido/03b052c4-8868-477d-94f1-8868dc6816e2",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "pagamentos",
+                    "pedido",
+                    "03b052c4-8868-477d-94f1-8868dc6816e2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "POST - Registrar Pagamento",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/pagamentos?pedidoId=03b052c4-8868-477d-94f1-8868dc6816e2&valor=120&metodoPagamento=PIX",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "pagamentos"
+                  ],
+                  "query": [
+                    {
+                      "key": "pedidoId",
+                      "value": "03b052c4-8868-477d-94f1-8868dc6816e2"
+                    },
+                    {
+                      "key": "valor",
+                      "value": "120"
+                    },
+                    {
+                      "key": "metodoPagamento",
+                      "value": "PIX"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "PUT - Aprovar Pagamento",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{dotnetBaseUrl}}/api/pagamentos/9ccc15a5-16c9-49b6-9d8a-13ea1382db5e/aprovar",
+                  "host": [
+                    "{{dotnetBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "pagamentos",
+                    "9ccc15a5-16c9-49b6-9d8a-13ea1382db5e",
+                    "aprovar"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "GET - Usuários",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjQzZWFiZWNiLTg3ZGEtNDI0YS05ZGE4LTI0M2RkODhmNWIxOCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJBZG1pbiBQZWRpeCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWluQHBlZGl4LmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwidXN1YXJpb19pZCI6IjQzZWFiZWNiLTg3ZGEtNDI0YS05ZGE4LTI0M2RkODhmNWIxOCIsIm5vbWUiOiJBZG1pbiBQZWRpeCIsImVtYWlsIjoiYWRtaW5AcGVkaXguY29tIiwicm9sZSI6IkFkbWluIiwidGlwb191c3VhcmlvIjoiQWRtaW4iLCJhdGl2byI6InRydWUiLCJ0ZWxlZm9uZSI6IjExOTk5OTkwMDAzIiwiYWRtaW5fa2V5IjoidHJ1ZSIsImV4cCI6MTc3OTU3MjgyMCwiaXNzIjoiQXRlbmRpbWVudG9zLkFwaSIsImF1ZCI6IkF0ZW5kaW1lbnRvcy5DbGllbnQifQ.nR5eOpc5GE5preQDJh3BYfMebplnpE1xRVQynrX5qzU",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{dotnetBaseUrl}}/api/auth/usuarios",
+              "host": [
+                "{{dotnetBaseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "usuarios"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "03 - JAVA | API Secundária - Suporte e Gestão",
+      "item": [
+        {
+          "name": "📁 Categorias",
+          "item": [
+            {
+              "name": "GET - Listar Categorias",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Lista de categorias retornada\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.length).to.be.above(0);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Categoria possui nome\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData[0].nome).to.not.be.empty;\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{javaBaseUrl}}/api/categorias-cardapio",
+                  "host": [
+                    "{{javaBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categorias-cardapio"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET - Buscar Categoria por ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{javaBaseUrl}}/api/categorias-cardapio/1",
+                  "host": [
+                    "{{javaBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categorias-cardapio",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "POST - Criar Categoria",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Categoria criada com sucesso\", function () {\r",
+                      "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Resposta contém ID\", function () {\r",
+                      "    let jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.id).to.not.be.null;\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Nome da categoria retornado\", function () {\r",
+                      "    let jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.nome).to.include(\"LANCHES_EXECUTIVOS\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"LANCHES_EXECUTIVOS_{{$timestamp}}\",\r\n  \"descricao\": \"Categoria destinada a lanches executivos e combos rápidos do restaurante.\",\r\n  \"ativo\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{javaBaseUrl}}/api/categorias-cardapio",
+                  "host": [
+                    "{{javaBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categorias-cardapio"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "PUT - Atualizar Categoria",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"id\": 2,\r\n  \"nome\": \"BEBIDAS\",\r\n  \"descricao\": \"Bebidas geladas, quentes e alcoolicas disponíveis no cardápio.\",\r\n  \"ativo\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{javaBaseUrl}}/api/categorias-cardapio/2",
+                  "host": [
+                    "{{javaBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categorias-cardapio",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DELETE - Remover Categoria",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{javaBaseUrl}}/api/categorias-cardapio/6",
+                  "host": [
+                    "{{javaBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categorias-cardapio",
+                    "6"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "📁 Cardápio",
+          "item": [
+            {
+              "name": "GET - Listar Itens Cardápio",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Lista retornada\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.length).to.be.above(0);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{javaBaseUrl}}/api/item-cardapio",
+                  "host": [
+                    "{{javaBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "item-cardapio"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET - Buscar Item por ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{javaBaseUrl}}/api/item-cardapio/2",
+                  "host": [
+                    "{{javaBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "item-cardapio",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "POST - Criar Item Cardápio",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"nome\": \"Cheesecake de Frutas Vermelhas\",\r\n  \"descricao\": \"Cheesecake artesanal com calda de frutas vermelhas e base crocante.\",\r\n  \"categoriaId\": 3,\r\n  \"categoriaNome\": \"SOBREMESA\",\r\n  \"preco\": 26,\r\n  \"disponivel\": true,\r\n  \"imagemUrl\": \"https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=300\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{javaBaseUrl}}/api/item-cardapio",
+                  "host": [
+                    "{{javaBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "item-cardapio"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "PUT - Atualizar Item Cardápio",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"id\": 3,\r\n  \"nome\": \"Suco Natural Premium\",\r\n  \"descricao\": \"Suco natural premium da fruta, copo 500ml. Sabores: laranja, maracuja, morango e abacaxi com hortela.\",\r\n  \"categoriaId\": 2,\r\n  \"categoriaNome\": \"BEBIDAS\",\r\n  \"preco\": 12,\r\n  \"disponivel\": true,\r\n  \"imagemUrl\": \"https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=300\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{javaBaseUrl}}/api/item-cardapio/3",
+                  "host": [
+                    "{{javaBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "item-cardapio",
+                    "3"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DELETE - Remover Item Cardápio",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{javaBaseUrl}}/api/item-cardapio/{id}",
+                  "host": [
+                    "{{javaBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "item-cardapio",
+                    "{id}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "📁 Avaliações",
+          "item": [
+            {
+              "name": "GET - Listar Avaliações",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Lista de avaliações retornada\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.length).to.be.above(0);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Avaliação possui nota válida\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData[0].nota).to.be.within(1, 5);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Avaliação possui comentário\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData[0].comentario).to.not.be.empty;\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{javaBaseUrl}}/api/avaliacoes",
+                  "host": [
+                    "{{javaBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "avaliacoes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET - Buscar Avaliação por ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{javaBaseUrl}}/api/avaliacoes/3",
+                  "host": [
+                    "{{javaBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "avaliacoes",
+                    "3"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "POST - Criar Avaliação",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"pedidoId\": 4,\r\n  \"itemCardapioId\": 3,\r\n  \"nomeCliente\": \"Alane Rocha\",\r\n  \"nota\": 5,\r\n  \"comentario\": \"Prato muito saboroso, entrega rápida e atendimento excelente.\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{javaBaseUrl}}/api/avaliacoes",
+                  "host": [
+                    "{{javaBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "avaliacoes"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DELETE - Remover Avaliação",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "admin123",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "admin",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{javaBaseUrl}}/api/avaliacoes/3",
+                  "host": [
+                    "{{javaBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "avaliacoes",
+                    "3"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "📁 Relatórios",
+          "item": [
+            {
+              "name": "GET - Listar Relatórios",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Lista de relatórios retornada\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.length).to.be.above(0);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Relatório possui tipo\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData[0].tipo).to.not.be.empty;\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Relatório possui título\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData[0].titulo).to.not.be.empty;\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{javaBaseUrl}}/api/relatorios",
+                  "host": [
+                    "{{javaBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "relatorios"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GET - Buscar Relatório por ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{javaBaseUrl}}/api/relatorios/3",
+                  "host": [
+                    "{{javaBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "relatorios",
+                    "3"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "POST - Criar Relatório",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "admin123",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "admin",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"tipo\": \"VENDAS\",\r\n  \"titulo\": \"Relatorio de vendas do dia\",\r\n  \"descricao\": \"Relatorio consolidado das vendas realizadas no restaurante durante o dia.\",\r\n  \"valorTotal\": 1250.75,\r\n  \"quantidade\": 18,\r\n  \"responsavel\": \"Alane Rocha\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{javaBaseUrl}}/api/relatorios",
+                  "host": [
+                    "{{javaBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "relatorios"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "DELETE - Remover Relatório",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "admin123",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "admin",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{javaBaseUrl}}/api/relatorios/3",
+                  "host": [
+                    "{{javaBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "relatorios",
+                    "3"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

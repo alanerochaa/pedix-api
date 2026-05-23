@@ -30,18 +30,18 @@ public class ItemCardapioService {
 
     @Transactional(readOnly = true)
     public List<ItemCardapio> buscarDisponiveisPorNome(String busca) {
-        if (busca == null || busca.trim().isEmpty()) {
-            return listarDisponiveis();
-        }
+        if (busca == null || busca.isBlank()) return listarDisponiveis();
 
-        return itemCardapioRepository.findByDisponivelTrueAndNomeContainingIgnoreCase(busca.trim()).stream()
+        return itemCardapioRepository.findByDisponivelTrueAndNomeContainingIgnoreCase(busca.trim())
+                .stream()
                 .sorted(Comparator.comparing(ItemCardapio::getNome))
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public List<ItemCardapio> listarPorCategoria(Long categoriaId) {
-        return itemCardapioRepository.findByDisponivelTrueAndCategoriaId(categoriaId).stream()
+        return itemCardapioRepository.findByDisponivelTrueAndCategoriaId(categoriaId)
+                .stream()
                 .sorted(Comparator.comparing(ItemCardapio::getNome))
                 .collect(Collectors.toList());
     }
@@ -93,6 +93,8 @@ public class ItemCardapioService {
 
     private CategoriaCardapio buscarCategoriaPorId(Long categoriaId) {
         return categoriaCardapioRepository.findById(categoriaId)
-                .orElseThrow(() -> new EntityNotFoundException("Categoria do cardápio não encontrada: " + categoriaId));
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Categoria do cardápio não encontrada: " + categoriaId
+                ));
     }
 }

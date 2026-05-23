@@ -33,26 +33,21 @@ public class ItemCardapioDTO {
     @Positive(message = "O preço deve ser maior que zero.")
     private BigDecimal preco;
 
+    @Builder.Default
     private Boolean disponivel = true;
 
     @Size(max = 500, message = "A URL da imagem deve ter no máximo 500 caracteres.")
     private String imagemUrl;
 
     public static ItemCardapioDTO fromEntity(ItemCardapio item) {
+        if (item == null) return null;
+
         return ItemCardapioDTO.builder()
                 .id(item.getId())
                 .nome(item.getNome())
                 .descricao(item.getDescricao())
-                .categoriaId(
-                        item.getCategoria() != null
-                                ? item.getCategoria().getId()
-                                : null
-                )
-                .categoriaNome(
-                        item.getCategoria() != null
-                                ? item.getCategoria().getNome()
-                                : null
-                )
+                .categoriaId(item.getCategoria() != null ? item.getCategoria().getId() : null)
+                .categoriaNome(item.getCategoria() != null ? item.getCategoria().getNome() : null)
                 .preco(item.getPreco())
                 .disponivel(item.getDisponivel())
                 .imagemUrl(item.getImagemUrl())

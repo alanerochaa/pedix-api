@@ -38,7 +38,7 @@ public class ItemCardapio {
 
     @NotNull(message = "O preço é obrigatório.")
     @Positive(message = "O preço deve ser maior que zero.")
-    @Column(precision = 12, scale = 2, nullable = false)
+    @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal preco;
 
     @NotNull
@@ -56,44 +56,20 @@ public class ItemCardapio {
         this.disponivel = false;
     }
 
-    public void atualizarInformacoes(
-            String nome,
-            String descricao,
-            CategoriaCardapio categoria,
-            BigDecimal preco,
-            Boolean disponivel,
-            String imagemUrl
-    ) {
-        if (nome != null && !nome.isBlank()) {
-            this.nome = nome;
-        }
+    public void atualizarInformacoes(String nome, String descricao, CategoriaCardapio categoria,
+                                     BigDecimal preco, Boolean disponivel, String imagemUrl) {
 
+        if (nome != null && !nome.isBlank()) this.nome = nome;
         this.descricao = descricao;
-
-        if (categoria != null) {
-            this.categoria = categoria;
-        }
-
-        if (preco != null && preco.compareTo(BigDecimal.ZERO) > 0) {
-            this.preco = preco;
-        }
-
-        if (disponivel != null) {
-            this.disponivel = disponivel;
-        }
-
+        if (categoria != null) this.categoria = categoria;
+        if (preco != null && preco.compareTo(BigDecimal.ZERO) > 0) this.preco = preco;
+        if (disponivel != null) this.disponivel = disponivel;
         this.imagemUrl = imagemUrl;
     }
 
     @Override
     public String toString() {
-        return String.format(
-                "ItemCardapio[id=%d, nome='%s', preco=%s, categoria=%s, disponivel=%s]",
-                id,
-                nome,
-                preco,
-                categoria != null ? categoria.getNome() : null,
-                disponivel
-        );
+        return String.format("ItemCardapio[id=%d, nome='%s', preco=%s, categoria=%s, disponivel=%s]",
+                id, nome, preco, categoria != null ? categoria.getNome() : null, disponivel);
     }
 }
