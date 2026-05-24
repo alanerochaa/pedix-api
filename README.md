@@ -83,70 +83,6 @@ O perfil **Garçom** possui acesso operacional restrito, podendo visualizar os i
 Além das funcionalidades operacionais, o perfil **Administrador** também possui acesso à **Área Técnica** da aplicação, com entrada liberada para **Swagger** e **API Docs**, recursos destinados à validação técnica, consulta de endpoints e apoio à integração.
 
 Já o perfil **Garçom** **não possui acesso** à Área Técnica, mantendo sua atuação restrita às funcionalidades operacionais do sistema.
-
-
-
-
-### Painel Web Administrativo
-
-<p align="center">
-  <img src="docs/imagens/interface-web/login_pedix.png" alt="Tela de login web" width="700">
-  <br>
-  <em>Tela de autenticação do painel administrativo</em>
-</p>
-
-<p align="center">
-  <img src="docs/imagens/interface-web/home_admin.png" alt="Dashboard administrativo" width="700">
-  <br>
-<em>Painel administrativo com acesso às funcionalidades de gestão operacional e à área técnica da aplicação</em>
-</p>
-
-<p align="center">
-  <img src="docs/imagens/interface-web/pedido_admin.png" alt="Gestão de pedidos" width="700">
-  <br>
-<em>Gestão de pedidos pelo Administrador, com acesso a detalhes, criação e cancelamento</em>
-</p>
-
-<p align="center">
-  <img src="docs/imagens/interface-web/cardapio_admin.png" alt="Gestão de cardápio" width="700">
-  <br>
-<em>Gestão administrativa do cardápio, com operações de cadastro, edição e exclusão de itens</em>
-</p>
-
-<p align="center">
-  <img src="docs/imagens/interface-web/item_novo_admin.png" alt="Cadastro de novo item" width="700">
-  <br>
-  <em>Cadastro de novos itens no cardápio</em>
-</p>
-
----
-
-### Painel Web do Garçom
-
-<p align="center">
-  <img src="docs/imagens/interface-web/home_garcon.png" alt="Home do garçom" width="700">
-  <br>
-<em>Painel do perfil Garçom com acesso restrito às funcionalidades operacionais de atendimento</em>
-</p>
-
-<p align="center">
-  <img src="docs/imagens/interface-web/cardapio_garcon.png" alt="Cardápio para garçom" width="700">
-  <br>
-<em>Visualização do cardápio disponível para o perfil Garçom, sem permissões de edição ou exclusão</em>
-</p>
-
-<p align="center">
-  <img src="docs/imagens/interface-web/pedido_garcon.png" alt="Pedido do garçom" width="700">
-  <br>
-<em>Consulta de detalhes e lançamento de novos pedidos pelo perfil Garçom</em>
-</p>
-
-<p align="center">
-  <img src="docs/imagens/interface-web/novo_pedido_admin_garcon.png" alt="Novo pedido" width="700">
-  <br>
-  <em>Tela de inclusão de novo pedido no sistema</em>
-</p>
-
 ---
 
 # ☁️ Infraestrutura Cloud e Deploy Contínuo
@@ -173,9 +109,9 @@ Essa abordagem permitiu aproximar o projeto de um cenário real de produção, c
 </p>
 
 <p align="center">
-  <img src="docs/imagens/azure/pedix-home-cloud.png" alt="Aplicação online Pedix" width="900">
+  <img src="docs/imagens/interface-web/central_tecnica_integracao.png" alt="Central Técnica de Integração Pedix" width="900">
   <br>
-  <em>Execução online da aplicação Pedix API em ambiente cloud</em>
+  <em>Central técnica da API Java Pedix em ambiente cloud, com links de integração, Swagger e acesso ao aplicativo mobile.</em>
 </p>
 
 ---
@@ -939,7 +875,7 @@ A estrutura foi organizada visando:
 
 
 ### 🧱 Diagrama de Classes (UML)
-Mostra as classes principais da aplicação Java, seus atributos e relacionamentos, além dos *enums* utilizados (`CategoriaItem`, `StatusPedido`).
+Mostra as classes principais da aplicação Java, seus atributos e relacionamentos, além dos *enums* utilizados (`CategoriaCardapio`, `StatusPedido`).
 
 ![Diagrama de Classes Pedix](docs/diagramas/diagrama-classes-pedix.png)
 
@@ -963,19 +899,26 @@ A API foi validada por meio de uma coleção completa de testes no Postman, cont
     - API Java (Azure): https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net
     - Swagger Java: https://pedix-api-aab0evapangybdh7.eastus-01.azurewebsites.net/swagger-ui.html
     - API .NET (Azure): https://pedix-api-dotnet-bge2dyd6gudpapem.brazilsouth-01.azurewebsites.net
-    - Swagger .NET: https://pedix-api-dotnet-bge2dyd6gudpapem.brazilsouth-01.azurewebsites.net/swagger
 
 ✅ Todos os endpoints das APIs Java e .NET foram testados com sucesso em ambiente cloud, utilizando coleções Postman, validação HTTP e documentação Swagger/OpenAPI.
 ---
 
+
+## 📦 Repositórios Oficiais
+
+- ☕ API Java: https://github.com/alanerochaa/pedix-api
+- ⚙️ API .NET: https://github.com/DudaAraujo14/C-
+- 📱 Mobile React Native: https://github.com/annabonfim/pedix-mobile-sprint3
+
+
 ## 🎬 Vídeo de Apresentação
 
-O vídeo de apresentação demonstra o funcionamento completo do ecossistema **Pedix**, contemplando a evolução arquitetural e operacional implementada ao longo da Sprint 4.
+O vídeo de apresentação demonstra o funcionamento completo do ecossistema **Pedix**, evidenciando a evolução arquitetural e operacional desenvolvida ao longo da Sprint 4.
 
-A apresentação evidencia a integração entre APIs, deploy cloud em Microsoft Azure, autenticação por perfil, interface web administrativa, documentação técnica da API, integração mobile e validações operacionais da solução.
+A demonstração contempla a integração entre APIs RESTful, deploy em cloud computing utilizando Microsoft Azure, autenticação por perfil, interface administrativa web, documentação técnica via Swagger/OpenAPI, integração mobile e validações operacionais da solução.
 
 📺 **Assista aqui:**  
-[Vídeo Demonstração Sprint 4 — Pedix Ecosystem](LINK_VIDEO_AQUI)
+[Vídeo Demonstração Sprint 4 — Pedix](https://www.youtube.com/watch?v=10UTHNKgPgA)
 
 ---
 
