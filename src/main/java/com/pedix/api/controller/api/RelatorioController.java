@@ -1,6 +1,7 @@
 package com.pedix.api.controller.api;
 
 import com.pedix.api.domain.Relatorio;
+import com.pedix.api.dto.MensagemResponse;
 import com.pedix.api.dto.RelatorioDTO;
 import com.pedix.api.repository.RelatorioRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -99,7 +100,7 @@ public class RelatorioController {
             description = "Remove um relatório cadastrado no sistema utilizando o identificador informado."
     )
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+    public ResponseEntity<MensagemResponse> deletar(@PathVariable Long id) {
 
         if (!repository.existsById(id)) {
             return ResponseEntity.notFound().build();
@@ -107,7 +108,9 @@ public class RelatorioController {
 
         repository.deleteById(id);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(
+                new MensagemResponse("Relatório removido com sucesso.")
+        );
     }
 
     private RelatorioDTO toDTO(Relatorio relatorio) {

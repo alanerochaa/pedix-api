@@ -2,6 +2,7 @@ package com.pedix.api.controller.api;
 
 import com.pedix.api.domain.CategoriaCardapio;
 import com.pedix.api.dto.CategoriaCardapioDTO;
+import com.pedix.api.dto.MensagemResponse;
 import com.pedix.api.repository.CategoriaCardapioRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -104,7 +105,7 @@ public class CategoriaCardapioController {
             description = "Remove uma categoria cadastrada no sistema através do identificador informado."
     )
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+    public ResponseEntity<MensagemResponse> deletar(@PathVariable Long id) {
 
         if (!repository.existsById(id)) {
             return ResponseEntity.notFound().build();
@@ -112,7 +113,9 @@ public class CategoriaCardapioController {
 
         repository.deleteById(id);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(
+                new MensagemResponse("Categoria removida com sucesso.")
+        );
     }
 
     private CategoriaCardapioDTO toDTO(CategoriaCardapio categoria) {

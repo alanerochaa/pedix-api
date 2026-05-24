@@ -2,6 +2,7 @@ package com.pedix.api.controller.api;
 
 import com.pedix.api.domain.HistoricoPedido;
 import com.pedix.api.dto.HistoricoPedidoDTO;
+import com.pedix.api.dto.MensagemResponse;
 import com.pedix.api.repository.HistoricoPedidoRepository;
 import com.pedix.api.repository.PedidoRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -100,7 +101,7 @@ public class HistoricoPedidoController {
             description = "Remove um registro de histórico de pedido a partir do identificador informado."
     )
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+    public ResponseEntity<MensagemResponse> deletar(@PathVariable Long id) {
 
         if (!historicoRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
@@ -108,7 +109,9 @@ public class HistoricoPedidoController {
 
         historicoRepository.deleteById(id);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(
+                new MensagemResponse("Histórico de pedido removido com sucesso.")
+        );
     }
 
     private HistoricoPedidoDTO toDTO(HistoricoPedido historico) {

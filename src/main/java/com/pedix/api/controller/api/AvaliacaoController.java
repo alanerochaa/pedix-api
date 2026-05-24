@@ -2,6 +2,7 @@ package com.pedix.api.controller.api;
 
 import com.pedix.api.domain.Avaliacao;
 import com.pedix.api.dto.AvaliacaoDTO;
+import com.pedix.api.dto.MensagemResponse;
 import com.pedix.api.repository.AvaliacaoRepository;
 import com.pedix.api.repository.ItemCardapioRepository;
 import com.pedix.api.repository.PedidoRepository;
@@ -59,6 +60,7 @@ public class AvaliacaoController {
     )
     @PostMapping
     public ResponseEntity<AvaliacaoDTO> criar(@RequestBody @Valid AvaliacaoDTO dto) {
+
         var avaliacao = Avaliacao.builder()
                 .nomeCliente(dto.getNomeCliente())
                 .nota(dto.getNota())
@@ -68,12 +70,14 @@ public class AvaliacaoController {
         if (dto.getPedidoId() != null) {
             var pedido = pedidoRepository.findById(dto.getPedidoId())
                     .orElseThrow(() -> new RuntimeException("Pedido não encontrado."));
+
             avaliacao.setPedido(pedido);
         }
 
         if (dto.getItemCardapioId() != null) {
             var item = itemCardapioRepository.findById(dto.getItemCardapioId())
                     .orElseThrow(() -> new RuntimeException("Item do cardápio não encontrado."));
+
             avaliacao.setItemCardapio(item);
         }
 
@@ -89,16 +93,21 @@ public class AvaliacaoController {
             description = "Remove uma avaliação cadastrada a partir do seu identificador único."
     )
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+    public ResponseEntity<MensagemResponse> deletar(@PathVariable Long id) {
+
         if (!avaliacaoRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
 
         avaliacaoRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+
+        return ResponseEntity.ok(
+                new MensagemResponse("Avaliação removida com sucesso.")
+        );
     }
 
     private AvaliacaoDTO toDTO(Avaliacao avaliacao) {
+
         return AvaliacaoDTO.builder()
                 .id(avaliacao.getId())
                 .pedidoId(avaliacao.getPedido() != null ? avaliacao.getPedido().getId() : null)
