@@ -5,6 +5,7 @@ import com.pedix.api.domain.enums.StatusPedido;
 import com.pedix.api.dto.PedidoDTO;
 import com.pedix.api.dto.PedidoResponseDTO;
 import com.pedix.api.service.PedidoService;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@Hidden
 @RestController
 @RequestMapping("/api/pedido")
 @RequiredArgsConstructor
@@ -74,90 +76,5 @@ public class PedidoController {
         );
 
         return ResponseEntity.ok(model);
-    }
-
-    @Operation(
-            summary = "Listar pedidos por comanda",
-            description = "Retorna todos os pedidos vinculados a uma comanda específica."
-    )
-    @GetMapping("/comanda/{comandaId}")
-    public ResponseEntity<List<PedidoResponseDTO>> listarPorComanda(@PathVariable Long comandaId) {
-        List<PedidoResponseDTO> resposta = service.listarPorComanda(comandaId).stream()
-                .map(service::toResponse)
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(resposta);
-    }
-
-    @Operation(
-            summary = "Criar novo pedido vinculado a uma comanda",
-            description = "Cria um novo pedido para uma comanda existente, registrando o garçom responsável pela operação."
-    )
-    @PostMapping("/comanda/{comandaId}")
-    public ResponseEntity<Map<String, Object>> criar(
-            @PathVariable Long comandaId,
-            @Valid @RequestBody PedidoDTO dto,
-            Authentication authentication,
-            UriComponentsBuilder uri
-    ) {
-        String loginGarcom = authentication != null ? authentication.getName() : "api";
-
-        PedidoResponseDTO resp = service.criarPedido(comandaId, dto, loginGarcom);
-
-        URI location = uri
-                .path("/api/pedido/{id}")
-                .buildAndExpand(resp.getId())
-                .toUri();
-
-        Map<String, Object> body = Map.of(
-                "mensagem", "Pedido criado com sucesso!",
-                "pedido", resp,
-                "_links", Map.of(
-                        "self", linkTo(methodOn(PedidoController.class).obter(resp.getId())).toUri(),
-                        "todos_pedidos", linkTo(methodOn(PedidoController.class).listarTodos()).toUri()
-                )
-        );
-
-        return ResponseEntity.created(location).body(body);
-    }
-
-    @Operation(
-            summary = "Atualizar status do pedido",
-            description = "Atualiza o status operacional de um pedido, como recebido, em preparo, pronto, entregue ou cancelado."
-    )
-    @PutMapping("/{id}/status")
-    public ResponseEntity<Map<String, Object>> atualizarStatus(
-            @PathVariable Long id,
-            @RequestParam StatusPedido status
-    ) {
-        PedidoResponseDTO atualizado = service.atualizarStatus(id, status);
-
-        Map<String, Object> body = Map.of(
-                "mensagem", "Status do pedido atualizado com sucesso!",
-                "pedido", atualizado,
-                "_links", Map.of(
-                        "self", linkTo(methodOn(PedidoController.class).obter(atualizado.getId())).toUri(),
-                        "todos_pedidos", linkTo(methodOn(PedidoController.class).listarTodos()).toUri()
-                )
-        );
-
-        return ResponseEntity.ok(body);
-    }
-
-    @Operation(
-            summary = "Excluir pedido por ID",
-            description = "Remove um pedido cadastrado no sistema através do identificador informado."
-    )
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> excluir(@PathVariable Long id) {
-        service.excluir(id);
-
-        Map<String, Object> body = Map.of(
-                "mensagem", "Pedido removido com sucesso!",
-                "status", HttpStatus.OK.value(),
-                "timestamp", LocalDateTime.now()
-        );
-
-        return ResponseEntity.ok(body);
     }
 }
